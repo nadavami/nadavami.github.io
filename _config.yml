@@ -3,7 +3,7 @@ tagline:
 url: https://nadav.ca
 paginate: 1
 baseurl: ""
-highlighter: true
+highlighter: rouge
 permalink: pretty
 
 author:
