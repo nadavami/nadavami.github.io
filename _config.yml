@@ -12,7 +12,6 @@ author:
   email: hello@nadav.ca
 
 pages_list:       
-  About: '/about'
   Feed: '/atom.xml'
 
 sass:
@@ -20,5 +19,4 @@ sass:
   style: :compressed
 
 plugins:
-  - jekyll-paginate
   - jekyll-gist

@@ -3,33 +3,27 @@ layout: default
 title: Home
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <article class="post">
-    <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+<p>
+  Hello! Welcome to my little corner of the internet! Feel free to look around and read some (hopefully) interesting things.
+  If you're reading this while you should be working, here are some <a href="https://archive.org/details/OceanSound-NatureSounds" title="Ok, maybe not so relaxing...">relaxing ocean sounds</a> to help you get back in the zone.
+</p>
 
-    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+{% for post in site.posts  %}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 
-    {{ post.content }}
-  </article>
-  {% endfor %}
-</div>
+    {% if forloop.first %}
+    <dl>
+      <dt>{{ this_month }} {{ this_year }}</dt>
+    {% endif %}
 
-{% if paginator.next_page or paginator.previous_page %}
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
-</div>
-{% endif %}
+      <dd><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></dd>
+
+    {% if forloop.last %}
+    </dl>
+    {% elsif this_year != next_year or this_month != next_month  %}
+      <dt>{{ next_month }} {{ next_year }}</dt>
+    {% endif %}
+{% endfor %}
