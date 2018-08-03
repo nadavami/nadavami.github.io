@@ -5,6 +5,8 @@ paginate: 1
 baseurl: ""
 highlighter: rouge
 permalink: pretty
+exclude: ['README.md']
+
 
 author:
   name: Nadav Ami
