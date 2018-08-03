@@ -12,6 +12,7 @@ author:
   name: Nadav Ami
   url: https://nadav.ca
   email: hello@nadav.ca
+  github: nadavami
 
 sass:
   sass_dir: _sass
