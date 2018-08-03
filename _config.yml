@@ -13,9 +13,6 @@ author:
   url: https://nadav.ca
   email: hello@nadav.ca
 
-pages_list:       
-  Feed: '/atom.xml'
-
 sass:
   sass_dir: _sass
   style: :compressed

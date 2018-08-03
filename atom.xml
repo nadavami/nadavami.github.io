@@ -1,5 +1,7 @@
 ---
 layout: null
+title: Feed
+menu: true
 ---
 
 <?xml version="1.0" encoding="utf-8"?>
