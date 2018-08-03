@@ -5,7 +5,7 @@ paginate: 1
 baseurl: ""
 highlighter: rouge
 permalink: pretty
-exclude: ['README.md']
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile']
 
 
 author:
