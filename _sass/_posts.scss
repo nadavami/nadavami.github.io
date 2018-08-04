@@ -5,7 +5,8 @@
 
 .page,
 .post {
-  margin-bottom: 4em;
+  display: inline-block;
+  margin-bottom: 2em;
 
   li + li {
     margin-top: .25rem;
