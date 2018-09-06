@@ -20,9 +20,10 @@ If we notice a bug make it through the pipeline. Add a test case to catch it and
 If our pipeline fails unexpectedly, we need to investigate and fix it as though the pipeline failed a test case. It's important to remember that pipeline code is the same as any other piece of code in our codebase; as developers it is our job to maintain it. 
 
 It might be tempting to make the pipeline "artificially green" by commenting out a section or skipping a test. This shouldn't be done at all cost. Doing so essentially turns your false negative into a false positive and defeats the purpose of having a pipeline for a few reasons:
-    1. It reduces confidence in the pipeline; all the written tests should be valid against the codebase.
-    2. It hides the real state of the pipeline from anyone looking in (and who might be in a capacity to help).
-    3. It pollutes the code. Commented code and skipped test cases can be hard to notice later on and are often missed by other developers who may not understand their significance.
+
+1. It reduces confidence in the pipeline; all the written tests should be valid against the codebase.
+2. It hides the real state of the pipeline from anyone looking in (and who might be in a capacity to help).
+3. It pollutes the code. Commented code and skipped test cases can be hard to notice later on and are often missed by other developers who may not understand their significance.
 
 **Also...**  
 With regards to fixing false positives and negatives: If the team looks at the pipeline with a sort of "knowing smile" when it's 'green', it's a safe bet that there are false positives.
