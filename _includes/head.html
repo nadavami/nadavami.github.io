@@ -2,6 +2,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta content="{{ site.title }}" property="og:site_name">
+  <meta content="{{ site.url }}/public/me.jpg" property="og:image">
+  {% if page.title %}
+  <meta content="article" property="og:type">
+  <meta content="{{ page.title }}" property="og:title">
+  {% endif %}
+  {% if page.date %}
+  <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
+  <meta content="{{ site.url }}/about/" property="article:author">
+  {% endif %}
+
   <title>
     {% if page.title != "Home" %}{{ page.title }} &middot; {% endif %}{{ site.title }}
   </title>
