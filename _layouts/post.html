@@ -3,7 +3,7 @@ layout: default
 ---
 
 <article class="post">
-  <h1 class="post-title">{{ page.title }}</h1>
+  <h1 class="post-title" id="{{ page.title | slugify }}">{{ page.title }}</h1>
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: '%B %d, %Y' }}</time>
   {{ content }}
 </article>
