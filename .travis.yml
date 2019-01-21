@@ -8,15 +8,20 @@ script:
 deploy:
   provider: pages
   skip-cleanup: true
+  target-branch: master # GitHub Pages only serves user sites from master
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep-history: true
   on:
-    branch: master
+    branch: development
 
 addons:
   apt:
     packages:
     - libcurl4-openssl-dev
+
+branches:
+  only:
+  - development
 
 sudo: false # route your build to the container-based infrastructure for a faster build
 
