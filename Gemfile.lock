@@ -69,6 +69,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  jekyll
   jekyll-compose
   jekyll-gist
 
