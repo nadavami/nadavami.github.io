@@ -4,8 +4,7 @@ rvm:
 
 script:
 - bundle exec jekyll build
-- sed -i '/docs/d' .gitignore
-- mv _site docs
+- mv _site/* .
 
 deploy:
   provider: pages
