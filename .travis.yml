@@ -4,6 +4,7 @@ rvm:
 
 script:
 - bundle exec jekyll build
+- cp CNAME _site
 
 deploy:
   provider: pages
