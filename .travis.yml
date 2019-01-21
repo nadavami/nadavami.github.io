@@ -2,6 +2,18 @@ language: ruby
 rvm:
   - 2.4.1
 
+sudo: false
+cache: bundler
+
+branches:
+  only:
+  - development
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+
 script:
 - bundle exec jekyll build
 - cp CNAME _site
@@ -10,21 +22,8 @@ deploy:
   provider: pages
   local-dir: _site
   skip-cleanup: true
-  target-branch: master # GitHub Pages only serves user sites from master
-  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  target-branch: master
+  github-token: $GITHUB_TOKEN
   keep-history: true
   on:
     branch: development
-
-addons:
-  apt:
-    packages:
-    - libcurl4-openssl-dev
-
-branches:
-  only:
-  - development
-
-sudo: false # route your build to the container-based infrastructure for a faster build
-
-cache: bundler # caching bundler gem packages will speed up build
