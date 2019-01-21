@@ -4,10 +4,10 @@ rvm:
 
 script:
 - bundle exec jekyll build
-- mv _site/* .
 
 deploy:
   provider: pages
+  local-dir: _site
   skip-cleanup: true
   target-branch: master # GitHub Pages only serves user sites from master
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
