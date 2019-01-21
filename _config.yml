@@ -19,3 +19,4 @@ sass:
 
 plugins:
   - jekyll-gist
+  - jekyll-postfiles
