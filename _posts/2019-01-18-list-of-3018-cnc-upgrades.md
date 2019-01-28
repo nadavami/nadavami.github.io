@@ -11,7 +11,7 @@ Below is a fairly messy list of upgrades done (or planned to be) to the cheap "3
 * Cable Management
 
 ### Completed
-* X, Y, Z Limit/Homing Switches 
+* [X, Y, Z Limit/Home Switches]({% post_url 2019-01-21-3018-cnc-limit-switches %})
 * OrangePi Zero controller
 * GRBL version upgrade
 * 3D Printed Spindle/Laser Rest
