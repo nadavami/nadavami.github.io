@@ -20,3 +20,4 @@ sass:
 plugins:
   - jekyll-gist
   - jekyll-postfiles
+  - match_regex

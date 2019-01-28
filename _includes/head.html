@@ -13,6 +13,16 @@
   <meta content="{{ site.url }}/about/" property="article:author">
   {% endif %}
 
+  {% capture og_image %}
+    {% assign first_post_image = page.content | match_regex: '<img .*?src="([^"]+)"' %}
+    {% if first_post_image == nil %}
+      {% assign first_post_image = "/public/me.jpg" | prepend: site.url %}
+    {% endif %}
+    {{ first_post_image }}
+  {% endcapture %}
+
+  <meta property="og:image" content="{{ og_image | strip }}">
+
   <title>
     {% if page.title != "Home" %}{{ page.title }} &middot; {% endif %}{{ site.title }}
   </title>
