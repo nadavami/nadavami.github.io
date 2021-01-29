@@ -4,7 +4,7 @@ url: https://nadav.ca
 baseurl: ""
 highlighter: rouge
 permalink: pretty
-exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'CNAME', 'vendor']
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor']
 
 
 author:
