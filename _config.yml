@@ -21,7 +21,11 @@ sass:
   sass_dir: _sass
   style: :compressed
 
+target-blank:
+   noreferrer: false
+
 plugins:
   - jekyll-gist
   - jekyll-postfiles
   - match_regex
+  - jekyll-target-blank
