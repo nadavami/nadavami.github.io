@@ -29,3 +29,4 @@ plugins:
   - jekyll-postfiles
   - match_regex
   - jekyll-target-blank
+  - jemoji

@@ -8,4 +8,5 @@ group :jekyll_plugins do
   gem 'jekyll-postfiles'
   gem 'match_regex'
   gem 'jekyll-target-blank'
+  gem 'jemoji'
 end
