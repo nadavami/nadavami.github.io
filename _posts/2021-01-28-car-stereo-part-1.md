@@ -34,6 +34,6 @@ iPod Protocol   Analog Audio
 ```
 <small>Figure 1</small>
 
-In the following few posts, I'll be documenting my journey in attempting to build that thing<sup>[1]</sup>.
+In the following few posts, I'll be documenting my journey in attempting to build that thing<sup>[1]</sup>. *Edit: Part 2 is now up! You can [read it here]({% post_url 2021-02-11-car-stereo-part-2 %}).*
 
 <small>P.S. This project was started in the summer of 2019 and at the time of writing is still not really working, mostly because i've gotten used to yelling at Siri :)</small>
