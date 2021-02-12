@@ -3,8 +3,10 @@ layout: default
 title: Home
 ---
 
-# Posts
+Hello! If you want to say hi back or get to know me, check out my [about page]({{site.base_url }}{% link about.md %}).  
+Below you'll find list of all my posts, there is also an [RSS feed]({{site.base_url }}{% link atom.xml %}) if that's more your thing.  
 
+# Posts
 <dl>
 {% for post in site.posts  %}
 {%- capture this_date %}{{ post.date | date: "%b %Y" }}{% endcapture %}
