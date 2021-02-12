@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Car Stereo - Part 1 (Backstory)
+title: Hacking My Car Stereo (Part 1)
 date: 2021-01-28 19:47 -0500
 ---
 I like my car, probably more then anyone should like a 2012 Hyundai Elantra. In 2021 terms it's not the most technologically advance thing but it does most of what I need. While driving, I use my phone for navigation and music - both are extremely essential.
