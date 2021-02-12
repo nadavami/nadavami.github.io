@@ -43,9 +43,22 @@ ul, ol, dl {
   margin-bottom: 1rem;
 }
 
+dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+
 dt {
-  font-weight: bold;
-  margin-top: .5rem;
+  grid-column-start: 1;
+  margin-right: 1.5rem;
+}
+
+dd {
+  grid-column-start: 2;
+  margin: 0;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 hr {
