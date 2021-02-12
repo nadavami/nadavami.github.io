@@ -17,7 +17,7 @@
   {%- endunless %}
 
   <title>
-    {% if page.title != "Home" %}{{ page.title }} &middot; {% endif %}{{ site.title }}
+    {% if page.title != "Home" %}{{ page.title }} - {% endif %}{{ site.title }}
   </title>
 
   <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
@@ -29,7 +29,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', '{{ site.analytics_id }}');
   </script>
   {% endif %}
