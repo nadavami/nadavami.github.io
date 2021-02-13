@@ -6,7 +6,7 @@ title: Home
 Hello! Below you'll find a list of all my posts, there is also an [RSS feed]({{site.base_url }}{% link atom.xml %}) if that's more your thing.  
 If you want to say hi or get to know me, check out my [about page]({{site.base_url }}{% link about.md %}). Oh and please forgive me in advance for my bad jokes and occasional spelling mistakes.
 
-# Posts
+### Posts
 <dl>
 {% for post in site.posts  %}
 {%- capture this_date %}{{ post.date | date: "%b %Y" }}{% endcapture %}
