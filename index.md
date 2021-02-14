@@ -3,8 +3,15 @@ layout: default
 title: Home
 ---
 
-Hello! Below you'll find a list of all my posts, there is also an [RSS feed]({{site.base_url }}{% link atom.xml %}) if that's more your thing.  
-If you want to say hi or get to know me, check out my [about page]({{site.base_url }}{% link about.md %}). Oh and please forgive me in advance for my bad jokes and occasional spelling mistakes.
+Hi there!
+
+Below you'll find a list everything I've written. There is also an [RSS feed]({{site.base_url }}{% link atom.xml %}) if that's your thing. If you want know the person behind these silly posts (or want to say hi), check out my [about page]({{site.base_url }}{% link about.md %}). You can also follow me on [GitHub](https://github.com/{{ site.author.github }}). Oh and please forgive me in advance for my bad jokes and occasional spelling mistakes.
+
+Happy reading,  
+Nadav
+
+<!--  You're looking at the source of this page and that's cool, but this page is kinda boring...
+      But since you're here I'll tell you a secret. There's something hidden on an even more boring page. -->
 
 ### Posts
 <dl>
