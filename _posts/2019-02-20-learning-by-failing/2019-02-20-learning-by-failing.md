@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Learning by Failing (IoT Camera Hacking) - Lightning Talk (2019)
+title: Learning by Failing (IoT Camera Hacking) - Lightning Talk
 date: 2019-02-20 12:00 -0500
 ---
 
