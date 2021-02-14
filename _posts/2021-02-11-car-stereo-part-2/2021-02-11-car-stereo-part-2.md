@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hyundai iPod Cable Reverse Engineering (Car Stereo Hacking Part 2)
+title: Hyundai iPod Cable Reverse Engineering
 date: 2021-02-11 16:19 -0500
 ---
 *This is the second part of a series on spoofing an iPod for car stereo shenanigans. You can [read part 1 here]({% post_url 2021-01-28-car-stereo-part-1 %}).*
