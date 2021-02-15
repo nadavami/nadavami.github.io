@@ -20,17 +20,11 @@
     grid-column-start: 1;
     margin-right: 2vw;
     color: $gray-2;
-    display: flex;
-    align-items: center;
-    font-size: 85%;
   }
 
   dd {
     grid-column-start: 2;
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 
