@@ -20,6 +20,9 @@
     grid-column-start: 1;
     margin-right: 2vw;
     color: $gray-2;
+    display: flex;
+    align-items: center;
+    font-size: 85%;
   }
 
   dd {
@@ -28,6 +31,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
   }
 }
 
