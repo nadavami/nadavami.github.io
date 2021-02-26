@@ -14,6 +14,9 @@
   {%- if og_image %}
   <meta content="{{ og_image | prepend: page.url | prepend: site.url | strip }}" property="og:image">
   {%- endif %}
+  {%- if page.youtube_id %}
+  <meta content="https://i.ytimg.com/vi/{{ page.youtube_id }}/maxresdefault.jpg" property="og:image">
+  {%- endif %}
   {%- endunless %}
 
   <title>
