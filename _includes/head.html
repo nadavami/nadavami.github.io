@@ -9,6 +9,7 @@
   {%- else %}
   <meta content="article" property="og:type">
   <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
+  <meta content="{{ page.last_modified_at | date_to_xmlschema }}" property="article:modified_time">
   <meta content="{{ site.url }}/about/" property="article:author">
   {%- assign og_image = page.content | match_regex: '<img .*?src="([^"]+)"' -%}
   {%- if og_image %}
