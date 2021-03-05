@@ -4,6 +4,9 @@
 
   <meta content="{{ site.title }}" property="og:site_name">
   <meta content="{{ page.title }}" property="og:title">
+  {%- capture description %}{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}{% endcapture %}
+  <meta property="og:description" content="{{ description }}">
+  <meta name="description" content="{{ description | truncate: 160 }}">
   {%- unless page.id %}
   <meta content="website" property="og:type">
   {%- else %}
