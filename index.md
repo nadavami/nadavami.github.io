@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Home
+sitemap:
+  priority: 0.7
 ---
 
 Hi there!

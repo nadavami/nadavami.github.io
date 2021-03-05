@@ -30,3 +30,4 @@ plugins:
   - match_regex
   - jekyll-target-blank
   - jemoji
+  - jekyll-last-modified-at

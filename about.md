@@ -1,6 +1,9 @@
 ---
 layout: page
 title: About
+sitemap:
+  changefreq: monthly
+  priority: 0.3
 ---
 ### Who am I?
 I'm a geek living in Montreal. I'm passionate about clean software, hardware and cyber security, but I love to geek out about anything that gets vaguely technical.

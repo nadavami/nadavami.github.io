@@ -1,6 +1,9 @@
 ---
 layout: page
 title: License
+sitemap:
+  changefreq: monthly
+  priority: 0.3
 ---
 Content is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" title="CC BY 4.0" target="_blank">Creative Commons Attribution 4.0 International</a>. Code is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a> unless otherwise noted. 
 
