@@ -6,6 +6,6 @@ youtube_id: W4JTpQ8UIdA
 ---
 
 This is a lightning talk about my journey hacking an IoT camera and the things I learned while failing at doing so.  
-You can download the slides as [pdf](learning_by_failing_2019.pdf) or [pptx](learning_by_failing_2019.pdf).
+You can download the slides as [pdf](learning_by_failing_2019.pdf) or [pptx](learning_by_failing_2019.pptx).
 
 {% include youtube.html %}
