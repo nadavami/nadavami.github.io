@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Inspecting an iPhone’s HTTPS Traffic
+description: How to inspect an iPhone app's HTTPS traffic using mitmproxy.
 date: 2021-02-25 21:17 -0500
 ---
 Recently, I wanted to see how an app on my phone was making API calls. 

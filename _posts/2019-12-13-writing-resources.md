@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Writing Resources
+description: A lazy (and evolving) list of things that help me write better.
 ---
 
 An evolving collection of (mostly technical) writing resources that I have found useful.
