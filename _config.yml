@@ -1,12 +1,11 @@
 title: Nadav Ami
-description: Nadav Ami's blog where anything goes (but it's usually tech related).
+description: Nadav Ami's blog where almost anything goes (but it's usually tech related).
 url: https://nadav.ca
 analytics_id: G-8KGQRKWX3K
 baseurl: ""
 highlighter: rouge
 permalink: pretty
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor']
-
 
 author:
   name: Nadav Ami
@@ -15,7 +14,6 @@ author:
   github: nadavami
   thingiverse: nadavami
   linkedin: nadavami
-
 
 sass:
   sass_dir: _sass
