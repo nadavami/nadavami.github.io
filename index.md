@@ -15,7 +15,7 @@ Nadav
 <!--  You're looking at the source of this page and that's cool, but this page is kinda boring...
       But since you're here I'll tell you a secret. There's something hidden on an even more boring page. -->
 
-### Posts
+# Posts
 <div class="post-list">
   <dl>
   {%- for post in site.posts  %}
