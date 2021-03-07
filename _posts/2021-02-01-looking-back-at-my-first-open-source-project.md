@@ -11,7 +11,6 @@ So with out further ado, let me introduce you to dSearchr! You might be wonderin
 > dSearchr is a simple single file, directory content search script written in PHP5.  
   It is highly customizable, and super easy to incorporate with your existing website.  
   Hiding files and and adding error messages is just as easy to do.  
-  &mdash; Me
   Best of all, there's no SQL or databases, just point it to a directory and start searching.  
 
 Look at that beautifully crafted pitch, and PHP5 - oh boy! Ok enough sarcasm, let's see the code.
