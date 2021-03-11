@@ -43,3 +43,4 @@ Not particularly critical to my end-goal but still worth mentioning are the conn
 tl;dr - the iPod is communicating via serial on the USB port D+ & D- lines and analog audio is passed straight through. 
 
 In the next post, we'll see how I can (hopefully) put all of that info to use and change the damn song using the steering wheel.  
+*Edit: Part 3 is now up! You can [read it here]({% post_url 2021-03-06-car-stereo-part-3 %}).*
