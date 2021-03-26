@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Car Stereo Part 5
+title: Hacking My Car Stereo - End of the Road
 ---
 
 Topic: CAN Bus Sniffing for steering wheel controls
