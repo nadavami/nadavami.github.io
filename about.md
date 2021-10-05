@@ -8,7 +8,7 @@ sitemap:
 ### Who am I?
 I'm a geek living in Montreal. I'm passionate about clean software, hardware and cyber security, but I love to geek out about anything that gets vaguely technical.
 
-I'm currently working at [Crewdle](crewdle.com) (an eco-friendly video conferencing platform) as a software developer. Before that, I was a senior architect/dev(ops) on Bell Canada's IoT platform.
+I'm currently working at [Crewdle](https://crewdle.com) (an eco-friendly video conferencing platform) as a senior software developer. Before that, I was a senior architect/dev(ops) on Bell Canada's IoT platform.
 
 In my free time, I'm either chipping away at silly side project that you might read about here, or out in the woods hiking and camping.
 
