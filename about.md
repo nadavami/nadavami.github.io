@@ -10,7 +10,7 @@ I'm a geek living in Montreal. I'm passionate about clean software, hardware and
 
 I'm currently working at [Crewdle](https://crewdle.com) (an eco-friendly video conferencing platform) as a senior software developer. Before that, I was a senior architect/dev(ops) on Bell Canada's IoT platform.
 
-In my free time, I'm either chipping away at silly side project that you might read about here, or out in the woods hiking and camping.
+In my free time, I'm either chipping away at a silly side project (that you might read about here), or out in the woods hiking and camping.
 
 ### What is this place?
 Welcome to my little piece of the internet. This site is ~~my blog/portfolio/scratchpad~~ a work in progress. I like to write about
