@@ -6,9 +6,9 @@ sitemap:
   priority: 0.3
 ---
 ### Who am I?
-I'm a geek living in Montreal. I'm passionate about clean software, hardware and cyber security, but I love to geek out about anything that gets vaguely technical.
+I'm a semi-nomaic geek living around Vancouver, BC. I'm passionate about clean software, hardware and cyber security, but I love to geek out about anything that gets vaguely technical.
 
-I'm currently working at [Crewdle](https://crewdle.com) (an eco-friendly video conferencing platform) as a senior software developer. Before that, I was a senior architect/dev(ops) on Bell Canada's IoT platform.
+I'm currently CTO & Co-founder of [Redeo API](https://redeoapi.com). Previously, I was working at [Crewdle](https://crewdle.com) (an eco-friendly video conferencing platform) as a senior software developer and as a senior architect/dev(ops) on Bell Canada's IoT platform before that.
 
 In my free time, I'm either chipping away at a silly side project (that you might read about here), or out in the woods hiking and camping.
 
