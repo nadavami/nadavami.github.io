@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintaining a Healthy CI/CD Pipeline - Nadav Ami</title>
+  <meta name="description" content="Nadav Ami's blog where almost anything goes (but it's usually tech related).">
+  <link rel="canonical" href="https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline/">
+  <meta property="og:title" content="Maintaining a Healthy CI/CD Pipeline">
+  <meta property="og:description" content="Nadav Ami's blog where almost anything goes (but it's usually tech related).">
+  <meta property="og:url" content="https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2018-09-06T14:44:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="maintaining-a-healthy-ci-cd-pipeline">Maintaining a Healthy CI/CD Pipeline</h1>
+  <time datetime="2018-09-06T14:44:00+00:00" class="post-date">September 06, 2018</time>
+  <h3 id="first-a-bit-of-context">First, a bit of context</h3>
+<p>Yesterday, I took part in a discussion with a few colleagues about how we should be maintaining our CI/CD pipelines. Recently, some of them have been staying in a failed state for longer than usual or failing test cases are simply skipped/commented out. Below is a first draft of my opinions on the matter.</p>
+
+<h3 id="golden-rule-keep-it-green">Golden Rule: Keep It Green</h3>
+<p>The pipeline should always be green or be in the process of being made green.</p>
+
+<h3 id="a-red-pipeline-is-a-stop-the-presses-event">A red pipeline is a “stop the presses” event</h3>
+<p>In other words, when the pipeline fails new feature development stops and the team fixes it. Fixing the pipeline does not have to mean always fixing the underlying bug. In some cases fixing the issue is not straight forward, when this happens the commit can be reverted. With the pipeline back in the green state, a subset of team members can continue debugging and others can continue integrating new features.</p>
+
+<h3 id="fix-false-positives">Fix False Positives</h3>
+<p>If we notice a bug make it through the pipeline. Add a test case to catch it and fix the bug. This way we maintain confidence in our pipeline status.</p>
+
+<h3 id="fix-false-negatives">Fix False Negatives</h3>
+<p>If our pipeline fails unexpectedly, we need to investigate and fix it as though the pipeline failed a test case. It’s important to remember that pipeline code is the same as any other piece of code in our codebase; as developers it is our job to maintain it.</p>
+
+<p>It might be tempting to make the pipeline “artificially green” by commenting out a section or skipping a test. This shouldn’t be done at all cost. Doing so essentially turns your false negative into a false positive and defeats the purpose of having a pipeline for a few reasons:</p>
+
+<ol>
+  <li>It reduces confidence in the pipeline; all the written tests should be valid against the codebase.</li>
+  <li>It hides the real state of the pipeline from anyone looking in (and who might be in a capacity to help).</li>
+  <li>It pollutes the code. Commented code and skipped test cases can be hard to notice later on and are often missed by other developers who may not understand their significance.</li>
+</ol>
+
+<p><strong>Also…</strong><br>
+With regards to fixing false positives and negatives: If the team looks at the pipeline with a sort of “knowing smile” when it’s ‘green’, it’s a safe bet that there are false positives.</p>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2018-09-06-maintaining-a-healthy-ci-cd-pipeline.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

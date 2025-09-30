@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What (Not) to Do When You're Missing a Keyboard - Nadav Ami</title>
+  <meta name="description" content="Why I built idonthaveakeyboard, an Arduino based USB keyboard that uses a serial console as the input.">
+  <link rel="canonical" href="https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard/">
+  <meta property="og:title" content="What (Not) to Do When You're Missing a Keyboard">
+  <meta property="og:description" content="Why I built idonthaveakeyboard, an Arduino based USB keyboard that uses a serial console as the input.">
+  <meta property="og:url" content="https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2021-03-11T23:04:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="what-not-to-do-when-you-re-missing-a-keyboard">What (Not) to Do When You're Missing a Keyboard</h1>
+  <time datetime="2021-03-11T23:04:00+00:00" class="post-date">March 11, 2021</time>
+  <p>Yesterday, I was building a little home server out of some spare parts or I was until I hit a bit of a roadblock. When it came time to install the OS (<a href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Ubuntu Server</a> in this case), I realized I didn’t have a keyboard to configure the install.</p>
+
+<p>A normal person would have just gone out and bought a keyboard and an experienced one would have <a href="https://help.ubuntu.com/lts/installation-guide/s390x/apbs02.html" target="_blank" rel="noopener">preseeded the install</a> so it could run unattended.</p>
+
+<p>Since I’m neither normal nor experienced, I built <a href="https://github.com/nadavami/idonthaveakeyboard" target="_blank" rel="noopener">idonthaveakeyboard</a>. An Arduino based USB keyboard that uses a serial console as the input. In other words, it lets me use my laptop’s keyboard as a USB keyboard for another machine.</p>
+
+<p>Here’s a little run down of how to use it:</p>
+<ol>
+  <li>Get a compatible Arduino, program it and connect a USB&lt;&gt;Serial adapter to it’s TX/RX pins</li>
+  <li>Plug the Arduino’s USB cable into the computer that’s missing a keyboard</li>
+  <li>Plug the USB&lt;&gt;Serial adapter into the laptop that has a keyboard</li>
+  <li>Open a terminal on the laptop and connect to the serial port (<code class="language-plaintext highlighter-rouge">screen /dev/ttyUSB0 9600</code>)</li>
+</ol>
+
+<p>(Almost) anything you type into the terminal will show up on the other end as if it were being typed on a normal USB keyboard. Right now, it only sends arrow keys, return, backspace, and printable ASCII characters (because that’s all I needed).</p>
+
+<p>And with that, I was able to successfully set up the OS! Job done!</p>
+
+<p>Ok, maybe not… I had to change some BIOS settings and for whatever reason my fake keyboard wasn’t being recognized, so I went out and bought a real one ¯\_(ツ)_/¯</p>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2021-03-11-arduino-usb-serial-keyboard.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

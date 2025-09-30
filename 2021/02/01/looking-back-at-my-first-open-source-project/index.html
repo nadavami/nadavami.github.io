@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Open Source Project - 11.5 Years Later - Nadav Ami</title>
+  <meta name="description" content="A code review and some thoughts on an open source project I published when I was fourteen.">
+  <link rel="canonical" href="https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project/">
+  <meta property="og:title" content="My First Open Source Project - 11.5 Years Later">
+  <meta property="og:description" content="A code review and some thoughts on an open source project I published when I was fourteen.">
+  <meta property="og:url" content="https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2021-02-01T22:56:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="my-first-open-source-project-11-5-years-later">My First Open Source Project - 11.5 Years Later</h1>
+  <time datetime="2021-02-01T22:56:00+00:00" class="post-date">February 01, 2021</time>
+  <p>This past weekend I was digging through an old hard drive when I came across a piece of software I wrote a while ago. In fact, it’s the very first thing I ever opensourced. In the spirit of writing more and personal growth, I figured I would do a sort of code review and see if i’ve improved at all from age 14 (fingers crossed).</p>
+
+<p>So with out further ado, let me introduce you to dSearchr! You might be wondering what it does, so here is some quick info taken straight <del>out of 2009</del> from the <a href="https://code.google.com/archive/p/dsearchr/" target="_blank" rel="noopener">Google Code repo</a>.</p>
+
+<blockquote>
+  <p>dSearchr is a simple single file, directory content search script written in PHP5.<br>
+  It is highly customizable, and super easy to incorporate with your existing website.<br>
+  Hiding files and and adding error messages is just as easy to do.<br>
+  Best of all, there’s no SQL or databases, just point it to a directory and start searching.</p>
+</blockquote>
+
+<p>Look at that beautifully crafted pitch, and PHP5 - oh boy! Ok enough sarcasm, let’s see the code.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/dca3e8d85fed71583dde8db17175f592.js?file=search.php"> </script>
+
+<p><small><em>search.php, released Aug 28, 2009 in all of it’s original glory</em></small></p>
+
+<p>Ok, so it’s pretty bad. I’ll start with the most general issues and then work my way down from the top.</p>
+
+<ol>
+  <li>Linting &amp; code format. Was linting a word in 2009? I’m not sure, but I clearly had never head it.</li>
+  <li>Unrelated code. Lines 5 - 15 and pretty much all the HTML in the document should have been removed. Side note, at the time I was building a music player webapp so that I could learn the then newfangled HTML5 spec. The fact that you could use <code class="language-plaintext highlighter-rouge">&lt;audio&gt;</code> to embed audio was amazing, such simpler times!</li>
+  <li>Variable names. What is $des? <sup><small>[get it, what is this?… sorry…]</small></sup> Variable names could have been much more clear and made the coder easier to read.</li>
+  <li>Useless variable reassignment. I’m really not sure what’s up with lines 22 &amp; 23…</li>
+  <li>Weird conditional on line 27. Why not invert it at get rid of the else clause.</li>
+</ol>
+
+<p>A few years later, I was motivated me to release a few minor revisions, let’s take a quick look at the last one.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/17c10b0685918bf8a26dee05e3e86855.js?file=search.php"> </script>
+
+<p><small><em>search.php v1.2! Now with less eye bleeding!</em></small></p>
+
+<p>It’s still not great, but it’s better! So… progress 🎉! At it’s peak, it had about 2000 downloads, a little wiki, and even a few bugs opened.</p>
+
+<p>As a last little experiment, I thought it might be interesting to see what the code would look like if I refactored it today. Shout-out to <a href="https://sylhare.github.io/" target="_blank" rel="noopener">@sylhare</a> for the suggestion.</p>
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/a80927a3a2ef872a8db37fd779752dad.js?file=search.php"> </script>
+
+<p>Is it better? I mean, it’s still PHP. <sup><small>I’m teasing of course, I write js for a living</small></sup></p>
+
+<p>After basic linting, probably the most valuable change is moving the important (from a dev/user point of view) variables to the top of the file. Other then that it’s just small enhancements. Putting the files to exclude in an array, excluding the name of the current file without hardcoding it, making a little utility function to make the code read a more naturally.</p>
+
+<p>It’s been quite some time since I’ve done any PHP, so i’m sure there is still room for improvement.</p>
+
+<p>Anyways, the code itself is not what actually matters with these kinds of projects and I hope this post proves that. I think what matters is making shit and putting it out there. It doesn’t matter how small, how simple or how useless. Someone else might find value in it and to me that makes it worth it. Plus, I think it’s also pretty cool to be able to look back on how you’ve improved (or haven’t) over time!</p>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2021-02-01-looking-back-at-my-first-open-source-project.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

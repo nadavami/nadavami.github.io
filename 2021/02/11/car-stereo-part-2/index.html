@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyundai iPod Cable Reverse Engineering - Nadav Ami</title>
+  <meta name="description" content="The second part of a series on spoofing an iPod for car stereo shenanigans.">
+  <link rel="canonical" href="https://nadav.ca/2021/02/11/car-stereo-part-2/">
+  <meta property="og:title" content="Hyundai iPod Cable Reverse Engineering">
+  <meta property="og:description" content="The second part of a series on spoofing an iPod for car stereo shenanigans.">
+  <meta property="og:url" content="https://nadav.ca/2021/02/11/car-stereo-part-2/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2021-02-11T21:19:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <meta property="og:image" content="https://nadav.ca/2021/02/11/car-stereo-part-2/cable_pcb_front.jpg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="hyundai-ipod-cable-reverse-engineering">Hyundai iPod Cable Reverse Engineering</h1>
+  <time datetime="2021-02-11T21:19:00+00:00" class="post-date">February 11, 2021</time>
+  <p><em>This is the second part of a series on spoofing an iPod for car stereo shenanigans. You can <a href="/2021/01/29/car-stereo-part-1/">read part 1 here</a>.</em></p>
+
+<p>Before being able to spoof an iPod, my first step was to figure out how the car talks to a real one. I tried the simplest thing I could think of first, plug my iPhone directly into the car using the lightning cable. No dice. Next, I dug up an old iPod nano and plugged that in using a standard apple 30-pin cable. Still no luck.</p>
+
+<p>It’s at this point that I realized that there must of been something special with Hyundai’s cable. Not wanting to shell out $50 on a real one, I found a cheap knock-off on Aliexpress and tried that instead. After waiting about a month for the cable to arrive, I plugged it in and it still didn’t work.</p>
+
+<p>Time to try the real thing. As luck would have it, I found one on Kijiji for cheap. Unsurprisingly, the real one worked perfectly. I could see the current track info on the center console and change songs using the steering wheel. Progress!</p>
+
+<p>Now that I know it works, it was time to tear it to bits. Here are pictures of the front and back of the PCB inside the cable.</p>
+
+<p><img src="cable_pcb_front.jpg" alt="PCB front, annotated with the hidden silkscreen">
+<small>PCB front, annotated with the hidden silkscreen.</small></p>
+
+<p><img src="cable_pcb_back.jpg" alt="PCB back" class="post-img">
+<small>PCB back, where the most of the magic happens <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20">.</small></p>
+
+<p>I could now start tracing out connections using the pictures and a multimeter set to continuity mode. Since most of the circuit is made up of simple resistors so I started with those first.</p>
+
+<p>Next, I focused on the mystery 3-pin device labeled Q1. Q1 tells me it’s a transistor and by decoding the ALY markings on it, I could figure out exactly what transistor it is. Here’s a pretty great post on StackExchange on <a href="https://electronics.stackexchange.com/questions/334128/how-do-i-identify-smd-components-or-how-do-i-identify-any-component" target="_blank" rel="noopener">how to identify SMD components</a>. After the research, we can see it’s a KTC3875S-Y NPN transistor.</p>
+
+<p>I also needed to understand what the various pins on the iPod connector do. This page from <a href="https://lowendmac.com/2016/apples-30-pin-dock-connector/" target="_blank" rel="noopener">LowEnd Mac</a> and this one from <a href="https://allpinouts.org/pinouts/connectors/portable_device/apple-ipod-ipad-and-iphone-dock/" target="_blank" rel="noopener">AllPinouts</a> were super helpful.</p>
+
+<p>With the circuit all sketched out, I took it to KiCad and made it all pretty. Those files or a PDF version is <a href="https://github.com/nadavami/Hyundai-iPod-Cable" target="_blank" rel="noopener">available here</a>.</p>
+
+<p><img src="https://raw.githubusercontent.com/nadavami/Hyundai-iPod-Cable/master/schematic.png" alt="Cable Schematic"></p>
+
+<p>I could finally begin figuring out what the circuit actually does.</p>
+
+<p>Let’s start with the USB connector, it’s not actually sending USB signals! It’s connected to the iPod’s serial lines. That would explain why a regular iPod cable (or the knock-off) wouldn’t work - those sent USB traffic when the car was expecting plain-old 19200 baud 8N1 serial.</p>
+
+<p>The next interesting bit is the ACC+ID line which tells the iPod what type of accessory it’s connecting to. When the car is powered the transistor (Q1) acts as a closed switch (biased by R4 &amp; R7), and puts R3 (560k resistor) between ACC+ID and ground. Referring back to the LowEnd Mac and AllPinouts pages tells us that a 500k resistor on ACC+ID enables serial communication and sets the iPod into “Dension Ice Link Plus” car interface mode. This makes sense considering what we figured out about the USB connector.</p>
+
+<p>Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod’s video out signal is passed though as well. My car has a monochrome graphic display so it’s clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model <img class="emoji" title=":man_shrugging:" alt=":man_shrugging:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f937-2642.png" height="20" width="20">.</p>
+
+<p>Not particularly critical to my end-goal but still worth mentioning are the connections to D+ and D- on the dock connector. These are used to allow the iPod to charge from the power provided by the car and also to been seen as a valid (read: Apple authorized) accessory. Since there won’t actually be an iPod, we can ignore them.</p>
+
+<p>tl;dr - the iPod is communicating via serial on the USB port D+ &amp; D- lines and analog audio is passed straight through.</p>
+
+<p>In the next post, we’ll see how I can (hopefully) put all of that info to use and change the damn song using the steering wheel.<br>
+<em>Edit: Part 3 is now up! You can <a href="/2021/03/06/car-stereo-part-3/">read it here</a>.</em></p>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2021-02-11-car-stereo-part-2/2021-02-11-car-stereo-part-2.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

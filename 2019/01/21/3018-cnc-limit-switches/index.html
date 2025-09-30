@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding Limit Switches to 3018 CNC Machine - Nadav Ami</title>
+  <meta name="description" content="Nadav Ami's blog where almost anything goes (but it's usually tech related).">
+  <link rel="canonical" href="https://nadav.ca/2019/01/21/3018-cnc-limit-switches/">
+  <meta property="og:title" content="Adding Limit Switches to 3018 CNC Machine">
+  <meta property="og:description" content="Nadav Ami's blog where almost anything goes (but it's usually tech related).">
+  <meta property="og:url" content="https://nadav.ca/2019/01/21/3018-cnc-limit-switches/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2019-01-21T23:29:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <meta property="og:image" content="https://nadav.ca/2019/01/21/3018-cnc-limit-switches/z_home_front.jpg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="adding-limit-switches-to-3018-cnc-machine">Adding Limit Switches to 3018 CNC Machine</h1>
+  <time datetime="2019-01-21T23:29:00+00:00" class="post-date">January 21, 2019</time>
+  <p>Here’s how I added some limit/homing switches to my 3018 CNC machine.</p>
+
+<h3 id="parts-needed">Parts Needed</h3>
+<ul>
+  <li>3D printed mounts - <small><em><a href="https://www.thingiverse.com/thing:2844871" target="_blank" rel="noopener">Thingiverse</a></em></small>
+</li>
+  <li>Micro switches w/ long lever (V-153-1C25) - <small><em><a href="http://s.click.aliexpress.com/e/bIMThA4X" target="_blank" rel="noopener">AliExpress Affiliate</a></em></small>
+</li>
+  <li>Dupont connector kit - <small><em><a href="http://s.click.aliexpress.com/e/bPuF2U16" target="_blank" rel="noopener">Aliexpress Affiliate</a></em></small>
+</li>
+  <li>Heat shrink tubing<br>
+– Optional –</li>
+  <li>Micro switch w/ roller - <small><em><a href="http://s.click.aliexpress.com/e/c6Ri1ZIY" target="_blank" rel="noopener">AliExpress Affiliate</a></em></small>
+</li>
+</ul>
+
+<h3 id="the-short-guide">The (Short) Guide</h3>
+<p>I think that @Bracketracer’s guide on <a href="https://www.thingiverse.com/thing:2844871" target="_blank" rel="noopener">Thingiverse</a> is very detailed and easy to follow. Instead of repeating it, I’ve decided to only include the parts I did differently and add a few extra pictures for detail. I should also note that I forgot to print out the mirrored versions of the mounts and decided to make due with my mistake.</p>
+
+<h4 id="z-home">Z Home</h4>
+<p>I decided to mount roller-style switch for Z home on the C-shaped part of the z-axis instead of going directly on the tool clamp as shown in the guide. This way, I don’t have to bend the lever arm or drill any holes into the tool clamp. The switch was first mounted in the printed part, then the assembly was super glued.</p>
+
+<p><a href="z_home_front.jpg"><img src="z_home_front.jpg" alt="Home switch mounted at the top of the z-axis"></a></p>
+
+<p><a href="rear_rats_nest.jpg"><img src="rear_rats_nest.jpg" alt="Mess of wires showing the limit switches mounted and connections to the controller"></a></p>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2019-01-21-3018-cnc-limit-switches/2019-01-21-3018-cnc-limit-switches.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

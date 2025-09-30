@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Nadav Ami</title>
+ <link href="https://nadav.ca/atom.xml" rel="self"/>
+ <link href="https://nadav.ca/"/>
+ <updated>2025-09-30T21:09:34+00:00</updated>
+ <id>https://nadav.ca</id>
+ <author>
+   <name>Nadav Ami</name>
+   <email>hello@nadav.ca</email>
+ </author>
+
+ 
+ <entry>
+   <title>When You Forget Your BIOS Password</title>
+   <link href="https://nadav.ca/2025/09/30/when-you-forget-your-bios-password/"/>
+   <updated>2025-09-30T00:00:00+00:00</updated>
+   <id>https://nadav.ca/2025/09/30/when-you-forget-your-bios-password</id>
+   <content type="html">&lt;p&gt;I have an old Linux laptop that I decided to repurpose last weekend. After spending 5 hours backing up files (APFS drive + read-only FUSE drivers + stubborn dev who doesn’t want to think too hard (me) = slow backup using SCP), I was finally ready to install a fresh OS. I grab a USB drive, boot from it, and… the BIOS is password protected. Every password I try fails.&lt;/p&gt;
+
+&lt;p&gt;After some Googling, I found &lt;a href=&quot;https://github.com/Cr0wTom/Mi-Notebook-Pro-Mods/issues/6&quot;&gt;this Github issue&lt;/a&gt; discussing how to use Intel’s FPTW64 tool to dump the BIOS and extract the password. Perfect! Except… version 11 of the tool is Windows-only, and my laptop is running Linux.&lt;/p&gt;
+
+&lt;p&gt;I’ve used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flashrom&lt;/code&gt; in the past, an open-source tool for reading and writing flash chips, maybe it can be used here? A little more googling and turns out it can! The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-p internal&lt;/code&gt; flag tells flashrom to use the laptop’s own flash chip programmer instead of an external device.&lt;/p&gt;
+
+&lt;p&gt;The problem? Some memory regions are locked by default, which means flashrom complains and fails to read the entire chip, even the accessible regions. What to do?&lt;/p&gt;
+
+&lt;p&gt;First, I ran &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flashrom&lt;/code&gt; in verbose mode to see what memory regions were available:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;flashrom &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; internal &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Buried in the output was this helpful information:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0x58: 0x07ff0200 FREG1: BIOS region (0x00200000-0x007fffff) is read-write.
+0x5C: 0x01fe0001 FREG2: Management Engine region (0x00001000-0x001fefff) is locked.
+0x64: 0x01ff01ff FREG4: Platform Data region (0x001ff000-0x001fffff) is locked.
+Not all flash regions are freely accessible by flashrom. This is most likely
+due to an active ME. Please see https://flashrom.org/ME for details.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Great! The BIOS region (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x00200000-0x007fffff&lt;/code&gt;) is accessible. I created a simple layout file to tell flashrom to only dump that region, it looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;00200000:007fffff bios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then ran the actual dump:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;flashrom &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; internal &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; layout &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; bios &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; dump.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-l&lt;/code&gt; flag points to the layout file, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-i bios&lt;/code&gt; tells it to only read the “bios” region (the name is arbitrary but needs to match what’s in the layout file), and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-r&lt;/code&gt; writes it all to a file. A few seconds later, I had a BIOS dump.&lt;/p&gt;
+
+&lt;p&gt;Now I just needed to find the password in the hex dump. I knew from the Github issue that BIOS passwords are typically stored near a specific UTF-16 string: “SystemSupervisorPw” which in hex looks like:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;00 53 00 79 00 73 00 74 00 65 00 6D 00 53 00 75 00 70 00 65 00 72 00 76 00 69 00 73 00 6F 00 72 00 50 00 77
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I opened the dump in Bless (a hex editor) and searched for that sequence. Found it almost immediately. And right there, visible in the ASCII column, was the password.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;bios-password-hex-dump.png&quot; alt=&quot;Hex dump showing the BIOS password&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So after approximately 8 hours of work and trying countless complex password combinations, the password was… &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nadav&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;My name. All lowercase.&lt;/p&gt;
+
+&lt;p&gt;¯\_(ツ)_/¯&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Exploring and Modifying Electron Apps on macOS</title>
+   <link href="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/"/>
+   <updated>2023-04-02T02:37:00+00:00</updated>
+   <id>https://nadav.ca/2023/04/02/exploring-modifying-electron-apps</id>
+   <content type="html">&lt;p&gt;In my previous job, I was building a side-car app using Electron. I occasionally found myself needing to debug a packaged production app and this post is just a few commands I that have been helpful to me.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Unpack and Repack ASAR archives:&lt;/strong&gt;
+Electron apps often store their resources in ASAR files, which are simple archives. You can easily extract/modify/repack the contents using the asar package.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; asar
+asar extract app.asar destfolder
+asar pack sourcefolder app.asar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Allow modified signed package to run:&lt;/strong&gt;
+If you’ve modified a signed Electron app macOS Gatekeeper will prevent you from running it, displaying a “Damaged app” dialog. To bypass this restriction and skip the Gatekeeper checks, you can strip the quarantine attribute like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xattr &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; com.apple.quarantine /path/to/xyz.app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Purge Common Public DNS Caches</title>
+   <link href="https://nadav.ca/2021/10/05/purge-common-public-dns-caches/"/>
+   <updated>2021-10-05T00:15:00+00:00</updated>
+   <id>https://nadav.ca/2021/10/05/purge-common-public-dns-caches</id>
+   <content type="html">&lt;p&gt;Like many today, I woke up to reading about &lt;a href=&quot;https://news.ycombinator.com/item?id=28748203&quot;&gt;Facebook’s major DNS outage&lt;/a&gt;. While I’m looking forward to hopefully reading the outage’s postmortem, in reading the comments I learned that you can actually “ask” many public DNS providers to flush the cache for one of their entires. This is super useful if you change a DNS entry and want the change to be seen by your users quicker.&lt;/p&gt;
+
+&lt;p&gt;So for future me, here’s a list of all the common DNS provider cache flush pages you could find.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dns.google.com/cache&quot;&gt;Google&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloudflare-dns.com/purge-cache/&quot;&gt;Cloudflare&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cachecheck.opendns.com/&quot;&gt;OpenDNS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Mounting HFS+ Drives on Ubuntu</title>
+   <link href="https://nadav.ca/2021/03/20/mounting-hfs-drives-on-ubuntu/"/>
+   <updated>2021-03-20T23:33:00+00:00</updated>
+   <id>https://nadav.ca/2021/03/20/mounting-hfs-drives-on-ubuntu</id>
+   <content type="html">&lt;p&gt;As part of a little home server I’ve been building, I wanted to reuse some old mac hard drives I had laying around. Before reusing the drives, I was really curious to see what was on them.&lt;/p&gt;
+
+&lt;p&gt;In order to do this, I needed a way to mount the HFS+ formatted drives on Linux.&lt;/p&gt;
+
+&lt;p&gt;First thing was to install hfsprogs, this will let us read from the drive (Ubuntu can only read from non-journaled HFS drives).&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install hfsprogs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, find out what device the drive is attached to&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo fdisk --list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Which will return something like this.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Disk /dev/sda: 149.1 GiB, 160041885696 bytes, 312581808 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: E55FCDF7-6658-4DEE-8478-33707537F42A
+
+Device       Start       End   Sectors  Size Type
+/dev/sda1     2048      4095      2048    1M BIOS boot
+/dev/sda2     4096   2101247   2097152    1G Linux filesystem
+/dev/sda3  2101248 312578047 310476800  148G Linux filesystem
+
+
+Disk /dev/sdb: 232.9 GiB, 250059350016 bytes, 488397168 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: A2D23874-863A-4F6E-AFB4-4F025A563528
+
+Device         Start       End   Sectors  Size Type
+/dev/sdb1         40    409639    409600  200M EFI System
+/dev/sdb2     409640 398847143 398437504  190G Apple HFS/HFS+
+/dev/sdb3  399110144 488396799  89286656 42.6G Microsoft basic data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Looking at the type column, we can see an HFS/HFS+ drive attached to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/sdb2&lt;/code&gt;. It also appears that this drive has a bootcamp partition, cool!&lt;/p&gt;
+
+&lt;p&gt;From here on out, all the commands will reference my particular device on /dev/sdb2, but be sure to change it for the value you found.&lt;/p&gt;
+
+&lt;p&gt;Now let’s try and actually mount the drive. First by creating the mount point.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mkdir /media/machd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, by mounting the drive&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mount -t hfsplus -o force,rw /dev/sdb2 /media/machd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s it! With any luck, when you go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/media/machd&lt;/code&gt; you should see all the drives contents!&lt;/p&gt;
+
+&lt;p&gt;When you’re done, we can unmount the drive like this&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo umount /media/machd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also check the status of the drive (it doesn’t need to be mounted for this).&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo fsck.hfsplus -f /dev/sdb2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which returns something like:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;** /dev/sdb2
+** Checking HFS Plus volume.
+** Checking Extents Overflow file.
+** Checking Catalog file.
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>What (Not) to Do When You're Missing a Keyboard</title>
+   <link href="https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard/"/>
+   <updated>2021-03-11T23:04:00+00:00</updated>
+   <id>https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard</id>
+   <content type="html">&lt;p&gt;Yesterday, I was building a little home server out of some spare parts or I was until I hit a bit of a roadblock. When it came time to install the OS (&lt;a href=&quot;https://ubuntu.com/download/server&quot;&gt;Ubuntu Server&lt;/a&gt; in this case), I realized I didn’t have a keyboard to configure the install.&lt;/p&gt;
+
+&lt;p&gt;A normal person would have just gone out and bought a keyboard and an experienced one would have &lt;a href=&quot;https://help.ubuntu.com/lts/installation-guide/s390x/apbs02.html&quot;&gt;preseeded the install&lt;/a&gt; so it could run unattended.&lt;/p&gt;
+
+&lt;p&gt;Since I’m neither normal nor experienced, I built &lt;a href=&quot;https://github.com/nadavami/idonthaveakeyboard&quot;&gt;idonthaveakeyboard&lt;/a&gt;. An Arduino based USB keyboard that uses a serial console as the input. In other words, it lets me use my laptop’s keyboard as a USB keyboard for another machine.&lt;/p&gt;
+
+&lt;p&gt;Here’s a little run down of how to use it:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get a compatible Arduino, program it and connect a USB&amp;lt;&amp;gt;Serial adapter to it’s TX/RX pins&lt;/li&gt;
+  &lt;li&gt;Plug the Arduino’s USB cable into the computer that’s missing a keyboard&lt;/li&gt;
+  &lt;li&gt;Plug the USB&amp;lt;&amp;gt;Serial adapter into the laptop that has a keyboard&lt;/li&gt;
+  &lt;li&gt;Open a terminal on the laptop and connect to the serial port (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screen /dev/ttyUSB0 9600&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(Almost) anything you type into the terminal will show up on the other end as if it were being typed on a normal USB keyboard. Right now, it only sends arrow keys, return, backspace, and printable ASCII characters (because that’s all I needed).&lt;/p&gt;
+
+&lt;p&gt;And with that, I was able to successfully set up the OS! Job done!&lt;/p&gt;
+
+&lt;p&gt;Ok, maybe not… I had to change some BIOS settings and for whatever reason my fake keyboard wasn’t being recognized, so I went out and bought a real one ¯\_(ツ)_/¯&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Attempting to Spoof an iPod with an OrangePi Zero</title>
+   <link href="https://nadav.ca/2021/03/06/car-stereo-part-3/"/>
+   <updated>2021-03-06T21:30:00+00:00</updated>
+   <id>https://nadav.ca/2021/03/06/car-stereo-part-3</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is the third part of a series on spoofing an iPod for car stereo shenanigans. You can find &lt;a href=&quot;/2021/01/29/car-stereo-part-1/&quot;&gt;part 1 here&lt;/a&gt; or &lt;a href=&quot;/2021/02/11/car-stereo-part-2/&quot;&gt;part 2 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In the previous part, I found out that my car stereo is trying to talk to an iPod over serial. Here I will cover my first attempt at bridging that serial connection with my phone via bluetooth. I’ll mostly be focusing on what went wrong, but feel free to &lt;a href=&quot;https://github.com/nadavami/iAP-to-AVRCP&quot;&gt;dig through the code&lt;/a&gt; if you want all the details.&lt;/p&gt;
+
+&lt;p&gt;First a few basics to get out of the way. iPods of the era communicate over Apple’s iPod Accessory Protocol. There &lt;a href=&quot;http://www.ipodlinux.org/Apple_Accessory_Protocol/&quot;&gt;have been some attempts&lt;/a&gt; to reverse engineer this protocol, but unfortunately the only way to get the full documentation is to join Apple’s MFI program. That said, if you look hard enough you might be able to find more specifications, but I’m not saying I did or you that you should…&lt;/p&gt;
+
+&lt;p&gt;The second piece of the puzzle is bluetooth. For this project there are two bluetooth profiles that are important, &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Audio/Video_Remote_Control_Profile_(AVRCP)&quot;&gt;Audio/Video Remote Control Profile (AVRCP)&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Advanced_Audio_Distribution_Profile_(A2DP)&quot;&gt;Advanced Audio Distribution Profile (A2DP)&lt;/a&gt;. Without going into too much detail (because I don’t really understand them), AVRCP is how to control and get media info from the connected device and A2DP is how to get the actual audio stream.&lt;/p&gt;
+
+&lt;p&gt;Putting both pieces together, I made something that looks like this :point_down:.&lt;/p&gt;
+
+&lt;p class=&quot;youtube&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9rhg50xrdAg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The demo is short (and buggy!) but there’s quite a lot going on, so I’ll break it down.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Yes, I’m parked in the street and I get as many weird looks as you might expect someone to be hacking his car would get.&lt;/li&gt;
+  &lt;li&gt;The audio quality is terrible. That’s not an artifact of recording but noise on the Pi’s analog audio output. A USB soundcard would probably fix this.&lt;/li&gt;
+  &lt;li&gt;When I hit the up button on the steering wheel (at around the 10s mark), it restarts the song. If you have eagle eyes, you’ll see the time counter to the right of the artist name restarting.&lt;/li&gt;
+  &lt;li&gt;Pressing on the button again goes to the previous song, but doesn’t update the track info.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There are a also few other things that make this just about unusable.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The Pi takes about 45 seconds to a minute to boot. The car detects an “iPod” right when it starts and times out on connecting to it before the Pi is ready to respond to commands. In practice, this means starting the car waiting for the Pi to boot and then trying to go back into the iPod mode.&lt;/li&gt;
+  &lt;li&gt;There’s no easy way to pair/reconnect a bluetooth device. If my phone doesn’t connect, I’m SOL.&lt;/li&gt;
+  &lt;li&gt;Every so often, the car will see an “iPod” but no audio comes out even though the phone is connected. 9 times out of 10, this is because the audio stack has crashed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So to how to wrap this up? I built a thing! It works - but not well enough to be useful.&lt;/p&gt;
+
+&lt;p&gt;There are still a few things I’d like to try to get this working but some of them require taking trim pieces off the dash. Since it’s still winter, I’ll have to hold off until the weather gets a bit warmer. Should be just enough time for me to build up the courage… :upside_down_face:&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Inspecting an iPhone’s HTTPS Traffic</title>
+   <link href="https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic/"/>
+   <updated>2021-02-26T02:17:00+00:00</updated>
+   <id>https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic</id>
+   <content type="html">&lt;p&gt;Recently, I wanted to see how an app on my phone was making API calls.&lt;/p&gt;
+
+&lt;p&gt;The Montreal INFO-Neige app tracks the status of plowed streets around the city and I wanted to see if could use the data for a possible upcoming project. The API is actually &lt;a href=&quot;https://donnees.montreal.ca/ville-de-montreal/deneigement&quot;&gt;part of the city’s Open Data project&lt;/a&gt;, but you have to send an email to get an API key and I couldn’t be bothered…&lt;/p&gt;
+
+&lt;p&gt;To inspect the traffic, I used &lt;a href=&quot;https://mitmproxy.org&quot;&gt;mitmproxy&lt;/a&gt;. It’s a really awesome tool that lets you inspect web traffic. The following was done on a Mac, but should be pretty similar regardless of the OS.&lt;/p&gt;
+
+&lt;p&gt;First things first, install the package using homebrew (or &lt;a href=&quot;https://docs.mitmproxy.org/stable/overview-installation/&quot;&gt;read the docs&lt;/a&gt; for another OS)&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  brew install mitmproxy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, get the IP of the your machine. I used, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ifconfig&lt;/code&gt; but you can also go into System Preferences &amp;gt; Network and grab the IP from there. We’ll need this IP when we connect to mitmproxy in a later step.&lt;/p&gt;
+
+&lt;p&gt;Run, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mitmweb&lt;/code&gt;. It should open a new browser window to http://127.0.0.1:8081. All the intercepted requests will show up here. mitmproxy also has a command line based viewer.&lt;/p&gt;
+
+&lt;p&gt;Next, we’ll need to configure the device we want to inspect. This can be anything that can use a proxy, but in this case I’ll be using my iPhone running iOS 14.&lt;/p&gt;
+
+&lt;p&gt;On the iPhone, open Settings &amp;gt; Wi-Fi &amp;gt; [Current Network] &amp;gt; Configure Proxy &amp;gt; Manual. Server will be the IP from before and the port is 8080. Authentication should be left disabled.&lt;/p&gt;
+
+&lt;p&gt;At this point we can technically inspect traffic, but it’ll only work for HTTP. If we try and visit a site with https, we’ll get a certificate invalid error. This is your iPhone’s certificate trust store protecting you. Mitmproxy is resigning the HTTPS requests that it’s intercepting with it’s certificate authority, but the iPhone doesn’t trust that CA (yet).&lt;/p&gt;
+
+&lt;p&gt;You can easily test this yourself. Go to http://neverssl.com on the iPhone, it should display as normal and will show up on the mitmproxy webpage. However, if you go to https://google.com you’ll get a certificate error.&lt;/p&gt;
+
+&lt;p&gt;To fix this, you need to install the certificate authority for the proxy. Open the iPhone’s browser and go to http://mitm.it. There you’ll find the steps to download and trust mitmproxy’s CA.&lt;/p&gt;
+
+&lt;p&gt;With the CA trusted, you can open any app and start inspecting it’s traffic. Here’s an example capture of when I opened the Sepaq snow app(which gives Quebec national park snow conditions, I don’t know where this snow theme is coming from…).
+&lt;img src=&quot;mitm.png&quot; alt=&quot;mitmproxy web view&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pretty cool! We can dig around, see the request (with all the headers etc) and the full response.&lt;/p&gt;
+
+&lt;p&gt;This type of proxy will work for many apps, but you might notice some not working properly. This could be for a number of reasons, but one that’s becoming more common is certificate pinning.&lt;/p&gt;
+
+&lt;p&gt;Certificate pinning is a defence against this sort of man-in-the-middle attack where a trusted (but bad) CA is singing certificates it shouldn’t be. Basically, with certificate pinning only specific certificates which are trusted for that connection can be used. Our self-signed (but trusted) mitmproxy certificate would get rejected because it doesn’t match the “pinned” cert.&lt;/p&gt;
+
+&lt;p&gt;There’s a lot more you can do with mitmproxy, for example replaying captured requests but that’s for another time.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Getting Back Into Blogging</title>
+   <link href="https://nadav.ca/2021/02/14/getting-back-into-blogging/"/>
+   <updated>2021-02-14T16:42:00+00:00</updated>
+   <id>https://nadav.ca/2021/02/14/getting-back-into-blogging</id>
+   <content type="html">&lt;p&gt;Writing is hard. Writing consistently is even harder. Here’s a list of things I’m doing to motivate myself to get back into writing and posting regularly. Time will tell if it works.&lt;/p&gt;
+
+&lt;h3 id=&quot;perfect-is-the-enemy-of-good&quot;&gt;Perfect is the enemy of good&lt;/h3&gt;
+&lt;p&gt;A post doesn’t have to be perfect to be published. Finding out that my most viewed post is one I put very little effort into helped a lot.&lt;/p&gt;
+
+&lt;h3 id=&quot;breaking-things-into-manageable-pieces&quot;&gt;Breaking things into manageable pieces&lt;/h3&gt;
+&lt;p&gt;The projects I do usually span weeks or months. Sometimes I shelve them because of lack of interest, missing parts/knowledge, etc. Breaking posts into smaller pieces means I can keep the writing momentum going without waiting until the whole thing is done - or worse “ready”, whatever that means.&lt;/p&gt;
+
+&lt;h3 id=&quot;making-this-place-my-own&quot;&gt;Making this place my own&lt;/h3&gt;
+&lt;p&gt;Sometimes I need to remind myself that this is &lt;em&gt;my&lt;/em&gt; site. I can write about whatever I want. It also means I can go back and edit a post if I feel like it. Make myself the primary audience takes a lot of the writing anxiety away.&lt;/p&gt;
+
+&lt;h3 id=&quot;seeing-page-view-stats&quot;&gt;Seeing page view stats&lt;/h3&gt;
+&lt;p&gt;Even though I’m writing for myself, it’s nice to see people reading what I wrote. I debated for a long time if I should use google analytics. It’s surprisingly motivating to see the views come in and I regret not doing it sooner. If google analytics bothers you, I encourage you to block it. I do.&lt;/p&gt;
+
+&lt;h3 id=&quot;make-a-list-of-things-i-want-write-about&quot;&gt;Make a list of things I want write about&lt;/h3&gt;
+&lt;p&gt;I keep a little list on my phone and jot down post ideas as they come to me. When I’m ready to start writing, I can take something from the list if I can’t think of anything to write about. I also keep a drafts folder &lt;a href=&quot;https://github.com/nadavami/nadavami.github.io/tree/main/_drafts&quot;&gt;pushed to git&lt;/a&gt;. As I’m working on a project, I throw things in the draft file. It makes it much easier to start a post when the page isn’t blank.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hyundai iPod Cable Reverse Engineering</title>
+   <link href="https://nadav.ca/2021/02/11/car-stereo-part-2/"/>
+   <updated>2021-02-11T21:19:00+00:00</updated>
+   <id>https://nadav.ca/2021/02/11/car-stereo-part-2</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is the second part of a series on spoofing an iPod for car stereo shenanigans. You can &lt;a href=&quot;/2021/01/29/car-stereo-part-1/&quot;&gt;read part 1 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Before being able to spoof an iPod, my first step was to figure out how the car talks to a real one. I tried the simplest thing I could think of first, plug my iPhone directly into the car using the lightning cable. No dice. Next, I dug up an old iPod nano and plugged that in using a standard apple 30-pin cable. Still no luck.&lt;/p&gt;
+
+&lt;p&gt;It’s at this point that I realized that there must of been something special with Hyundai’s cable. Not wanting to shell out $50 on a real one, I found a cheap knock-off on Aliexpress and tried that instead. After waiting about a month for the cable to arrive, I plugged it in and it still didn’t work.&lt;/p&gt;
+
+&lt;p&gt;Time to try the real thing. As luck would have it, I found one on Kijiji for cheap. Unsurprisingly, the real one worked perfectly. I could see the current track info on the center console and change songs using the steering wheel. Progress!&lt;/p&gt;
+
+&lt;p&gt;Now that I know it works, it was time to tear it to bits. Here are pictures of the front and back of the PCB inside the cable.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;cable_pcb_front.jpg&quot; alt=&quot;PCB front, annotated with the hidden silkscreen&quot; /&gt;
+&lt;small&gt;PCB front, annotated with the hidden silkscreen.&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;cable_pcb_back.jpg&quot; alt=&quot;PCB back&quot; class=&quot;post-img&quot; /&gt;
+&lt;small&gt;PCB back, where the most of the magic happens :sparkles:.&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;I could now start tracing out connections using the pictures and a multimeter set to continuity mode. Since most of the circuit is made up of simple resistors so I started with those first.&lt;/p&gt;
+
+&lt;p&gt;Next, I focused on the mystery 3-pin device labeled Q1. Q1 tells me it’s a transistor and by decoding the ALY markings on it, I could figure out exactly what transistor it is. Here’s a pretty great post on StackExchange on &lt;a href=&quot;https://electronics.stackexchange.com/questions/334128/how-do-i-identify-smd-components-or-how-do-i-identify-any-component&quot;&gt;how to identify SMD components&lt;/a&gt;. After the research, we can see it’s a KTC3875S-Y NPN transistor.&lt;/p&gt;
+
+&lt;p&gt;I also needed to understand what the various pins on the iPod connector do. This page from &lt;a href=&quot;https://lowendmac.com/2016/apples-30-pin-dock-connector/&quot;&gt;LowEnd Mac&lt;/a&gt; and this one from &lt;a href=&quot;https://allpinouts.org/pinouts/connectors/portable_device/apple-ipod-ipad-and-iphone-dock/&quot;&gt;AllPinouts&lt;/a&gt; were super helpful.&lt;/p&gt;
+
+&lt;p&gt;With the circuit all sketched out, I took it to KiCad and made it all pretty. Those files or a PDF version is &lt;a href=&quot;https://github.com/nadavami/Hyundai-iPod-Cable&quot;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/nadavami/Hyundai-iPod-Cable/master/schematic.png&quot; alt=&quot;Cable Schematic&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I could finally begin figuring out what the circuit actually does.&lt;/p&gt;
+
+&lt;p&gt;Let’s start with the USB connector, it’s not actually sending USB signals! It’s connected to the iPod’s serial lines. That would explain why a regular iPod cable (or the knock-off) wouldn’t work - those sent USB traffic when the car was expecting plain-old 19200 baud 8N1 serial.&lt;/p&gt;
+
+&lt;p&gt;The next interesting bit is the ACC+ID line which tells the iPod what type of accessory it’s connecting to. When the car is powered the transistor (Q1) acts as a closed switch (biased by R4 &amp;amp; R7), and puts R3 (560k resistor) between ACC+ID and ground. Referring back to the LowEnd Mac and AllPinouts pages tells us that a 500k resistor on ACC+ID enables serial communication and sets the iPod into “Dension Ice Link Plus” car interface mode. This makes sense considering what we figured out about the USB connector.&lt;/p&gt;
+
+&lt;p&gt;Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod’s video out signal is passed though as well. My car has a monochrome graphic display so it’s clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model :man_shrugging:.&lt;/p&gt;
+
+&lt;p&gt;Not particularly critical to my end-goal but still worth mentioning are the connections to D+ and D- on the dock connector. These are used to allow the iPod to charge from the power provided by the car and also to been seen as a valid (read: Apple authorized) accessory. Since there won’t actually be an iPod, we can ignore them.&lt;/p&gt;
+
+&lt;p&gt;tl;dr - the iPod is communicating via serial on the USB port D+ &amp;amp; D- lines and analog audio is passed straight through.&lt;/p&gt;
+
+&lt;p&gt;In the next post, we’ll see how I can (hopefully) put all of that info to use and change the damn song using the steering wheel.&lt;br /&gt;
+&lt;em&gt;Edit: Part 3 is now up! You can &lt;a href=&quot;/2021/03/06/car-stereo-part-3/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>My First Open Source Project - 11.5 Years Later</title>
+   <link href="https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project/"/>
+   <updated>2021-02-01T22:56:00+00:00</updated>
+   <id>https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project</id>
+   <content type="html">&lt;p&gt;This past weekend I was digging through an old hard drive when I came across a piece of software I wrote a while ago. In fact, it’s the very first thing I ever opensourced. In the spirit of writing more and personal growth, I figured I would do a sort of code review and see if i’ve improved at all from age 14 (fingers crossed).&lt;/p&gt;
+
+&lt;p&gt;So with out further ado, let me introduce you to dSearchr! You might be wondering what it does, so here is some quick info taken straight &lt;del&gt;out of 2009&lt;/del&gt; from the &lt;a href=&quot;https://code.google.com/archive/p/dsearchr/&quot;&gt;Google Code repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dSearchr is a simple single file, directory content search script written in PHP5.&lt;br /&gt;
+  It is highly customizable, and super easy to incorporate with your existing website.&lt;br /&gt;
+  Hiding files and and adding error messages is just as easy to do.&lt;br /&gt;
+  Best of all, there’s no SQL or databases, just point it to a directory and start searching.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Look at that beautifully crafted pitch, and PHP5 - oh boy! Ok enough sarcasm, let’s see the code.&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dca3e8d85fed71583dde8db17175f592.js?file=search.php&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;&lt;small&gt;&lt;em&gt;search.php, released Aug 28, 2009 in all of it’s original glory&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;Ok, so it’s pretty bad. I’ll start with the most general issues and then work my way down from the top.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Linting &amp;amp; code format. Was linting a word in 2009? I’m not sure, but I clearly had never head it.&lt;/li&gt;
+  &lt;li&gt;Unrelated code. Lines 5 - 15 and pretty much all the HTML in the document should have been removed. Side note, at the time I was building a music player webapp so that I could learn the then newfangled HTML5 spec. The fact that you could use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;audio&amp;gt;&lt;/code&gt; to embed audio was amazing, such simpler times!&lt;/li&gt;
+  &lt;li&gt;Variable names. What is $des? &lt;sup&gt;&lt;small&gt;[get it, what is this?… sorry…]&lt;/small&gt;&lt;/sup&gt; Variable names could have been much more clear and made the coder easier to read.&lt;/li&gt;
+  &lt;li&gt;Useless variable reassignment. I’m really not sure what’s up with lines 22 &amp;amp; 23…&lt;/li&gt;
+  &lt;li&gt;Weird conditional on line 27. Why not invert it at get rid of the else clause.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A few years later, I was motivated me to release a few minor revisions, let’s take a quick look at the last one.&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/17c10b0685918bf8a26dee05e3e86855.js?file=search.php&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;&lt;small&gt;&lt;em&gt;search.php v1.2! Now with less eye bleeding!&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s still not great, but it’s better! So… progress 🎉! At it’s peak, it had about 2000 downloads, a little wiki, and even a few bugs opened.&lt;/p&gt;
+
+&lt;p&gt;As a last little experiment, I thought it might be interesting to see what the code would look like if I refactored it today. Shout-out to &lt;a href=&quot;https://sylhare.github.io/&quot;&gt;@sylhare&lt;/a&gt; for the suggestion.&lt;/p&gt;
+&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/a80927a3a2ef872a8db37fd779752dad.js?file=search.php&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Is it better? I mean, it’s still PHP. &lt;sup&gt;&lt;small&gt;I’m teasing of course, I write js for a living&lt;/small&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;After basic linting, probably the most valuable change is moving the important (from a dev/user point of view) variables to the top of the file. Other then that it’s just small enhancements. Putting the files to exclude in an array, excluding the name of the current file without hardcoding it, making a little utility function to make the code read a more naturally.&lt;/p&gt;
+
+&lt;p&gt;It’s been quite some time since I’ve done any PHP, so i’m sure there is still room for improvement.&lt;/p&gt;
+
+&lt;p&gt;Anyways, the code itself is not what actually matters with these kinds of projects and I hope this post proves that. I think what matters is making shit and putting it out there. It doesn’t matter how small, how simple or how useless. Someone else might find value in it and to me that makes it worth it. Plus, I think it’s also pretty cool to be able to look back on how you’ve improved (or haven’t) over time!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hacking My Car Stereo (Part 1)</title>
+   <link href="https://nadav.ca/2021/01/29/car-stereo-part-1/"/>
+   <updated>2021-01-29T00:47:00+00:00</updated>
+   <id>https://nadav.ca/2021/01/29/car-stereo-part-1</id>
+   <content type="html">&lt;p&gt;I like my car, probably more then anyone should like a 2012 Hyundai Elantra. In 2021 terms it’s not the most technologically advance thing but it does most of what I need. While driving, I use my phone for navigation and music - both are extremely essential.&lt;/p&gt;
+
+&lt;p&gt;My car was built around the time of “peak iPod” and like many from that era, have enhanced support for the iPod. The Elantra does this via a proprietary cable with a 30-pin dock connector on one end and usb on the other. Thankfully, the car also supports bluetooth audio and handsfree calling. It even has steering wheel playback controls.&lt;/p&gt;
+
+&lt;p&gt;This is where my (entirely self-created) problems begin. You see, the playback controls are limited to volume up/down and track next/prev. Volume works great, no complaints there! However, the track next/prev only works when connected to an iPod.&lt;/p&gt;
+
+&lt;p&gt;Sure, I can (and occasionally do) yell at Siri to change the track, but it’s unreliable at best.&lt;/p&gt;
+
+&lt;p&gt;Like in most of my side projects, I set off to do what most reasonable wouldn’t. Trick the car into thinking it’s talking to an old school iPod and send back the track next/prev controls to my phone via bluetooth.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  +-------+
+  | Phone |
+  +-------+
+      |
+  Bluetooth
+      |
+      v
++-----------+
+|   Thing   +---------+
++-----------+         |
+      |               |
+iPod Protocol   Analog Audio
+      |               |
+      v               |
+  +-------+           |
+  |  Car  +&amp;lt;----------+
+  +-------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;small&gt;Figure 1&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;In the following few posts, I’ll be documenting my journey in attempting to build that thing&lt;sup&gt;[1]&lt;/sup&gt;. &lt;em&gt;Edit: Part 2 is now up! You can &lt;a href=&quot;/2021/02/11/car-stereo-part-2/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;P.S. This project was started in the summer of 2019 and at the time of writing is still not really working, mostly because i’ve gotten used to yelling at Siri :)&lt;/small&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Writing Resources</title>
+   <link href="https://nadav.ca/2019/12/13/writing-resources/"/>
+   <updated>2019-12-13T00:00:00+00:00</updated>
+   <id>https://nadav.ca/2019/12/13/writing-resources</id>
+   <content type="html">&lt;p&gt;An evolving collection of (mostly technical) writing resources that I have found useful.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://plainlanguage.gov/resources/checklists/checklist/&quot;&gt;US Government - Plain Language Checklist&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc2119&quot;&gt;RFC 2119 - RFC Requirement Key Words&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.divio.com/blog/documentation/&quot;&gt;Divio Blog - What nobody tells you about documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.pragmaticengineer.com/on-writing-well/&quot;&gt;Pragmatic Engineer - Writing Well&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Learning by Failing (IoT Camera Hacking) - Lightning Talk</title>
+   <link href="https://nadav.ca/2019/02/20/learning-by-failing/"/>
+   <updated>2019-02-20T17:00:00+00:00</updated>
+   <id>https://nadav.ca/2019/02/20/learning-by-failing</id>
+   <content type="html">&lt;p&gt;This is a lightning talk about my journey hacking an IoT camera and the things I learned while failing at doing so. This was also my first solo talk!&lt;br /&gt;
+The slides are also available for download as &lt;a href=&quot;learning_by_failing_2019.pdf&quot;&gt;pdf&lt;/a&gt; or &lt;a href=&quot;learning_by_failing_2019.pptx&quot;&gt;pptx&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;youtube&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/W4JTpQ8UIdA&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>3018 CNC Machine Spindle &amp; Laser Mount</title>
+   <link href="https://nadav.ca/2019/01/31/spindle-laser-holder/"/>
+   <updated>2019-01-31T17:00:00+00:00</updated>
+   <id>https://nadav.ca/2019/01/31/spindle-laser-holder</id>
+   <content type="html">&lt;p&gt;I made a little holder for the spindle/laser on my 3018 CNC. This way, when I’m using one I can keep the other on the machine and swap between them easily. If you want to print your own, the files are &lt;a href=&quot;https://www.thingiverse.com/thing:3364954&quot;&gt;available on Thingiverse&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;rear_rats_nest.jpg&quot; alt=&quot;Back view of the CNC machine&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Adding Limit Switches to 3018 CNC Machine</title>
+   <link href="https://nadav.ca/2019/01/21/3018-cnc-limit-switches/"/>
+   <updated>2019-01-21T23:29:00+00:00</updated>
+   <id>https://nadav.ca/2019/01/21/3018-cnc-limit-switches</id>
+   <content type="html">&lt;p&gt;Here’s how I added some limit/homing switches to my 3018 CNC machine.&lt;/p&gt;
+
+&lt;h3 id=&quot;parts-needed&quot;&gt;Parts Needed&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;3D printed mounts - &lt;small&gt;&lt;em&gt;&lt;a href=&quot;https://www.thingiverse.com/thing:2844871&quot;&gt;Thingiverse&lt;/a&gt;&lt;/em&gt;&lt;/small&gt;&lt;/li&gt;
+  &lt;li&gt;Micro switches w/ long lever (V-153-1C25) - &lt;small&gt;&lt;em&gt;&lt;a href=&quot;http://s.click.aliexpress.com/e/bIMThA4X&quot;&gt;AliExpress Affiliate&lt;/a&gt;&lt;/em&gt;&lt;/small&gt;&lt;/li&gt;
+  &lt;li&gt;Dupont connector kit - &lt;small&gt;&lt;em&gt;&lt;a href=&quot;http://s.click.aliexpress.com/e/bPuF2U16&quot;&gt;Aliexpress Affiliate&lt;/a&gt;&lt;/em&gt;&lt;/small&gt;&lt;/li&gt;
+  &lt;li&gt;Heat shrink tubing&lt;br /&gt;
+– Optional –&lt;/li&gt;
+  &lt;li&gt;Micro switch w/ roller - &lt;small&gt;&lt;em&gt;&lt;a href=&quot;http://s.click.aliexpress.com/e/c6Ri1ZIY&quot;&gt;AliExpress Affiliate&lt;/a&gt;&lt;/em&gt;&lt;/small&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-short-guide&quot;&gt;The (Short) Guide&lt;/h3&gt;
+&lt;p&gt;I think that @Bracketracer’s guide on &lt;a href=&quot;https://www.thingiverse.com/thing:2844871&quot;&gt;Thingiverse&lt;/a&gt; is very detailed and easy to follow. Instead of repeating it, I’ve decided to only include the parts I did differently and add a few extra pictures for detail. I should also note that I forgot to print out the mirrored versions of the mounts and decided to make due with my mistake.&lt;/p&gt;
+
+&lt;h4 id=&quot;z-home&quot;&gt;Z Home&lt;/h4&gt;
+&lt;p&gt;I decided to mount roller-style switch for Z home on the C-shaped part of the z-axis instead of going directly on the tool clamp as shown in the guide. This way, I don’t have to bend the lever arm or drill any holes into the tool clamp. The switch was first mounted in the printed part, then the assembly was super glued.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;z_home_front.jpg&quot;&gt;&lt;img src=&quot;z_home_front.jpg&quot; alt=&quot;Home switch mounted at the top of the z-axis&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;rear_rats_nest.jpg&quot;&gt;&lt;img src=&quot;rear_rats_nest.jpg&quot; alt=&quot;Mess of wires showing the limit switches mounted and connections to the controller&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>List of 3018 CNC Upgrades</title>
+   <link href="https://nadav.ca/2019/01/18/list-of-3018-cnc-upgrades/"/>
+   <updated>2019-01-18T22:43:00+00:00</updated>
+   <id>https://nadav.ca/2019/01/18/list-of-3018-cnc-upgrades</id>
+   <content type="html">&lt;p&gt;Below is a fairly messy list of upgrades done (or planned to be) to the cheap “3018 CNC” mills/laser engravers.&lt;/p&gt;
+
+&lt;h3 id=&quot;planned&quot;&gt;Planned&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Power Switch&lt;/li&gt;
+  &lt;li&gt;Cable Management&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;completed&quot;&gt;Completed&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/01/21/3018-cnc-limit-switches/&quot;&gt;X, Y, Z Limit/Home Switches&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/01/31/spindle-laser-holder/&quot;&gt;Spindle and Laser Mount&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;OrangePi Zero controller&lt;/li&gt;
+  &lt;li&gt;GRBL version upgrade&lt;/li&gt;
+  &lt;li&gt;Useful tools (software, bits, collets, etc)&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Maintaining a Healthy CI/CD Pipeline</title>
+   <link href="https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline/"/>
+   <updated>2018-09-06T14:44:00+00:00</updated>
+   <id>https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline</id>
+   <content type="html">&lt;h3 id=&quot;first-a-bit-of-context&quot;&gt;First, a bit of context&lt;/h3&gt;
+&lt;p&gt;Yesterday, I took part in a discussion with a few colleagues about how we should be maintaining our CI/CD pipelines. Recently, some of them have been staying in a failed state for longer than usual or failing test cases are simply skipped/commented out. Below is a first draft of my opinions on the matter.&lt;/p&gt;
+
+&lt;h3 id=&quot;golden-rule-keep-it-green&quot;&gt;Golden Rule: Keep It Green&lt;/h3&gt;
+&lt;p&gt;The pipeline should always be green or be in the process of being made green.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-red-pipeline-is-a-stop-the-presses-event&quot;&gt;A red pipeline is a “stop the presses” event&lt;/h3&gt;
+&lt;p&gt;In other words, when the pipeline fails new feature development stops and the team fixes it. Fixing the pipeline does not have to mean always fixing the underlying bug. In some cases fixing the issue is not straight forward, when this happens the commit can be reverted. With the pipeline back in the green state, a subset of team members can continue debugging and others can continue integrating new features.&lt;/p&gt;
+
+&lt;h3 id=&quot;fix-false-positives&quot;&gt;Fix False Positives&lt;/h3&gt;
+&lt;p&gt;If we notice a bug make it through the pipeline. Add a test case to catch it and fix the bug. This way we maintain confidence in our pipeline status.&lt;/p&gt;
+
+&lt;h3 id=&quot;fix-false-negatives&quot;&gt;Fix False Negatives&lt;/h3&gt;
+&lt;p&gt;If our pipeline fails unexpectedly, we need to investigate and fix it as though the pipeline failed a test case. It’s important to remember that pipeline code is the same as any other piece of code in our codebase; as developers it is our job to maintain it.&lt;/p&gt;
+
+&lt;p&gt;It might be tempting to make the pipeline “artificially green” by commenting out a section or skipping a test. This shouldn’t be done at all cost. Doing so essentially turns your false negative into a false positive and defeats the purpose of having a pipeline for a few reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It reduces confidence in the pipeline; all the written tests should be valid against the codebase.&lt;/li&gt;
+  &lt;li&gt;It hides the real state of the pipeline from anyone looking in (and who might be in a capacity to help).&lt;/li&gt;
+  &lt;li&gt;It pollutes the code. Commented code and skipped test cases can be hard to notice later on and are often missed by other developers who may not understand their significance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Also…&lt;/strong&gt;&lt;br /&gt;
+With regards to fixing false positives and negatives: If the team looks at the pipeline with a sort of “knowing smile” when it’s ‘green’, it’s a safe bet that there are false positives.&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

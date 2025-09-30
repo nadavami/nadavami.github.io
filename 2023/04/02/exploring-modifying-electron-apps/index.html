@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploring and Modifying Electron Apps on macOS - Nadav Ami</title>
+  <meta name="description" content="A few commands to help explore, debug and modify signed electron apps on macOS.">
+  <link rel="canonical" href="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/">
+  <meta property="og:title" content="Exploring and Modifying Electron Apps on macOS">
+  <meta property="og:description" content="A few commands to help explore, debug and modify signed electron apps on macOS.">
+  <meta property="og:url" content="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2023-04-02T02:37:00+00:00">
+  <meta property="article:modified_time" content="2025-09-30T21:05:01+00:00">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8KGQRKWX3K');
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <h3 class="masthead-title"><a href="/" title="Home">Nadav Ami</a></h3>
+        <hr>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title" id="exploring-and-modifying-electron-apps-on-macos">Exploring and Modifying Electron Apps on macOS</h1>
+  <time datetime="2023-04-02T02:37:00+00:00" class="post-date">April 02, 2023</time>
+  <p>In my previous job, I was building a side-car app using Electron. I occasionally found myself needing to debug a packaged production app and this post is just a few commands I that have been helpful to me.</p>
+
+<p><strong>Unpack and Repack ASAR archives:</strong>
+Electron apps often store their resources in ASAR files, which are simple archives. You can easily extract/modify/repack the contents using the asar package.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i <span class="nt">-g</span> asar
+asar extract app.asar destfolder
+asar pack sourcefolder app.asar
+</code></pre></div></div>
+
+<p><strong>Allow modified signed package to run:</strong>
+If you’ve modified a signed Electron app macOS Gatekeeper will prevent you from running it, displaying a “Damaged app” dialog. To bypass this restriction and skip the Gatekeeper checks, you can strip the quarantine attribute like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xattr <span class="nt">-r</span> <span class="nt">-d</span> com.apple.quarantine /path/to/xyz.app
+</code></pre></div></div>
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2023-04-01-exploring-modifying-electron-apps.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+      </main>
+
+      <footer>
+  <hr>
+  <small>
+    Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montreal" target="_blank" rel="noopener">MTL</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a>.<br>
+    <small class="license">
+      <a href="/license/#license">License</a> and <a href="/license/#disclaimer">Disclaimer</a>.
+    </small>
+  </small>
+</footer>
+
+    </div>
+  </body>
+</html>

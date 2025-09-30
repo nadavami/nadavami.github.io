@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://nadav.ca/sitemap.xml
