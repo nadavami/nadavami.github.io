@@ -5,11 +5,11 @@ sitemap:
   priority: 0.7
 ---
 
-Hi there!
+Hi there! Welcome to my slice of web.
 
-Below you'll find a list everything I've written. There is also an [RSS feed]({{site.base_url }}{% link atom.xml %}) if that's your thing. If you want know the person behind these silly posts (or want to say hi), check out my [about page]({{site.base_url }}{% link about.md %}). You can also follow me on [GitHub](https://github.com/{{ site.author.github }}). Oh and please forgive me in advance for my bad jokes and occasional spelling mistakes.
+Below you'll find a list of everything I've written. If you want to get to know the person behind these ramblings (or just want to say hi), the [about page]({{site.base_url }}{% link about.md %}) is your best bet. You can also find me on [GitHub](https://github.com/{{ site.author.github }}), or subscribe via [RSS]({{site.base_url }}{% link atom.xml %}) if that's your thing.
 
-Happy reading,
+Happy reading,  
 Nadav
 
 <!--  You're looking at the source of this page and that's cool, but this page is kinda boring...

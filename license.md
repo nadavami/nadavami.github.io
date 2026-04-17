@@ -1,14 +1,15 @@
 ---
 layout: page
-title: License
+title: Fine print
 sitemap:
   changefreq: monthly
   priority: 0.3
 ---
-Content is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" title="CC BY 4.0" target="_blank">Creative Commons Attribution 4.0 International</a>. Code is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a> unless otherwise noted. 
+# Fine print
 
-# Disclaimer
-The views expressed on this site are my own. Seriously. They don't represent those of my employer, family, friends, pet etc.
+The views expressed on this site are my own (and even then I reserve the right to distance myself from them). Seriously, whatever I ramble about here doesn't (necessarily) represent those of my employer, family, friends, pets, etc.
+
+Content is licensed under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). Code is licensed under the [MIT license](https://opensource.org/licenses/MIT) unless otherwise noted (and it probably will be).
 
 <!--
 No one ever reads the licence, but you decided to read it AND look at the source.
