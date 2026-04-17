@@ -30,6 +30,7 @@ You can easily test this yourself. Go to http://neverssl.com on the iPhone, it s
 To fix this, you need to install the certificate authority for the proxy. Open the iPhone's browser and go to http://mitm.it. There you'll find the steps to download and trust mitmproxy's CA.
 
 With the CA trusted, you can open any app and start inspecting it's traffic. Here's an example capture of when I opened the Sepaq snow app(which gives Quebec national park snow conditions, I don't know where this snow theme is coming from...).
+
 ![mitmproxy web view](mitm.png)
 
 Pretty cool! We can dig around, see the request (with all the headers etc) and the full response.

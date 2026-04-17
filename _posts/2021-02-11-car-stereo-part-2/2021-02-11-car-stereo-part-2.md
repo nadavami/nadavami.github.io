@@ -15,9 +15,11 @@ Time to try the real thing. As luck would have it, I found one on Kijiji for che
 Now that I know it works, it was time to tear it to bits. Here are pictures of the front and back of the PCB inside the cable. 
 
 ![PCB front, annotated with the hidden silkscreen](cable_pcb_front.jpg)
+
 <small>PCB front, annotated with the hidden silkscreen.</small>
 
-![PCB back](cable_pcb_back.jpg){:class="post-img"}
+![PCB back](cable_pcb_back.jpg)
+
 <small>PCB back, where the most of the magic happens ✨.</small>
 
 I could now start tracing out connections using the pictures and a multimeter set to continuity mode. Since most of the circuit is made up of simple resistors so I started with those first. 

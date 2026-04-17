@@ -20,6 +20,6 @@ I think that @Bracketracer's guide on [Thingiverse](https://www.thingiverse.com/
 #### Z Home
 I decided to mount roller-style switch for Z home on the C-shaped part of the z-axis instead of going directly on the tool clamp as shown in the guide. This way, I don't have to bend the lever arm or drill any holes into the tool clamp. The switch was first mounted in the printed part, then the assembly was super glued.
 
-[![Home switch mounted at the top of the z-axis](z_home_front.jpg)](z_home_front.jpg)
+![Home switch mounted at the top of the z-axis](z_home_front.jpg)
 
-[![Mess of wires showing the limit switches mounted and connections to the controller](rear_rats_nest.jpg)](rear_rats_nest.jpg)
+![Mess of wires showing the limit switches mounted and connections to the controller](rear_rats_nest.jpg)

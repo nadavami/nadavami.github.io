@@ -19,6 +19,16 @@ article {
   width: 100%;
 }
 
+.post-image {
+  border-bottom: none;
+  cursor: zoom-in;
+
+  &:hover,
+  &:focus {
+    border-bottom: none;
+  }
+}
+
 .youtube {
   position: relative;
   overflow: hidden;
