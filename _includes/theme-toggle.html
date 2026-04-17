@@ -1,0 +1,37 @@
+<button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+  <span class="theme-toggle-label"></span>
+</button>
+<script>
+(function() {
+  var btn = document.querySelector('[data-theme-toggle]');
+  var label = btn.querySelector('.theme-toggle-label');
+  var states = ['auto', 'light', 'dark'];
+
+  function current() {
+    return localStorage.getItem('nadav-theme') || 'auto';
+  }
+
+  function nextState() {
+    var i = states.indexOf(current());
+    return states[(i + 1) % states.length];
+  }
+
+  function apply(mode) {
+    if (mode === 'auto') {
+      localStorage.removeItem('nadav-theme');
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      localStorage.setItem('nadav-theme', mode);
+      document.documentElement.setAttribute('data-theme', mode);
+    }
+    label.textContent = 'theme: ' + nextState();
+  }
+
+  btn.addEventListener('click', function() {
+    apply(nextState());
+  });
+
+  // Initialize label to show what clicking will do
+  label.textContent = 'theme: ' + nextState();
+})();
+</script>

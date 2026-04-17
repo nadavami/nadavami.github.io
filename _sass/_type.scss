@@ -1,32 +1,50 @@
-// Typography
-//
-// Headings, body text, lists, and other misc typographic elements.
-
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
   font-weight: 600;
   line-height: 1.25;
-  color: #313131;
+  color: var(--stage-text);
   text-rendering: optimizeLegibility;
 }
 
-h1 {
-  font-size: 2rem;
+// Section header treatment for all heading levels inside main content
+main {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: var(--stage-accent);
+    margin: 26px 0 10px;
+
+    &::before {
+      content: '# ';
+      color: var(--stage-muted);
+      speak: never;
+    }
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-top: 1.5rem;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  h3, h4, h5, h6 {
+    font-size: 15px;
+  }
 }
 
-h2 {
-  margin-top: 1rem;
-  font-size: 1.5rem;
-}
+// Print title is exempt from section header treatment
+.print-title h1 {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--stage-text);
+  text-transform: none;
 
-h3 {
-  margin-top: 1.5rem;
-  font-size: 1.25rem;
-}
-
-h4, h5, h6 {
-  margin-top: 1rem;
-  font-size: 1rem;
+  &::before {
+    content: none;
+  }
 }
 
 p {
@@ -35,7 +53,7 @@ p {
 }
 
 strong {
-  color: #303030;
+  color: var(--stage-text);
 }
 
 ul, ol, dl {
@@ -45,29 +63,28 @@ ul, ol, dl {
 
 hr {
   position: relative;
-  margin: 1.5rem 0;
+  margin: 24px 0;
   border: 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #fff;
+  border-top: 1px solid var(--stage-rule);
 }
 
 abbr {
   font-size: 85%;
   font-weight: bold;
-  color: #555;
+  color: var(--stage-muted);
   text-transform: uppercase;
 
   &[title] {
     cursor: help;
-    border-bottom: 1px dotted #e5e5e5;
+    border-bottom: 1px dotted var(--stage-rule);
   }
 }
 
 blockquote {
   padding: .5rem 1rem;
   margin: .8rem 0;
-  color: #7a7a7a;
-  border-left: .25rem solid #e5e5e5;
+  color: var(--stage-muted);
+  border-left: .25rem solid var(--stage-rule);
 
   p:last-child {
     margin-bottom: 0;
@@ -79,29 +96,17 @@ blockquote {
   }
 }
 
-
-// Markdown footnotes
-//
-// See the example content post for an example.
-
-// Footnote number within body text
 a[href^="#fn:"],
-// Back to footnote link
 a[href^="#fnref:"] {
   display: inline-block;
   margin-left: .1rem;
   font-weight: bold;
 }
 
-// List of footnotes
 .footnotes {
   margin-top: 2rem;
   font-size: 85%;
 }
-
-// Custom type
-//
-// Extend paragraphs with `.lead` for larger introductory text.
 
 .lead {
   font-size: 1.25rem;

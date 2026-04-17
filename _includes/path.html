@@ -1,0 +1,20 @@
+<nav class="path" aria-label="Breadcrumb">
+  <a href="/" title="Home">~</a><!--
+  -->{%- if page.layout == 'post' -%}<!--
+    --><span class="path-separator">/</span><!--
+    --><a href="/#writing">posts</a><!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">{{ page.title }}</span><span class="path-bracket">]</span><!--
+  -->{%- elsif page.layout == 'cv' -%}<!--
+    --><span class="path-separator">/</span><!--
+    --><a href="/cv/">cv</a><!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">{{ site.author.name }}</span><span class="path-bracket">]</span><!--
+  -->{%- elsif page.title == 'Home' -%}<!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">{{ site.author.name }}</span><span class="path-bracket">]</span><!--
+  -->{%- else -%}<!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">{{ page.title }}</span><span class="path-bracket">]</span><!--
+  -->{%- endif -%}
+</nav>

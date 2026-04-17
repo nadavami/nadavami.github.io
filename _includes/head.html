@@ -1,6 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){var t=localStorage.getItem('nadav-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})()</script>
   {%- capture description %}{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}{% endcapture %}
   {%- capture canonical_url %}{{ site.url }}{{ page.url | remove: 'index.html' }}{% endcapture %}
   <title>{% if page.title != "Home" %}{{ page.title }} - {% endif %}{{ site.title }}</title>
@@ -25,6 +26,8 @@
   <meta property="og:image" content="https://i.ytimg.com/vi/{{ page.youtube_id }}/maxresdefault.jpg">
   {%- endif %}
   {%- endunless %}
+  <link rel="preload" href="/assets/fonts/commit-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.baseurl }}/atom.xml">
   {%- if site.analytics_id %}

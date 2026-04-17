@@ -1,26 +1,60 @@
-// Masthead
-//
-// Super small header above the content for site name and short description.
-
 .masthead {
-  padding-top:    1rem;
-
-  hr {
-    margin: 1rem 0;
-  }
+  padding-top: 1rem;
 }
 
-.masthead-title {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: $gray-5;
+.masthead-date {
+  display: block;
+  font-size: 13px;
+  color: var(--stage-muted);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.path {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+  min-width: 0;
 
   a {
-    color: inherit;
+    color: var(--stage-muted);
+    border-bottom: none;
+
+    &:hover {
+      color: var(--stage-accent);
+    }
   }
 }
 
-h1#posts {
-  margin-top: 1.5rem;
-  font-size: 1.25rem;
+.path-separator {
+  color: var(--stage-muted);
+}
+
+.path-bracket {
+  color: var(--stage-muted);
+}
+
+.path-leaf {
+  color: var(--stage-accent);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--stage-rule);
+  color: var(--stage-muted);
+  font-family: $font-family;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  transition: border-color 120ms;
+
+  &:hover {
+    color: var(--stage-accent);
+    border-bottom-color: var(--stage-accent);
+  }
 }

@@ -1,37 +1,53 @@
-// Layout
-//
-// Styles for managing the structural hierarchy of the site.
-
 .container {
-  max-width: 60rem;
-  padding-left:  1.5rem;
+  max-width: $container-max-width;
+  padding-left: 1.5rem;
   padding-right: 1.5rem;
-  margin-left:  auto;
+  margin-left: auto;
   margin-right: auto;
 }
 
 .post-list {
-  dl {
-    display: grid;
-    grid-template-columns: max-content auto;
+  .post-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
   }
 
-  dt {
-    grid-column-start: 1;
-    margin-right: 2vw;
-    color: $gray-2;
+  .post-list-title a {
+    &:hover {
+      border-bottom-color: var(--stage-accent);
+    }
   }
 
-  dd {
-    grid-column-start: 2;
-    margin: 0;
+  .post-list-date {
+    color: var(--stage-muted);
+    font-size: 13px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
   }
 }
 
 footer {
   margin-bottom: 2rem;
-}
+  font-size: 12.5px;
+  color: var(--stage-muted);
 
-footer .license {
-  display: inline-block;
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  a {
+    color: var(--stage-muted);
+    border-bottom-color: var(--stage-rule);
+
+    &:hover {
+      color: var(--stage-accent);
+      border-bottom-color: var(--stage-accent);
+    }
+  }
 }

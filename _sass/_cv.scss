@@ -1,0 +1,57 @@
+.cv-subtitle {
+  font-size: 12.5px;
+  color: var(--stage-muted);
+  margin-bottom: 0.5rem;
+}
+
+.cv-summary {
+  margin-bottom: 1.5rem;
+}
+
+.cv-entry {
+  margin-bottom: 1.25rem;
+}
+
+.cv-entry-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.cv-entry-info {
+  min-width: 0;
+}
+
+.cv-entry-period {
+  color: var(--stage-muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-entry-highlights {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+
+  li {
+    margin-bottom: 0.15rem;
+  }
+}
+
+.cv-skill-group {
+  margin-bottom: 0.5rem;
+}
+
+.print-title {
+  display: none;
+
+  p {
+    font-size: 12.5px;
+    color: var(--stage-muted);
+    margin-bottom: 1rem;
+  }
+}

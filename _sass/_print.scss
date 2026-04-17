@@ -1,0 +1,53 @@
+@media print {
+  @page {
+    size: letter;
+    margin: 1.8cm;
+  }
+
+  :root {
+    --stage-bg: #ffffff;
+    --stage-surface: #f0f0f0;
+    --stage-text: #1a140b;
+    --stage-muted: #7a7160;
+    --stage-accent: #254674;
+    --stage-accent-soft: #c7d0e0;
+    --stage-rule: #d9ccae;
+  }
+
+  body {
+    background: #ffffff;
+    color: #1a140b;
+  }
+
+  .masthead,
+  .theme-toggle,
+  hr {
+    display: none !important;
+  }
+
+  .print-title {
+    display: block !important;
+  }
+
+  footer {
+    display: none;
+  }
+
+  a {
+    color: #254674;
+    border-bottom: none;
+  }
+
+  .cv-entry {
+    break-inside: avoid;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .highlight {
+    border: 1px solid #d9ccae;
+  }
+}

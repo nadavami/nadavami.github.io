@@ -1,18 +1,13 @@
-// Code
-//
-// Inline and block-level code snippets. Includes tweaks to syntax highlighted
-// snippets from Pygments/Rouge and Gist embeds.
-
 code,
 pre {
-  font-family: $code-font-family;
+  font-family: $font-family;
 }
 
 code {
-  padding: .25em .5em;
-  font-size: 85%;
-  color: $code-color;
-  background-color: #f9f9f9;
+  padding: 1px 5px;
+  font-size: 0.9em;
+  color: var(--stage-text);
+  background-color: var(--stage-surface);
   border-radius: 3px;
 }
 
@@ -28,14 +23,15 @@ pre code {
   background-color: transparent;
 }
 
-// Pygments via Jekyll
 .highlight {
-  padding: 1rem;
+  padding: 12px 16px;
   margin-bottom: 1rem;
-  font-size: .8rem;
+  font-size: 13px;
   line-height: 1.4;
-  background-color: #f9f9f9;
-  border-radius: .25rem;
+  background-color: var(--stage-surface);
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre;
 
   pre {
     margin-bottom: 0;
@@ -43,13 +39,10 @@ pre code {
   }
 
   .lineno {
-    display: inline-block; // Ensures the null space also isn't selectable
+    display: inline-block;
     padding-right: .75rem;
     padding-left: .25rem;
-    color: #999;
-    // Make sure numbers aren't selectable
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
+    color: var(--stage-muted);
+    user-select: none;
   }
 }
