@@ -1,0 +1,53 @@
+---
+layout: default
+---
+
+<article class="cv">
+  <div class="print-title">
+    <h1>{{ site.author.name }}</h1>
+    <p>{{ site.data.cv.subtitle }}</p>
+  </div>
+
+  <p class="cv-subtitle">{{ site.data.cv.subtitle }}</p>
+
+  <p class="cv-summary">{{ site.data.cv.summary }}</p>
+
+  <h1>Experience</h1>
+  {%- for job in site.data.cv.experience %}
+  <div class="cv-entry">
+    <div class="cv-entry-header">
+      <div class="cv-entry-info">
+        <strong>{% if job.url %}<a href="{{ job.url }}">{{ job.company }}</a>{% else %}{{ job.company }}{% endif %}</strong>
+        &middot; {{ job.title }}
+      </div>
+      <span class="cv-entry-period">{{ job.period }}</span>
+    </div>
+    {%- if job.highlights %}
+    <ul class="cv-entry-highlights">
+      {%- for item in job.highlights %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+  {%- endfor %}
+
+  <h1>Education</h1>
+  {%- for edu in site.data.cv.education %}
+  <div class="cv-entry">
+    <div class="cv-entry-header">
+      <div class="cv-entry-info">
+        <strong>{{ edu.degree }}</strong> &middot; {{ edu.school }}
+      </div>
+      <span class="cv-entry-period">{{ edu.period }}</span>
+    </div>
+  </div>
+  {%- endfor %}
+
+  <h1>Skills</h1>
+  {%- for group in site.data.cv.skills %}
+  <div class="cv-skill-group">
+    <strong>{{ group.category }}:</strong> {{ group.items }}
+  </div>
+  {%- endfor %}
+</article>
