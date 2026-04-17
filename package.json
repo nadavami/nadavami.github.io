@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "nadavami.github.io",
+  "description": "Font assets for nadav.ca",
+  "dependencies": {
+    "@fontsource/commit-mono": "^5"
+  }
+}
