@@ -2,16 +2,16 @@
 # Main stylesheet — built on Poole (https://github.com/poole/poole), redesigned for nadav.ca
 ---
 
-@import "fonts";
-@import "variables";
-@import "colors";
-@import "base";
-@import "type";
-@import "syntax";
-@import "code";
-@import "layout";
-@import "masthead";
-@import "posts";
-@import "cv";
-@import "message";
-@import "print";
+@use "fonts";
+@use "variables";
+@use "colors";
+@use "base";
+@use "type";
+@use "syntax";
+@use "code";
+@use "layout";
+@use "masthead";
+@use "posts";
+@use "cv";
+@use "message";
+@use "print";

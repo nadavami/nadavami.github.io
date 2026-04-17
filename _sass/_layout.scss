@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .container {
   max-width: $container-max-width;
   padding-left: 1.5rem;
