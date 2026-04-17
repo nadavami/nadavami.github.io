@@ -1,0 +1,104 @@
+---
+layout: default
+---
+
+{%- assign sep = " – " -%}
+<article class="resume">
+  <div class="print-title">
+    <h1>{{ site.author.name }}</h1>
+  </div>
+
+  <p class="resume-subtitle">{{ site.data.resume.basics.label }} · <a href="mailto:{{ site.data.resume.basics.email }}">{{ site.data.resume.basics.email }}</a>{%- for profile in site.data.resume.basics.profiles %} · <a href="{{ profile.url }}"><span class="resume-link-label">{{ profile.network }}</span><span class="resume-link-url">{{ profile.url | remove: "https://" }}</span></a>{%- endfor %}</p>
+
+  <p class="resume-summary">{{ site.data.resume.basics.summary }}</p>
+
+  <h1>Experience</h1>
+  {%- for job in site.data.resume.work %}
+  <div class="resume-entry">
+    <div class="resume-entry-header">
+      <strong>{{ job.position }}</strong>
+      <span class="resume-entry-period">
+        {%- assign s_formal = job.startDate | date_formal -%}
+        {%- if job.startDate != s_formal -%}
+          <span class="resume-date-swap"><span class="resume-period-screen">{{ job.startDate }}</span><span class="resume-period-print">{{ s_formal }}</span></span>
+        {%- else -%}
+          {{- job.startDate -}}
+        {%- endif -%}
+        {%- if job.endDate and job.endDate != job.startDate -%}
+          {{ sep }}
+          {%- assign e_formal = job.endDate | date_formal -%}
+          {%- if job.endDate != e_formal -%}
+            <span class="resume-date-swap"><span class="resume-period-screen">{{ job.endDate }}</span><span class="resume-period-print">{{ e_formal }}</span></span>
+          {%- else -%}
+            {{- job.endDate -}}
+          {%- endif -%}
+        {%- endif -%}
+        {%- unless job.endDate -%}
+          {{ sep }}Present
+        {%- endunless -%}
+      </span>
+    </div>
+    <div class="resume-secondary">{% if job.url %}<a href="{{ job.url }}">{{ job.name }}</a>{% else %}{{ job.name }}{% endif %}</div>
+    {%- if job.summary %}
+    <p class="resume-entry-summary">{{ job.summary }}</p>
+    {%- endif %}
+    {%- if job.highlights %}
+    <ul class="resume-entry-highlights">
+      {%- for item in job.highlights %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+  {%- endfor %}
+
+  <h1>Select Talks & Projects</h1>
+  {%- for talk in site.data.resume.talks %}
+  <div class="resume-entry">
+    <div class="resume-entry-header">
+      <strong>{{ talk.title }}</strong>
+      <span class="resume-entry-period">{{ talk.year }}</span>
+    </div>
+    <div class="resume-secondary">{{ talk.description }}</div>
+  </div>
+  {%- endfor %}
+
+  <h1>Education</h1>
+  {%- for edu in site.data.resume.education %}
+  <div class="resume-entry">
+    <div class="resume-entry-header">
+      <strong>{{ edu.institution }}</strong>
+      <span class="resume-entry-period">
+        {%- assign s_formal = edu.startDate | date_formal -%}
+        {%- if edu.startDate != s_formal -%}
+          <span class="resume-date-swap"><span class="resume-period-screen">{{ edu.startDate }}</span><span class="resume-period-print">{{ s_formal }}</span></span>
+        {%- else -%}
+          {{- edu.startDate -}}
+        {%- endif -%}
+        {%- if edu.endDate and edu.endDate != edu.startDate -%}
+          {{ sep }}
+          {%- assign e_formal = edu.endDate | date_formal -%}
+          {%- if edu.endDate != e_formal -%}
+            <span class="resume-date-swap"><span class="resume-period-screen">{{ edu.endDate }}</span><span class="resume-period-print">{{ e_formal }}</span></span>
+          {%- else -%}
+            {{- edu.endDate -}}
+          {%- endif -%}
+        {%- endif -%}
+        {%- unless edu.endDate -%}
+          {{ sep }}Present
+        {%- endunless -%}
+      </span>
+    </div>
+    <div class="resume-secondary">{{ edu.studyType }}</div>
+  </div>
+  {%- endfor %}
+
+  <h1>Skills</h1>
+  {%- for group in site.data.resume.skills %}
+  <div class="resume-skill-group">
+    <strong>{{ group.name }}</strong> · <span class="resume-secondary">{{ group.keywords | join: ", " }}</span>
+  </div>
+  {%- endfor %}
+
+  <p class="resume-robots"><small>for robots: <a href="/resume.yml">resume.yml</a></small><small class="resume-robots-tokens">[{{ site.resume_tokens }} tokens]</small></p>
+</article>

@@ -49,14 +49,14 @@
   // --- CV page overrides ---
 
   // On CV pages, hide the masthead and the hr beneath it — print-title replaces them
-  body:has(.cv) {
+  body:has(.resume) {
     .masthead,
     .masthead + hr {
       display: none;
     }
   }
 
-  .cv {
+  .resume {
     .print-title {
       display: block !important;
 
@@ -68,9 +68,9 @@
     }
 
     // Subtitle: expand LinkedIn/GitHub labels to full URLs
-    .cv-link-label { display: none; }
-    .cv-link-url { display: inline; }
-    .cv-subtitle a {
+    .resume-link-label { display: none; }
+    .resume-link-url { display: inline; }
+    .resume-subtitle a {
       border-bottom: none;
       text-decoration: none;
     }
@@ -83,17 +83,21 @@
     }
 
     // Entries stay together when possible
-    .cv-entry {
+    .resume-entry {
       break-inside: avoid;
     }
 
     // Show the print variant of date swaps, hide the screen variant
-    .cv-period-screen { display: none; }
-    .cv-period-print {
+    .resume-period-screen { display: none; }
+    .resume-period-print {
       display: inline;
       max-width: none;
       opacity: 1;
       overflow: visible;
+    }
+
+    .resume-robots {
+      display: none;
     }
   }
 }
