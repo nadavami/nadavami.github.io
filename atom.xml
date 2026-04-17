@@ -4,7 +4,7 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-17T05:05:15+00:00</updated>
+ <updated>2026-04-17T18:58:42+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
@@ -184,7 +184,7 @@ Device         Start       End   Sectors  Size Type
  </entry>
  
  <entry>
-   <title>What (Not) to Do When You're Missing a Keyboard</title>
+   <title>What (Not) to Do When You&apos;re Missing a Keyboard</title>
    <link href="https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard/"/>
    <updated>2021-03-11T23:04:00+00:00</updated>
    <id>https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard</id>
@@ -223,7 +223,7 @@ Device         Start       End   Sectors  Size Type
 
 &lt;p&gt;The second piece of the puzzle is bluetooth. For this project there are two bluetooth profiles that are important, &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Audio/Video_Remote_Control_Profile_(AVRCP)&quot;&gt;Audio/Video Remote Control Profile (AVRCP)&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Advanced_Audio_Distribution_Profile_(A2DP)&quot;&gt;Advanced Audio Distribution Profile (A2DP)&lt;/a&gt;. Without going into too much detail (because I don’t really understand them), AVRCP is how to control and get media info from the connected device and A2DP is how to get the actual audio stream.&lt;/p&gt;
 
-&lt;p&gt;Putting both pieces together, I made something that looks like this :point_down:.&lt;/p&gt;
+&lt;p&gt;Putting both pieces together, I made something that looks like this 👇.&lt;/p&gt;
 
 &lt;p class=&quot;youtube&quot;&gt;
   &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9rhg50xrdAg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
@@ -246,7 +246,7 @@ Device         Start       End   Sectors  Size Type
 
 &lt;p&gt;So to how to wrap this up? I built a thing! It works - but not well enough to be useful.&lt;/p&gt;
 
-&lt;p&gt;There are still a few things I’d like to try to get this working but some of them require taking trim pieces off the dash. Since it’s still winter, I’ll have to hold off until the weather gets a bit warmer. Should be just enough time for me to build up the courage… :upside_down_face:&lt;/p&gt;
+&lt;p&gt;There are still a few things I’d like to try to get this working but some of them require taking trim pieces off the dash. Since it’s still winter, I’ll have to hold off until the weather gets a bit warmer. Should be just enough time for me to build up the courage… 🙃&lt;/p&gt;
 </content>
  </entry>
  
@@ -279,8 +279,9 @@ Device         Start       End   Sectors  Size Type
 
 &lt;p&gt;To fix this, you need to install the certificate authority for the proxy. Open the iPhone’s browser and go to http://mitm.it. There you’ll find the steps to download and trust mitmproxy’s CA.&lt;/p&gt;
 
-&lt;p&gt;With the CA trusted, you can open any app and start inspecting it’s traffic. Here’s an example capture of when I opened the Sepaq snow app(which gives Quebec national park snow conditions, I don’t know where this snow theme is coming from…).
-&lt;img src=&quot;mitm.png&quot; alt=&quot;mitmproxy web view&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;With the CA trusted, you can open any app and start inspecting it’s traffic. Here’s an example capture of when I opened the Sepaq snow app(which gives Quebec national park snow conditions, I don’t know where this snow theme is coming from…).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;mitm.png&quot; alt=&quot;mitmproxy web view&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Pretty cool! We can dig around, see the request (with all the headers etc) and the full response.&lt;/p&gt;
 
@@ -331,11 +332,13 @@ Device         Start       End   Sectors  Size Type
 
 &lt;p&gt;Now that I know it works, it was time to tear it to bits. Here are pictures of the front and back of the PCB inside the cable.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;cable_pcb_front.jpg&quot; alt=&quot;PCB front, annotated with the hidden silkscreen&quot; /&gt;
-&lt;small&gt;PCB front, annotated with the hidden silkscreen.&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;cable_pcb_front.jpg&quot; alt=&quot;PCB front, annotated with the hidden silkscreen&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;cable_pcb_back.jpg&quot; alt=&quot;PCB back&quot; class=&quot;post-img&quot; /&gt;
-&lt;small&gt;PCB back, where the most of the magic happens :sparkles:.&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;PCB front, annotated with the hidden silkscreen.&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;cable_pcb_back.jpg&quot; alt=&quot;PCB back&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;PCB back, where the most of the magic happens ✨.&lt;/small&gt;&lt;/p&gt;
 
 &lt;p&gt;I could now start tracing out connections using the pictures and a multimeter set to continuity mode. Since most of the circuit is made up of simple resistors so I started with those first.&lt;/p&gt;
 
@@ -353,7 +356,7 @@ Device         Start       End   Sectors  Size Type
 
 &lt;p&gt;The next interesting bit is the ACC+ID line which tells the iPod what type of accessory it’s connecting to. When the car is powered the transistor (Q1) acts as a closed switch (biased by R4 &amp;amp; R7), and puts R3 (560k resistor) between ACC+ID and ground. Referring back to the LowEnd Mac and AllPinouts pages tells us that a 500k resistor on ACC+ID enables serial communication and sets the iPod into “Dension Ice Link Plus” car interface mode. This makes sense considering what we figured out about the USB connector.&lt;/p&gt;
 
-&lt;p&gt;Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod’s video out signal is passed though as well. My car has a monochrome graphic display so it’s clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model :man_shrugging:.&lt;/p&gt;
+&lt;p&gt;Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod’s video out signal is passed though as well. My car has a monochrome graphic display so it’s clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model ¯\_(ツ)_/¯.&lt;/p&gt;
 
 &lt;p&gt;Not particularly critical to my end-goal but still worth mentioning are the connections to D+ and D- on the dock connector. These are used to allow the iPod to charge from the power provided by the car and also to been seen as a valid (read: Apple authorized) accessory. Since there won’t actually be an iPod, we can ignore them.&lt;/p&gt;
 
@@ -525,9 +528,9 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
 &lt;h4 id=&quot;z-home&quot;&gt;Z Home&lt;/h4&gt;
 &lt;p&gt;I decided to mount roller-style switch for Z home on the C-shaped part of the z-axis instead of going directly on the tool clamp as shown in the guide. This way, I don’t have to bend the lever arm or drill any holes into the tool clamp. The switch was first mounted in the printed part, then the assembly was super glued.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;z_home_front.jpg&quot;&gt;&lt;img src=&quot;z_home_front.jpg&quot; alt=&quot;Home switch mounted at the top of the z-axis&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;z_home_front.jpg&quot; alt=&quot;Home switch mounted at the top of the z-axis&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;rear_rats_nest.jpg&quot;&gt;&lt;img src=&quot;rear_rats_nest.jpg&quot; alt=&quot;Mess of wires showing the limit switches mounted and connections to the controller&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;rear_rats_nest.jpg&quot; alt=&quot;Mess of wires showing the limit switches mounted and connections to the controller&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
