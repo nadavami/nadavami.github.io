@@ -2,40 +2,101 @@
   font-size: 12.5px;
   color: var(--stage-muted);
   margin-bottom: 0.5rem;
+
+  a {
+    color: var(--stage-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--stage-rule);
+    transition: border-color 120ms;
+
+    &:hover {
+      color: var(--stage-accent);
+      border-bottom-color: var(--stage-accent);
+    }
+  }
 }
 
 .cv-summary {
   margin-bottom: 1.5rem;
 }
 
+.cv > h1 {
+  border-bottom: 1px solid var(--stage-rule);
+  padding-bottom: 0.25rem;
+  margin-top: 2rem;
+}
+
+.cv > h1:first-of-type {
+  margin-top: 1rem;
+}
+
+.cv-secondary {
+  color: var(--stage-muted);
+  font-size: 12.5px;
+
+  a {
+    color: inherit;
+    border-bottom: none;
+
+    &:hover {
+      color: var(--stage-accent);
+    }
+  }
+}
+
 .cv-entry {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .cv-entry-header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem;
-}
-
-.cv-entry-info {
-  min-width: 0;
+  gap: 1rem;
 }
 
 .cv-entry-period {
   color: var(--stage-muted);
   font-size: 12.5px;
+  font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
 }
 
-.cv-entry-highlights {
+.cv-date-swap {
+  display: inline-grid;
+  text-align: right;
+}
+
+.cv-period-screen,
+.cv-period-print {
+  grid-area: 1 / 1;
+  transition: opacity 180ms ease, max-width 180ms ease;
+}
+
+.cv-period-print {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.cv-entry:hover {
+  .cv-period-screen { opacity: 0; }
+  .cv-period-print  { opacity: 1; max-width: 10em; }
+}
+
+.cv-entry-summary {
   margin-top: 0.25rem;
   margin-bottom: 0;
+  font-size: 13px;
+}
+
+.cv-entry-highlights {
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
   padding-left: 1.25rem;
+  font-size: 13px;
 
   li {
     margin-bottom: 0.15rem;
@@ -43,15 +104,14 @@
 }
 
 .cv-skill-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 13px;
+}
+
+.cv-link-url {
+  display: none;
 }
 
 .print-title {
   display: none;
-
-  p {
-    font-size: 12.5px;
-    color: var(--stage-muted);
-    margin-bottom: 1rem;
-  }
 }
