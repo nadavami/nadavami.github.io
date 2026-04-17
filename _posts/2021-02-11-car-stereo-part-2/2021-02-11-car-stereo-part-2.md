@@ -18,7 +18,7 @@ Now that I know it works, it was time to tear it to bits. Here are pictures of t
 <small>PCB front, annotated with the hidden silkscreen.</small>
 
 ![PCB back](cable_pcb_back.jpg){:class="post-img"}
-<small>PCB back, where the most of the magic happens :sparkles:.</small>
+<small>PCB back, where the most of the magic happens ✨.</small>
 
 I could now start tracing out connections using the pictures and a multimeter set to continuity mode. Since most of the circuit is made up of simple resistors so I started with those first. 
 
@@ -36,7 +36,7 @@ Let's start with the USB connector, it's not actually sending USB signals! It's 
 
 The next interesting bit is the ACC+ID line which tells the iPod what type of accessory it's connecting to. When the car is powered the transistor (Q1) acts as a closed switch (biased by R4 & R7), and puts R3 (560k resistor) between ACC+ID and ground. Referring back to the LowEnd Mac and AllPinouts pages tells us that a 500k resistor on ACC+ID enables serial communication and sets the iPod into "Dension Ice Link Plus" car interface mode. This makes sense considering what we figured out about the USB connector. 
 
-Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod's video out signal is passed though as well. My car has a monochrome graphic display so it's clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model :man_shrugging:.
+Audio signals are simply sent straight through from the dock connector to the audio plug on the cable. I was pretty surprised to see the iPod's video out signal is passed though as well. My car has a monochrome graphic display so it's clearly not used. That said, the same cable is used on many Hyundai and Kia cars of the era so maybe it was on a different model ¯\\\_(ツ)\_/¯.
 
 Not particularly critical to my end-goal but still worth mentioning are the connections to D+ and D- on the dock connector. These are used to allow the iPod to charge from the power provided by the car and also to been seen as a valid (read: Apple authorized) accessory. Since there won't actually be an iPod, we can ignore them.
 

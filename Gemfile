@@ -9,6 +9,5 @@ group :jekyll_plugins do
   gem 'jekyll-postfiles'
   gem 'match_regex'
   gem 'jekyll-target-blank'
-  gem 'jemoji'
   gem 'jekyll-last-modified-at'
 end

@@ -13,7 +13,7 @@ First a few basics to get out of the way. iPods of the era communicate over Appl
 
 The second piece of the puzzle is bluetooth. For this project there are two bluetooth profiles that are important, [Audio/Video Remote Control Profile (AVRCP)](https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Audio/Video_Remote_Control_Profile_(AVRCP)) and [Advanced Audio Distribution Profile (A2DP)](https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Advanced_Audio_Distribution_Profile_(A2DP)). Without going into too much detail (because I don't really understand them), AVRCP is how to control and get media info from the connected device and A2DP is how to get the actual audio stream.
 
-Putting both pieces together, I made something that looks like this :point_down:.
+Putting both pieces together, I made something that looks like this 👇.
 
 {% include youtube.html %}
 
@@ -30,4 +30,4 @@ There are a also few other things that make this just about unusable.
 
 So to how to wrap this up? I built a thing! It works - but not well enough to be useful.
 
-There are still a few things I'd like to try to get this working but some of them require taking trim pieces off the dash. Since it's still winter, I'll have to hold off until the weather gets a bit warmer. Should be just enough time for me to build up the courage... :upside_down_face:
+There are still a few things I'd like to try to get this working but some of them require taking trim pieces off the dash. Since it's still winter, I'll have to hold off until the weather gets a bit warmer. Should be just enough time for me to build up the courage... 🙃

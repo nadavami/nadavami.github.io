@@ -22,7 +22,7 @@ Welcome to my little piece of the internet. This site is ~~my blog/portfolio/scr
 - Silly side projects (usually, but not always hardware based)
 - Random thoughts on software development
 
-but anything goes! Maybe I'll post a recipe one of these days :man_shrugging:
+but anything goes! Maybe I'll post a recipe one of these days ¯\\\_(ツ)\_/¯
 
 ### Saying hi!
 
