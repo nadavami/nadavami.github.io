@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .page,
 .post {
   margin-bottom: 2em;
@@ -10,7 +12,7 @@
 .post-meta {
   display: block;
   margin-bottom: 1.5rem;
-  font-size: 13px;
+  font-size: $font-size-sm;
   color: var(--stage-muted);
   font-variant-numeric: tabular-nums;
 }

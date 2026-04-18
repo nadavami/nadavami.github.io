@@ -1,0 +1,19 @@
+{%- assign sep = " – " -%}
+{%- assign s_formal = include.startDate | date_formal -%}
+{%- if include.startDate != s_formal -%}
+  <span class="resume-date-swap"><span class="resume-period-screen">{{ include.startDate }}</span><span class="resume-period-print">{{ s_formal }}</span></span>
+{%- else -%}
+  {{- include.startDate -}}
+{%- endif -%}
+{%- if include.endDate and include.endDate != include.startDate -%}
+  {{ sep }}
+  {%- assign e_formal = include.endDate | date_formal -%}
+  {%- if include.endDate != e_formal -%}
+    <span class="resume-date-swap"><span class="resume-period-screen">{{ include.endDate }}</span><span class="resume-period-print">{{ e_formal }}</span></span>
+  {%- else -%}
+    {{- include.endDate -}}
+  {%- endif -%}
+{%- endif -%}
+{%- unless include.endDate -%}
+  {{ sep }}Present
+{%- endunless -%}

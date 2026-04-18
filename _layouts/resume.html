@@ -2,7 +2,6 @@
 layout: default
 ---
 
-{%- assign sep = " – " -%}
 <article class="resume">
   <div class="print-title">
     <h1>{{ site.author.name }}</h1>
@@ -18,24 +17,7 @@ layout: default
     <div class="resume-entry-header">
       <strong>{{ job.position }}</strong>
       <span class="resume-entry-period">
-        {%- assign s_formal = job.startDate | date_formal -%}
-        {%- if job.startDate != s_formal -%}
-          <span class="resume-date-swap"><span class="resume-period-screen">{{ job.startDate }}</span><span class="resume-period-print">{{ s_formal }}</span></span>
-        {%- else -%}
-          {{- job.startDate -}}
-        {%- endif -%}
-        {%- if job.endDate and job.endDate != job.startDate -%}
-          {{ sep }}
-          {%- assign e_formal = job.endDate | date_formal -%}
-          {%- if job.endDate != e_formal -%}
-            <span class="resume-date-swap"><span class="resume-period-screen">{{ job.endDate }}</span><span class="resume-period-print">{{ e_formal }}</span></span>
-          {%- else -%}
-            {{- job.endDate -}}
-          {%- endif -%}
-        {%- endif -%}
-        {%- unless job.endDate -%}
-          {{ sep }}Present
-        {%- endunless -%}
+        {%- include resume-date.html startDate=job.startDate endDate=job.endDate -%}
       </span>
     </div>
     <div class="resume-secondary">{% if job.url %}<a href="{{ job.url }}">{{ job.name }}</a>{% else %}{{ job.name }}{% endif %}</div>
@@ -69,24 +51,7 @@ layout: default
     <div class="resume-entry-header">
       <strong>{{ edu.institution }}</strong>
       <span class="resume-entry-period">
-        {%- assign s_formal = edu.startDate | date_formal -%}
-        {%- if edu.startDate != s_formal -%}
-          <span class="resume-date-swap"><span class="resume-period-screen">{{ edu.startDate }}</span><span class="resume-period-print">{{ s_formal }}</span></span>
-        {%- else -%}
-          {{- edu.startDate -}}
-        {%- endif -%}
-        {%- if edu.endDate and edu.endDate != edu.startDate -%}
-          {{ sep }}
-          {%- assign e_formal = edu.endDate | date_formal -%}
-          {%- if edu.endDate != e_formal -%}
-            <span class="resume-date-swap"><span class="resume-period-screen">{{ edu.endDate }}</span><span class="resume-period-print">{{ e_formal }}</span></span>
-          {%- else -%}
-            {{- edu.endDate -}}
-          {%- endif -%}
-        {%- endif -%}
-        {%- unless edu.endDate -%}
-          {{ sep }}Present
-        {%- endunless -%}
+        {%- include resume-date.html startDate=edu.startDate endDate=edu.endDate -%}
       </span>
     </div>
     <div class="resume-secondary">{{ edu.studyType }}</div>

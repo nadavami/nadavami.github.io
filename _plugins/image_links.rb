@@ -9,6 +9,6 @@ Jekyll::Hooks.register [:posts], :post_render do |doc|
 
   doc.output = doc.output.gsub(%r{<p>\s*<img\s([^>]*?)src="([^"]+)"([^>]*?)/?\s*>\s*</p>}i) do
     attrs = "#{Regexp.last_match(1)}src=\"#{Regexp.last_match(2)}\"#{Regexp.last_match(3)}"
-    %(<p><a href="#{Regexp.last_match(2)}" target="_blank" class="post-image"><img #{attrs}></a></p>)
+    %(<p><a href="#{Regexp.last_match(2)}" target="_blank" rel="noopener" class="post-image"><img #{attrs}></a></p>)
   end
 end

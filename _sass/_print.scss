@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @media print {
   @page {
     size: letter;
@@ -16,8 +18,8 @@
   }
 
   body {
-    background: #ffffff;
-    color: #1a140b;
+    background: var(--stage-bg);
+    color: var(--stage-text);
   }
 
   // Hide chrome that doesn't belong on paper
@@ -77,7 +79,7 @@
 
     // Section headings: keep accent color and `#` prefix
     > h1 {
-      font-size: 18px;
+      font-size: $font-size-lg;
       border-bottom-color: var(--stage-accent-soft);
       break-after: avoid;
     }

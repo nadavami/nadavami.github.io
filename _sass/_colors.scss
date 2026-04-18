@@ -9,21 +9,7 @@
   --stage-rule:        #d9ccae;
 }
 
-// Dark mode via OS preference (unless user explicitly chose light)
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --stage-bg:          #13110d;
-    --stage-surface:     #1f1c16;
-    --stage-text:        #d8d0bd;
-    --stage-muted:       #7a7060;
-    --stage-accent:      #9ab0ce;
-    --stage-accent-soft: #2a3349;
-    --stage-rule:        #2a251d;
-  }
-}
-
-// Dark mode via explicit toggle
-[data-theme="dark"] {
+@mixin dark-theme {
   --stage-bg:          #13110d;
   --stage-surface:     #1f1c16;
   --stage-text:        #d8d0bd;
@@ -32,3 +18,11 @@
   --stage-accent-soft: #2a3349;
   --stage-rule:        #2a251d;
 }
+
+// Dark mode via OS preference (unless user explicitly chose light)
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include dark-theme; }
+}
+
+// Dark mode via explicit toggle
+[data-theme="dark"] { @include dark-theme; }

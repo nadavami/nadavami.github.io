@@ -25,7 +25,7 @@
 
   .post-list-date {
     color: var(--stage-muted);
-    font-size: 13px;
+    font-size: $font-size-sm;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
@@ -34,7 +34,7 @@
 
 footer {
   margin-bottom: 2rem;
-  font-size: 12.5px;
+  font-size: $font-size-xs;
   color: var(--stage-muted);
 
   .footer-content {

@@ -1,5 +1,7 @@
+@use 'variables' as *;
+
 .resume-subtitle {
-  font-size: 12.5px;
+  font-size: $font-size-xs;
   color: var(--stage-muted);
   margin-bottom: 0.5rem;
 
@@ -32,7 +34,7 @@
 
 .resume-secondary {
   color: var(--stage-muted);
-  font-size: 12.5px;
+  font-size: $font-size-xs;
 
   a {
     color: inherit;
@@ -57,7 +59,7 @@
 
 .resume-entry-period {
   color: var(--stage-muted);
-  font-size: 12.5px;
+  font-size: $font-size-xs;
   font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
@@ -89,14 +91,14 @@
 .resume-entry-summary {
   margin-top: 0.25rem;
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: $font-size-sm;
 }
 
 .resume-entry-highlights {
   margin-top: 0.25rem;
   margin-bottom: 1rem;
   padding-left: 1.25rem;
-  font-size: 13px;
+  font-size: $font-size-sm;
 
   li {
     margin-bottom: 0.15rem;
@@ -105,7 +107,7 @@
 
 .resume-skill-group {
   margin-bottom: 0.25rem;
-  font-size: 13px;
+  font-size: $font-size-sm;
 }
 
 .resume-link-url {
@@ -117,7 +119,7 @@
 }
 
 .resume-robots {
-  font-size: 12.5px;
+  font-size: $font-size-xs;
   color: var(--stage-muted);
   margin-top: 2rem;
   display: flex;
