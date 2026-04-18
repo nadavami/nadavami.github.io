@@ -2,7 +2,7 @@
 // Token groups mapped to semantic roles
 
 :root {
-  --syn-comment:    #7a7160;
+  --syn-comment:    #756c5b;
   --syn-keyword:    #254674;
   --syn-string:     #8a4030;
   --syn-number:     #7a5020;
@@ -17,7 +17,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --syn-comment:    #7a7060;
+    --syn-comment:    #857b6b;
     --syn-keyword:    #9ab0ce;
     --syn-string:     #c09080;
     --syn-number:     #c0a070;
@@ -32,7 +32,7 @@
 }
 
 [data-theme="dark"] {
-  --syn-comment:    #7a7060;
+  --syn-comment:    #857b6b;
   --syn-keyword:    #9ab0ce;
   --syn-string:     #c09080;
   --syn-number:     #c0a070;
