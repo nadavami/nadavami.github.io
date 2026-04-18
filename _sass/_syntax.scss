@@ -2,48 +2,38 @@
 // Token groups mapped to semantic roles
 
 :root {
-  --syn-comment:    #756c5b;
+  --syn-comment:    #645a42;
   --syn-keyword:    #254674;
-  --syn-string:     #8a4030;
-  --syn-number:     #7a5020;
-  --syn-function:   #5a3080;
-  --syn-name:       #2f5f7f;
-  --syn-attr:       #406070;
-  --syn-operator:   #555;
-  --syn-error:      #a00;
-  --syn-deleted-bg: #f0d0d0;
-  --syn-inserted-bg:#d0f0d0;
+  --syn-string:     #7a3520;
+  --syn-number:     #745013;
+  --syn-function:   #1a4f4b;
+  --syn-name:       #2d4c6e;
+  --syn-attr:       #3e555c;
+  --syn-operator:   #3f382a;
+  --syn-error:      #8a1f10;
+  --syn-deleted-bg: #e8c8b8;
+  --syn-inserted-bg:#d6dcb8;
+}
+
+@mixin syntax-dark {
+  --syn-comment:    #958a78;
+  --syn-keyword:    #9ab0ce;
+  --syn-string:     #d09480;
+  --syn-number:     #d4a870;
+  --syn-function:   #8ec4bc;
+  --syn-name:       #b0c6dc;
+  --syn-attr:       #a0beb4;
+  --syn-operator:   #a69d8e;
+  --syn-error:      #e08270;
+  --syn-deleted-bg: #3a2018;
+  --syn-inserted-bg:#253322;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --syn-comment:    #857b6b;
-    --syn-keyword:    #9ab0ce;
-    --syn-string:     #c09080;
-    --syn-number:     #c0a070;
-    --syn-function:   #b090d0;
-    --syn-name:       #80a0c0;
-    --syn-attr:       #80b0a0;
-    --syn-operator:   #a09888;
-    --syn-error:      #e07060;
-    --syn-deleted-bg: #3c2020;
-    --syn-inserted-bg:#203c20;
-  }
+  :root:not([data-theme="light"]) { @include syntax-dark; }
 }
 
-[data-theme="dark"] {
-  --syn-comment:    #857b6b;
-  --syn-keyword:    #9ab0ce;
-  --syn-string:     #c09080;
-  --syn-number:     #c0a070;
-  --syn-function:   #b090d0;
-  --syn-name:       #80a0c0;
-  --syn-attr:       #80b0a0;
-  --syn-operator:   #a09888;
-  --syn-error:      #e07060;
-  --syn-deleted-bg: #3c2020;
-  --syn-inserted-bg:#203c20;
-}
+[data-theme="dark"] { @include syntax-dark; }
 
 .highlight .hll { background-color: var(--stage-surface); }
 .highlight .c   { color: var(--syn-comment); }
