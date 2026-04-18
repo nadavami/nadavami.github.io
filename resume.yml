@@ -1,0 +1,158 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json
+
+basics:
+  name: "Nadav Ami"
+  label: "Software Engineer"
+  email: "cv@nadav.ca"
+  url: "https://nadav.ca"
+  summary: >
+    Backend engineer with 13+ years of experience building scalable distributed
+    systems across SaaS, healthtech, and telecom. Recent focus on vector search 
+    infrastructure, performance engineering at billion-row scale, and
+    AI-accelerated development. Proven ability to lead complex initiatives
+    end-to-end and drive engineering culture with empathy. Fluent in English and French.
+  location:
+    city: "Montreal"
+    region: "Quebec"
+    countryCode: "CA"
+  profiles:
+    - network: "LinkedIn"
+      username: "nadavami"
+      url: "https://linkedin.com/in/nadavami"
+    - network: "GitHub"
+      username: "nadavami"
+      url: "https://github.com/nadavami"
+
+work:
+  - position: "Senior Backend Software Engineer"
+    name: "OpenPhone/Quo"
+    startDate: "2024-10"
+
+  - position: "Cofounder & CTO"
+    name: "Redeo API"
+    startDate: "2023-04"
+    endDate: "2024-09"
+    highlights:
+      - "Designed and implemented the full stack – frontend, backend, Cerbos-based RBAC with hot-pluggable personas, and FHIR-compliant immutable audit infrastructure – using React, NestJS, and TypeScript, deployed to Azure via Terraform."
+      - "Built a domain-specific language to describe thousands of insurance PDF forms into dynamic web experiences with conditional field visibility and validation."
+      - "Set technical strategy around security, API-first design, and lean CI/CD. Mentored a 5-engineer team and drove code quality improvements that reduced pentest findings by 90%."
+
+  - position: "Senior Software Developer"
+    name: "Crewdle"
+    startDate: "2021-04"
+    endDate: "2022-06"
+    highlights:
+      - "Developed key paid product features including WebRTC based recording and live streaming using Angular, TypeScript, and Electron, driving an increase in premium subscriptions."
+      - "Mentored 3 software developers through in-depth code reviews and pair & mob programming sessions."
+      - "Refactored a large codebase into modular front-end components and backend serverless functions, drastically reducing technical debt and enabling a major UX redesign."
+      - "Reduced mean time to repair from multiple days to under 30 minutes by implementing automated releasing and auto-updating of the desktop application."
+
+  - position: "Senior Technical Architect"
+    name: "Bell Canada, IoT"
+    startDate: "2019-03"
+    endDate: "2021-04"
+    highlights:
+      - "Architected and deployed a hybrid cloud IoT platform that connected on-premise infrastructure with Microsoft Azure, enabling development to be accelerated by cloud services while remaining secure and cost-effective."
+      - "Automated the platform onboarding for new teams using GitLab CI and Terraform, reducing the previously labour intensive multi-day process to a pull request and 15 minute pipeline."
+      - "Built shared microservices and template projects that became department-wide primitives, cutting development costs and cycle time through code and infrastructure reuse."
+      - "Supported 25 developers and architects across multiple teams through architecture/developer forums, code/architecture reviews, increasing engineering productivity and cross-team collaboration."
+
+  - position: "Full-Stack Software Developer"
+    name: "Bell Canada, IoT"
+    startDate: "2017-12"
+    endDate: "2019-03"
+    highlights:
+      - "Cut development costs, time to receive customer feedback and production defects by leading a department-wide shift to test-driven development, CI/CD, and clean code practices."
+      - "Designed and implemented multiple robust microservices and Node.js libraries utilizing TDD and Jest for 100% code coverage, enhancing system modularity and reducing time to market for new IoT products."
+
+  - position: "Full-Stack Software Developer"
+    name: "Bell Canada, Network Tools"
+    startDate: "2016-06"
+    endDate: "2017-12"
+    highlights:
+      - "Developed an anti-spam system using Python and Elasticsearch, reducing unwanted text messages for 9M+ customers. Awarded a platinum merit award for the significant positive impact on customer experience."
+      - "Created an outage visualization platform using Python, JavaScript and MySQL, resulting in increased service availability and executive visibility."
+      - "Deployed and operated multiple systems including GitLab, Artifactory, Docker Swarm, Grafana and RedHat Satellite to virtual machines on OpenStack using Ansible and GitLab CI."
+
+  - position: "Full-Stack Software Developer"
+    name: "Freelance"
+    startDate: "2012"
+    endDate: "2016"
+    highlights:
+      - "Built over 30 websites and applications for clients across various industries, including an inventory system, cryptocurrency payment gateway, and QR-code based photo management tool."
+      - "Delivered projects on-time and within budget for over 25 customers, leading to an 80% repeat rate."
+
+talks:
+  - title: "Visualizing Semantic Search in 3D"
+    description: "Engineering all-hands demo using 3D space to explain vector similarity with live search results"
+    year: "2025"
+  - title: "Transluminal"
+    description: "Hardware & software for a large art installation on permanent display at Dawson College"
+    year: "2020"
+  - title: "Learning by Failing (IoT Camera Hacking)"
+    description: "Lightning talk at the Bell Software Developer Conference in Toronto"
+    year: "2019"
+  - title: "Effective CI/CD for Test Driven Development"
+    description: "Talk on how to successfully implement CI/CD and TDD in a large corporate environment"
+    year: "2018"
+
+education:
+  - studyType: "Computer Engineering coursework"
+    institution: "Concordia University"
+    startDate: "2018"
+    endDate: "2018"
+  - studyType: "DEC, Electronics Engineering Technology"
+    institution: "Dawson College"
+    startDate: "2012"
+    endDate: "2016"
+
+skills:
+  - name: "Languages"
+    keywords:
+      - "TypeScript/JavaScript"
+      - "Python"
+      - "Go"
+      - "Java"
+      - "Shell/Bash"
+  - name: "Frameworks"
+    keywords:
+      - "React"
+      - "Angular"
+      - "NestJS"
+      - "Express"
+      - "Electron"
+      - "Jest/Vitest"
+  - name: "Data & Messaging"
+    keywords:
+      - "PostgreSQL"
+      - "MongoDB"
+      - "Elasticsearch"
+      - "Turbopuffer"
+      - "RabbitMQ"
+      - "Temporal"
+  - name: "Cloud & Infrastructure"
+    keywords:
+      - "Azure"
+      - "GCP"
+      - "AWS"
+      - "Kubernetes"
+      - "Docker"
+      - "Terraform"
+      - "Ansible"
+      - "GitHub Actions"
+      - "GitLab CI"
+  - name: "Practices"
+    keywords:
+      - "Test-Driven Development"
+      - "CI/CD"
+      - "Distributed Systems"
+      - "API Design (REST, GraphQL)"
+      - "Infrastructure as Code"
+      - "Observability"
+  - name: "AI"
+    keywords:
+      - "Claude Code"
+      - "Cursor"
+      - "RAG / Vector Search"
+      - "Embeddings"
+      - "Voyage AI"

@@ -126,7 +126,7 @@
     
     <url>
       <loc>https://nadav.ca/about/</loc>
-      <lastmod>2026-04-17T15:24:31+00:00</lastmod>
+      <lastmod>2026-04-18T00:11:01+00:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.3</priority>
     </url>
@@ -149,6 +149,15 @@
       <lastmod>2026-04-17T15:24:31+00:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.3</priority>
+    </url>
+    
+  
+    
+    <url>
+      <loc>https://nadav.ca/resume/</loc>
+      <lastmod>2026-04-17T23:31:13+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
     </url>
     
   

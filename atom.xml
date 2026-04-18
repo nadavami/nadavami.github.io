@@ -4,7 +4,7 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-17T18:58:42+00:00</updated>
+ <updated>2026-04-18T00:13:59+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
@@ -226,7 +226,7 @@ Device         Start       End   Sectors  Size Type
 &lt;p&gt;Putting both pieces together, I made something that looks like this 👇.&lt;/p&gt;
 
 &lt;p class=&quot;youtube&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9rhg50xrdAg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9rhg50xrdAg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
 &lt;/p&gt;
 
 &lt;p&gt;The demo is short (and buggy!) but there’s quite a lot going on, so I’ll break it down.&lt;/p&gt;
@@ -489,7 +489,7 @@ iPod Protocol   Analog Audio
 The slides are also available for download as &lt;a href=&quot;learning_by_failing_2019.pdf&quot;&gt;pdf&lt;/a&gt; or &lt;a href=&quot;learning_by_failing_2019.pptx&quot;&gt;pptx&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p class=&quot;youtube&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/W4JTpQ8UIdA&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/W4JTpQ8UIdA&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
 &lt;/p&gt;
 </content>
  </entry>

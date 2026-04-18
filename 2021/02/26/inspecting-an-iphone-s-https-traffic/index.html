@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic/">
   <meta property="og:site_name" content="Nadav Ami">
   <meta property="og:type" content="article">
-  <meta  property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:author" content="https://nadav.ca/about/">
   <meta property="article:published_time" content="2021-02-26T02:17:00+00:00">
   <meta property="article:modified_time" content="2026-04-17T13:54:57+00:00">
   <meta property="og:image" content="https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic/mitm.png">
@@ -73,7 +73,7 @@
 
 <p>With the CA trusted, you can open any app and start inspecting it’s traffic. Here’s an example capture of when I opened the Sepaq snow app(which gives Quebec national park snow conditions, I don’t know where this snow theme is coming from…).</p>
 
-<p><a href="mitm.png" target="_blank" class="post-image"><img src="mitm.png" alt="mitmproxy web view"></a></p>
+<p><a href="mitm.png" target="_blank" rel="noopener" class="post-image"><img src="mitm.png" alt="mitmproxy web view"></a></p>
 
 <p>Pretty cool! We can dig around, see the request (with all the headers etc) and the full response.</p>
 
@@ -95,8 +95,10 @@
       <footer>
   <hr>
   <div class="footer-content">
-    <small>Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montréal" target="_blank" rel="noopener">Montréal</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a> ·
-        <a href="/license/">Fine print</a></small>
+    <small>
+        Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montréal" target="_blank" rel="noopener">Montréal</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a> ·
+        <a href="/license/">Fine print</a>
+    </small>
     <small><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
   <span class="theme-toggle-label"></span>
 </button>
