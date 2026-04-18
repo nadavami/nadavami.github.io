@@ -10,7 +10,7 @@ Howdy!
 
 My name is Nadav and I'm a software developer living in Montreal. I'll happily talk your ear off about building software at scale, the organizations that (try to) ship it, and all the messy space in between. Or anything else vaguely technical, really.
 
-I'm currently a Senior Backend Software Engineer at [Quo (formerly OpenPhone)](https://www.quo.com). Previously, I co-founded and CTO'd Redeo API. If you're curious about what I was doing before _that_, have a look at my [LinkedIn](https://linkedin.com/in/{{ site.author.linkedin}}).
+I'm currently a Senior Backend Software Engineer at [Quo (formerly OpenPhone)](https://www.quo.com). Previously, I co-founded and CTO'd Redeo API. If you're curious about what I was doing before _that_, have a look at my [resume]({{site.base_url }}{% link resume.md %}).
 
 In my free time, I'm usually chipping away at a side project (that you might read about here), out camping in the mountains (sometimes working from my car in the middle of nowhere), or losing a weekend to cooking and film photography.
 
