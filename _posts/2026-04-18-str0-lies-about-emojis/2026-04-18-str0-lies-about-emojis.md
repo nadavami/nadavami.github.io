@@ -30,6 +30,8 @@ One day, a user decides to make their display name:
 
 *\*slack bloop\** avatars are broken, pls fix.
 
+So you try spreading instead:
+
 ```js
 const avatar = [...displayName][0]
 ```
@@ -41,12 +43,14 @@ const avatar = [...displayName][0]
 <span class="avatar"></span> <span class="avatar"></span> <span class="avatar"></span> <span class="avatar"></span>
 </div>
 
-Closer, but notice how the flag split into a letter, the thumbs up lost its skin tone, and the family is just a man now? Hold that thought.
+It's better, but notice how the flag split into a letter, the thumbs up lost its skin tone, and the family is just a man now? Hold that thought.
 
 </div>
 </div>
 
 <div data-step="4" style="display:none" markdown="1">
+
+Finally, you reach for `Intl.Segmenter`:
 
 ```js
 const seg = new Intl.Segmenter('en', { granularity: 'grapheme' })

@@ -17,19 +17,26 @@ p:has(> .run-btn:only-child) {
   margin: 0;
 }
 
-.run-btn:hover {
+.run-btn:hover:not(:disabled) {
   opacity: 0.7;
 }
 
 .run-btn:disabled {
   cursor: default;
-  opacity: 0.5;
+  color: var(--stage-muted);
+  border-color: var(--stage-rule);
 }
 
 .run-btn.alert {
   color: var(--stage-alert);
   border-color: var(--stage-alert);
   background: var(--stage-alert-bg);
+}
+
+.run-btn.ok {
+  color: var(--stage-ok);
+  border-color: var(--stage-ok);
+  background: var(--stage-ok-bg);
 }
 
 /* === Avatars === */
