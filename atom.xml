@@ -4,7 +4,7 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-19T03:39:24+00:00</updated>
+ <updated>2026-04-19T14:41:42+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
@@ -41,6 +41,8 @@ One day, a user decides to make their display name:
 
   &lt;p&gt;&lt;em&gt;*slack bloop*&lt;/em&gt; avatars are broken, pls fix.&lt;/p&gt;
 
+  &lt;p&gt;So you try spreading instead:&lt;/p&gt;
+
   &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
 
@@ -51,12 +53,14 @@ One day, a user decides to make their display name:
 &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;
 &lt;/div&gt;
 
-    &lt;p&gt;Closer, but notice how the flag split into a letter, the thumbs up lost its skin tone, and the family is just a man now? Hold that thought.&lt;/p&gt;
+    &lt;p&gt;It’s better, but notice how the flag split into a letter, the thumbs up lost its skin tone, and the family is just a man now? Hold that thought.&lt;/p&gt;
 
   &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div data-step=&quot;4&quot; style=&quot;display:none&quot;&gt;
+
+  &lt;p&gt;Finally, you reach for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intl.Segmenter&lt;/code&gt;:&lt;/p&gt;
 
   &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Intl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Segmenter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;en&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;granularity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;grapheme&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;segment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;segment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;

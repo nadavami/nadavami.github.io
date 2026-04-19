@@ -30,7 +30,7 @@
 
   btn(1).addEventListener('click', () => {
     btn(1).disabled = true;
-    btn(1).textContent = '\u2713';
+    btn(1).textContent = 'ship it';
 
     const av = document.querySelector('.avatar[data-step="1"]');
     av.textContent = 'N';
@@ -58,7 +58,7 @@
 
   btn(3).addEventListener('click', () => {
     btn(3).disabled = true;
-    btn(3).textContent = 'closer...';
+    btn(3).textContent = 'not quite';
 
     const results = document.querySelector('[data-step="3-results"]');
     results.style.display = '';
@@ -76,7 +76,8 @@
 
   btn(4).addEventListener('click', () => {
     btn(4).disabled = true;
-    btn(4).textContent = '\u2713';
+    btn(4).textContent = 'it did!';
+    btn(4).classList.add('ok');
 
     step(4).querySelectorAll('.avatar').forEach((av, i) => {
       av.textContent = graphemeFirst(emoji[i]);
