@@ -38,7 +38,7 @@
   <script>
     function loadGtag(){
       if(loadGtag.d)return;loadGtag.d=1;
-      var s=document.createElement('script');
+      const s=document.createElement('script');
       s.src='https://www.googletagmanager.com/gtag/js?id={{ site.analytics_id }}';
       s.async=true;
       document.head.appendChild(s);
