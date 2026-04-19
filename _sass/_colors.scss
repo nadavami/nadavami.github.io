@@ -7,6 +7,8 @@
   --stage-accent:      #254674;
   --stage-accent-soft: #c7d0e0;
   --stage-rule:        #d9ccae;
+  --stage-alert:       #8a3520;
+  --stage-alert-bg:    #f0ddd5;
 }
 
 @mixin dark-theme {
@@ -17,6 +19,8 @@
   --stage-accent:      #9ab0ce;
   --stage-accent-soft: #2a3349;
   --stage-rule:        #2a251d;
+  --stage-alert:       #d09480;
+  --stage-alert-bg:    #2a1a14;
 }
 
 // Dark mode via OS preference (unless user explicitly chose light)

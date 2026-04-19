@@ -82,6 +82,11 @@ abbr {
   }
 }
 
+.hint[title] {
+  text-decoration: underline dotted var(--stage-muted);
+  text-underline-offset: 2px;
+}
+
 blockquote {
   padding: .5rem 1rem;
   margin: .8rem 0;

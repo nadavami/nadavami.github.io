@@ -1,0 +1,75 @@
+/* === Run buttons === */
+.run-btn {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0.3em 0.8em;
+  border: 1px solid var(--stage-muted);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  margin: 0.75rem 0;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+p:has(> .run-btn:only-child) {
+  margin: 0;
+}
+
+.run-btn:hover {
+  opacity: 0.7;
+}
+
+.run-btn:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.run-btn.alert {
+  color: var(--stage-alert);
+  border-color: var(--stage-alert);
+  background: var(--stage-alert-bg);
+}
+
+/* === Avatars === */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--stage-accent-soft);
+  font-size: 1.2rem;
+  overflow: hidden;
+  vertical-align: middle;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.avatar.visible {
+  opacity: 1;
+}
+
+.avatar.broken {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  color: var(--stage-alert);
+}
+
+.avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.avatar-inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.avatar-inline:has(.visible) {
+  padding: 0.5rem 0;
+}
