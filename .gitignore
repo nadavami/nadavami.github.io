@@ -45,3 +45,7 @@ node_modules
 
 # Worktrees
 .worktrees/
+
+# PDF resume pipeline
+resume-pdf/out/
+resume-pdf/node_modules/

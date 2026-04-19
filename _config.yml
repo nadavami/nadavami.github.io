@@ -5,7 +5,7 @@ analytics_id: G-8KGQRKWX3K
 baseurl: ""
 highlighter: rouge
 permalink: pretty
-exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor']
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor', 'resume-pdf/']
 
 author:
   name: Nadav Ami

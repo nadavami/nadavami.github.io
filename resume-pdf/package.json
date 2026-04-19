@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "resume-pdf",
+  "type": "module",
+  "scripts": {
+    "generate": "node resume-pdf.js",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1"
+  }
+}
