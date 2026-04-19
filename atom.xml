@@ -4,13 +4,91 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-18T15:13:28+00:00</updated>
+ <updated>2026-04-19T03:39:24+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
    <email>hello@nadav.ca</email>
  </author>
 
+ 
+ <entry>
+   <title>str[0] lies about emoji</title>
+   <link href="https://nadav.ca/2026/04/18/str0-lies-about-emojis/"/>
+   <updated>2026-04-18T00:00:00+00:00</updated>
+   <id>https://nadav.ca/2026/04/18/str0-lies-about-emojis</id>
+   <content type="html">&lt;p&gt;Say you built an app and wanted to show a user’s initial in an avatar, to do so you KISS:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;avatar-row&quot;&gt;&lt;code&gt;const displayName = &quot;Nadav&quot;&lt;/code&gt; &lt;span class=&quot;avatar&quot; data-step=&quot;1&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;&lt;button class=&quot;run-btn&quot; data-step=&quot;1&quot;&gt;lgtm&lt;/button&gt;&lt;/p&gt;
+
+&lt;div data-step=&quot;2&quot; style=&quot;display:none&quot;&gt;
+
+One day, a user decides to make their display name:
+
+&lt;div class=&quot;avatar-row&quot;&gt;&lt;code&gt;const displayName = &quot;🇨🇦 Mike&quot;&lt;/code&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;avatar-row&quot;&gt;or &lt;code&gt;const displayName = &quot;👍🏽 Dave&quot;&lt;/code&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;avatar-row&quot;&gt;or &lt;code&gt;const displayName = &quot;👨‍👩‍👧‍👦 The Smiths&quot;&lt;/code&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;avatar-row&quot;&gt;or maybe &lt;code&gt;const displayName = &quot;🤷 idk&quot;&lt;/code&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;button class=&quot;run-btn&quot; data-step=&quot;2&quot;&gt;should work right?&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div data-step=&quot;3&quot; style=&quot;display:none&quot;&gt;
+
+  &lt;p&gt;&lt;em&gt;*slack bloop*&lt;/em&gt; avatars are broken, pls fix.&lt;/p&gt;
+
+  &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+
+  &lt;p&gt;&lt;button class=&quot;run-btn&quot; data-step=&quot;3&quot;&gt;that should fix it&lt;/button&gt;&lt;/p&gt;
+
+  &lt;div data-step=&quot;3-results&quot; style=&quot;display:none&quot;&gt;
+    &lt;div class=&quot;avatar-inline&quot;&gt;
+&lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+    &lt;p&gt;Closer, but notice how the flag split into a letter, the thumbs up lost its skin tone, and the family is just a man now? Hold that thought.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div data-step=&quot;4&quot; style=&quot;display:none&quot;&gt;
+
+  &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Intl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Segmenter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;en&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;granularity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;grapheme&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;segment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;segment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+
+  &lt;p&gt;&lt;button class=&quot;run-btn&quot; data-step=&quot;4&quot;&gt;will that fix it?&lt;/button&gt;&lt;/p&gt;
+
+  &lt;div class=&quot;avatar-inline&quot;&gt;
+&lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt; &lt;span class=&quot;avatar&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;debrief&quot; style=&quot;display:none&quot;&gt;
+
+  &lt;h2 id=&quot;ok-but-why&quot;&gt;ok but why&lt;/h2&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;str[0]&lt;/code&gt; doesn’t give you a character, it gives you a code unit. A chunk of UTF-16, which is how JavaScript stores strings internally. For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;, or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;, one code unit is the whole character and you never notice. But most emoji live outside the Basic Multilingual Plane (&lt;em&gt;they’re like on a different dimension maaaan&lt;/em&gt;) and need two code units to fit (aka surrogate pairs). &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;str[0]&lt;/code&gt; hands you the first one, half an emoji. That’s the garbage in those avatars.&lt;/p&gt;
+
+  &lt;p&gt;Spread helps. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[...str]&lt;/code&gt; splits on codepoints instead of code units. Closer, but emoji like 👨‍👩‍👧‍👦 are actually four emoji joined by zero-width joiners. Spreading rips the family apart (rough I know). Skin tone is a separate modifier codepoint, gone. Flags are actually two regional indicator letters that render as a flag when paired, also gone.&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intl.Segmenter&lt;/code&gt; splits on graphemes, one visual character each, regardless of how many codepoints it takes to make them.&lt;/p&gt;
+
+  &lt;p&gt;That’s it. If a user still sees &lt;span class=&quot;hint&quot; title=&quot;you know those little blank boxes...&quot;&gt;tofu&lt;/span&gt;, their OS is older than the emoji. Tell them to update or eat it (the tofu I mean…).&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;emoji-chaos.css&quot; /&gt;
+
+&lt;script src=&quot;emoji-chaos.js&quot;&gt;&lt;/script&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>When You Forget Your BIOS Password</title>
