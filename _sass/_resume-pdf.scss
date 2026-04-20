@@ -111,13 +111,7 @@ a {
 
   .resume-link-label { display: none; }
   .resume-link-url { display: inline; }
-  .resume-site-url { display: inline !important; }
-  .resume-subtitle a {
-    border-bottom: none;
-    text-decoration: none;
-  }
-
-  // Hide GitHub link on PDF (site links to it)
+  .resume-site-url { display: inline !important; } // overrides display:none in _resume.scss
   .resume-profile-github { display: none; }
 
   .resume-summary {

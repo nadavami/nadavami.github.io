@@ -1,12 +1,43 @@
-@use 'resume-print' as rp;
+@use 'variables' as *;
 
 @media print {
-  @include rp.core;
+  @page {
+    size: letter;
+    margin: 1.8cm;
+  }
+
+  :root {
+    --stage-bg: #ffffff;
+    --stage-surface: #f0f0f0;
+    --stage-text: #1a140b;
+    --stage-muted: #756c5b;
+    --stage-accent: #254674;
+    --stage-accent-soft: #c7d0e0;
+    --stage-rule: #d9ccae;
+  }
+
+  body {
+    background: var(--stage-bg);
+    color: var(--stage-text);
+  }
 
   // Hide chrome that doesn't belong on paper
   .theme-toggle,
   footer {
     display: none;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  a {
+    color: var(--stage-accent);
+    border-bottom: none;
+    text-decoration: underline;
+    text-decoration-color: var(--stage-accent-soft);
+    text-underline-offset: 2px;
   }
 
   // Keep code blocks visible with a light bordered surface
@@ -18,6 +49,47 @@
   body:has(.resume) {
     .masthead,
     .masthead + hr {
+      display: none;
+    }
+  }
+
+  .resume {
+    .print-title {
+      display: block !important;
+
+      h1 {
+        border-bottom: none;
+        margin-top: 0;
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    .resume-link-label { display: none; }
+    .resume-link-url { display: inline; }
+    .resume-subtitle a {
+      border-bottom: none;
+      text-decoration: none;
+    }
+
+    > h1 {
+      font-size: $font-size-lg;
+      border-bottom-color: var(--stage-accent-soft);
+      break-after: avoid;
+    }
+
+    .resume-entry {
+      break-inside: avoid;
+    }
+
+    .resume-period-screen { display: none; }
+    .resume-period-print {
+      display: inline;
+      max-width: none;
+      opacity: 1;
+      overflow: visible;
+    }
+
+    .resume-robots {
       display: none;
     }
   }
