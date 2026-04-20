@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { parseArgs } from "node:util";
+import readline from "node:readline";
 import { chromium } from "playwright";
 
 
@@ -46,6 +47,16 @@ const outPath = opts.out
   : path.join(ROOT, "resume-pdf", "out", `resume-${variantName}-${dateStamp}.pdf`);
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
+
+if (fs.existsSync(outPath)) {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const answer = await new Promise((r) => rl.question(`${outPath} exists. Overwrite? [y/N] `, r));
+  rl.close();
+  if (answer.trim().toLowerCase() !== "y") {
+    console.log("Aborted.");
+    process.exit(0);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Jekyll build

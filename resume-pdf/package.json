@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "generate": "node resume-pdf.js",
+    "clean": "bash clean.sh",
     "postinstall": "playwright install chromium"
   },
   "dependencies": {

@@ -37,6 +37,9 @@ npm run generate -- --data ../variants/company-x.yml
 
 # Custom output path
 npm run generate -- --out ~/Desktop/resume.pdf
+
+# Delete all generated PDFs
+npm run clean
 ```
 
 ### How it works
