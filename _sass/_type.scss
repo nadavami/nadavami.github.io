@@ -17,7 +17,7 @@ main {
 
     &::before {
       content: '# ';
-      color: var(--stage-muted);
+      color: var(--stage-rule);
       speak: never;
     }
   }

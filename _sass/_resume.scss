@@ -99,9 +99,18 @@
   margin-bottom: 1rem;
   padding-left: 1.25rem;
   font-size: $font-size-sm;
+  list-style: none;
 
   li {
     margin-bottom: 0.15rem;
+    position: relative;
+
+    &::before {
+      content: '\2010';
+      color: var(--stage-rule);
+      position: absolute;
+      left: -1rem;
+    }
   }
 }
 
