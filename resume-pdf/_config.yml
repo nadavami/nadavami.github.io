@@ -2,7 +2,7 @@
 # Usage: bundle exec jekyll build --config _config.yml,resume-pdf/_config.yml
 
 include:
-  - resume-pdf/resume-pdf.md
+  - resume-pdf/resume-pdf.html
   - resume-pdf/pdf-styles.scss
 
 resume_data_override: true

@@ -45,6 +45,8 @@ node_modules
 
 # Worktrees
 .worktrees/
+.superpowers/
+docs/superpowers/
 
 # PDF resume pipeline
 resume-pdf/out/

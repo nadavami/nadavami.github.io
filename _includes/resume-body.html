@@ -3,7 +3,7 @@
     <h1>{{ site.author.name }}</h1>
   </div>
 
-  <p class="resume-subtitle">{{ site.data.resume.basics.label }} · <a href="mailto:{{ site.data.resume.basics.email }}">{{ site.data.resume.basics.email }}</a>{%- for profile in site.data.resume.basics.profiles %} · <a href="{{ profile.url }}"><span class="resume-link-label">{{ profile.network }}</span><span class="resume-link-url">{{ profile.url | remove: "https://" }}</span></a>{%- endfor %}</p>
+  <p class="resume-subtitle">{{ site.data.resume.basics.label }}{% if site.data.resume.basics.location %} · {{ site.data.resume.basics.location.city }}, {{ site.data.resume.basics.location.region }}{% endif %} · <a href="mailto:{{ site.data.resume.basics.email }}">{{ site.data.resume.basics.email }}</a>{% if site.data.resume.basics.url %}<span class="resume-site-url"> · <a href="{{ site.data.resume.basics.url }}"><span class="resume-link-label">Website</span><span class="resume-link-url">{{ site.data.resume.basics.url | remove: "https://" }}</span></a></span>{% endif %}{% if site.data.resume.basics.phone %}<span class="resume-phone"> · {{ site.data.resume.basics.phone }}</span>{% endif %}{%- for profile in site.data.resume.basics.profiles %} · <a href="{{ profile.url }}" class="resume-profile-{{ profile.network | downcase }}"><span class="resume-link-label">{{ profile.network }}</span><span class="resume-link-url">{{ profile.url | remove: "https://" }}</span></a>{%- endfor %}</p>
 
   <p class="resume-summary">{{ site.data.resume.basics.summary }}</p>
 
