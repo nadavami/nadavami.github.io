@@ -107,7 +107,7 @@
 
     &::before {
       content: '\2010';
-      color: var(--stage-rule);
+      color: var(--stage-muted);
       position: absolute;
       left: -1rem;
     }
