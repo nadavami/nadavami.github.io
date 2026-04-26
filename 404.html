@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>(function(){const t=localStorage.getItem('nadav-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})()</script>
-  <title>404 Not found - Nadav Ami</title>
+  <title>404 - Nadav Ami</title>
   <meta name="description" content="Nadav Ami's slice of web. Almost anything goes, but it's usually tech related.">
   <link rel="canonical" href="https://nadav.ca/404.html">
-  <meta property="og:title" content="404 Not found">
+  <meta property="og:title" content="404">
   <meta property="og:description" content="Nadav Ami's slice of web. Almost anything goes, but it's usually tech related.">
   <meta property="og:url" content="https://nadav.ca/404.html">
   <meta property="og:site_name" content="Nadav Ami">
@@ -46,15 +46,44 @@
   <a href="/" title="Home">~</a><!--
   --><!--
     --><span class="path-separator">/</span><!--
-    --><span class="path-bracket">[</span><span class="path-leaf">404 Not found</span><span class="path-bracket">]</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf" style="color:var(--stage-alert)">404</span><span class="path-bracket">]</span><!--
   --></nav>
 
       </header>
       <hr>
 
       <main>
-        <div class="page">
-  <p class="lead">Hmm... that page doesn't seem to exist. You could go <a href="/">back home</a> or look through <a href="https://github.com/nadavami/nadavami.github.io/commits" target="_blank" rel="noopener">my commits</a> if you're convinced it existed.</p>
+        <div class="fourohfour">
+  <pre class="fourohfour-art">$ cat <span class="accent">/var/www/nadav.ca</span><span class="alert" data-fourohfour-path>/this-page</span>
+cat:<span class="alert" data-fourohfour-path> this-page</span>: No such file or directory
+$ <span class="accent">_</span></pre>
+  <script>
+    document.querySelectorAll('[data-fourohfour-path]').forEach(el => {
+      el.textContent = el.textContent.replace(/\/?this-page/, location.pathname);
+    });
+  </script>
+
+  <h1 class="no-hash fourohfour-heading">Hmm, that link is dead.</h1>
+
+  <p>Either I broke something, or you typed a URL that never existed.</p>
+
+  <p>You can try one of these instead:</p>
+
+  <ul>
+    <li>
+<a href="/">~/</a> — back to the home page</li>
+    <li>
+<a href="/#writing">~/posts</a> — everything I've written</li>
+    <li>
+<a href="/about/">~/about</a> — who I am</li>
+  </ul>
+
+  <p>Or hit <span class="kbd">⌘</span> <span class="kbd">←</span> and pretend this didn't happen.</p>
+
+  <div class="callout callout--alert">
+    <span class="callout-label">if you're convinced this page existed</span>
+    <p>Have a look through <a href="https://github.com/nadavami/nadavami.github.io/commits/main" target="_blank" rel="noopener noopener">my commits</a>, it might still be in there somewhere (I don't rewrite history too often...). Otherwise, <a href="mailto:hello@nadav.ca">let me know</a> what you were looking for and I'll try to find it.</p>
+  </div>
 </div>
 
       </main>
@@ -102,5 +131,6 @@
 </footer>
 
     </div>
+    <script src="/assets/js/cycler.js" defer></script>
   </body>
 </html>
