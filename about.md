@@ -23,3 +23,5 @@ This site is ~~my blog/portfolio/scratchpad~~ a work in progress. I like to writ
 but anything goes! Maybe I'll post a recipe one of these days ¯\\\_(ツ)\_/¯
 
 If you want to say hi (or work together), you can reach me at [hello@nadav.ca](mailto:hello@nadav.ca). I'm always happy to hear thoughts about the things I've written (or the mistakes I've made). N'hésitez pas non plus à dire bonjour en français!
+
+If you want a snapshot of what I'm up to right now, my [/now]({% link now.md %}) page has the latest.

@@ -9,6 +9,7 @@
       if (!words.length || !wordEl || !textEl) continue;
 
       // Reserve the full slot width so the highlight field stays put.
+      // +1.2ch accounts for the caret width (0.55ch) + padding (0.3em) + buffer.
       const longest = words.reduce((a, b) => b.length > a.length ? b : a, '');
       textEl.style.minWidth = `${longest.length + 1.2}ch`;
 

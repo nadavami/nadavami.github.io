@@ -1,0 +1,28 @@
+snapshots:
+  - date: "2026-04-25"
+    items:
+      - cat: work
+        name: Senior Backend at Quo
+      - cat: tinker
+        name: This site
+        detail: rewriting layouts, slowly evolving
+      - cat: read
+        name: Paddle Your Own Canoe
+        detail: by Nick Offerman
+      - cat: read
+        name: The Wool trilogy
+        detail: by Hugh Howey
+      - cat: read
+        name: Sycophantic Chatbots Cause Delusional Spiraling
+        detail: 50% concerning, 100% above my paygrade
+        url: https://doi.org/10.48550/arXiv.2602.19141
+      - cat: tinker
+        name: Brake pads & rotors
+        detail: parts ordered, waiting on a free saturday
+
+  - date: "2024-10-01"
+    items:
+      - cat: work
+        name: Senior Backend at Quo
+      - cat: life
+        name: Move back to Montreal

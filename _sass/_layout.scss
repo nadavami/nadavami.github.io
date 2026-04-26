@@ -99,19 +99,10 @@
   width: 0.55ch;
   margin-left: 0.05em;
   color: var(--stage-warn);
-  animation: cycler-blink 1s steps(1, end) infinite;
+  animation: caret-blink 1s steps(1, end) infinite;
   transform: translateY(-0.05em);
   font-size: 0.95em;
   line-height: 1;
-}
-
-@keyframes cycler-blink {
-  0%, 50%   { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cycler-caret { animation: none; opacity: 0.6; }
 }
 
 // 404
@@ -135,6 +126,10 @@
 
   .accent { color: var(--stage-accent); }
   .alert  { color: var(--stage-alert); }
+}
+
+.fourohfour-prompt {
+  user-select: none;
 }
 
 footer {

@@ -123,6 +123,38 @@ main .no-hash::before { content: none; }
   font-weight: 300;
 }
 
+// Terminal prompt — reusable $ prefix, non-selectable
+.terminal-prompt {
+  color: var(--stage-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: pre-wrap;
+
+  &::before {
+    content: '$ ';
+    user-select: none;
+  }
+}
+
+.terminal-cmd { color: var(--stage-text); }
+.terminal-arg { color: var(--stage-warn); }
+
+// Shared blinking caret
+@keyframes caret-blink {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+%caret-base {
+  display: inline-block;
+  animation: caret-blink 1s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  %caret-base { animation: none; opacity: 0.6; }
+  // Explicit selectors needed since placeholders don't emit in media queries
+  .cycler-caret, .now-caret { animation: none; opacity: 0.6; }
+}
+
 .kbd {
   display: inline-block;
   padding: 0 5px;

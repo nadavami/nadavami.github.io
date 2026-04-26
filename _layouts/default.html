@@ -17,6 +17,11 @@
 
       {% include footer.html %}
     </div>
+    {%- if page.title == 'Home' %}
     <script src="/assets/js/cycler.js" defer></script>
+    {%- endif %}
+    {%- if page.title == 'Now' %}
+    <script src="/assets/js/now.js" defer></script>
+    {%- endif %}
   </body>
 </html>
