@@ -3,6 +3,7 @@ layout: post
 title: "str[0] lies about emoji"
 description: "An interactive post about JavaScript, Unicode, and the three ways to get the first character of a string."
 date: 2026-04-18
+interactive: true
 ---
 
 Say you built an app and wanted to show a user's initial in an avatar, to do so you KISS:

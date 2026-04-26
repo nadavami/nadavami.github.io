@@ -11,6 +11,10 @@
   --stage-alert-bg:    #f0ddd5;
   --stage-ok:          #3a5a2a;
   --stage-ok-bg:       #dde8d5;
+  --stage-warn:        #8e590d;
+  --stage-warn-bg:     #f0e2c5;
+  --stage-magenta:     #8b3a6a;
+  --stage-magenta-bg:  #efd9e4;
 }
 
 @mixin dark-theme {
@@ -25,6 +29,10 @@
   --stage-alert-bg:    #2a1a14;
   --stage-ok:          #8ab07a;
   --stage-ok-bg:       #1a2414;
+  --stage-warn:        #d6a35a;
+  --stage-warn-bg:     #2a2114;
+  --stage-magenta:     #cf8dad;
+  --stage-magenta-bg:  #2a1a23;
 }
 
 // Dark mode via OS preference (unless user explicitly chose light)

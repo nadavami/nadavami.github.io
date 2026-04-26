@@ -30,6 +30,88 @@
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
   }
+
+  // Year separator
+  .post-list-year {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--stage-warn);
+    font-size: $font-size-sm;
+  }
+
+  .post-list-year-num {
+    font-weight: 700;
+    color: var(--stage-warn);
+    letter-spacing: 0.05em;
+    font-size: $font-size-md;
+  }
+
+  .post-list-year-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--stage-warn);
+    opacity: 0.35;
+  }
+
+  .post-list-year-count {
+    color: var(--stage-warn);
+    opacity: 0.75;
+  }
+
+  // Interactive-post indicator
+  .post-mark {
+    display: inline;
+    font-size: 11px;
+    color: var(--stage-magenta);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    vertical-align: 0.1em;
+    margin-left: 0.15em;
+
+    &::before { content: '['; opacity: 0.55; }
+    &::after  { content: ']'; opacity: 0.55; }
+  }
+
+  a:hover .post-mark { color: var(--stage-accent); }
+}
+
+// Self-typing cycler
+.cycler {
+  display: inline;
+  color: var(--stage-warn);
+  font-weight: 500;
+}
+
+.cycler-text {
+  display: inline-block;
+  background: color-mix(in oklch, var(--stage-warn) 8%, transparent);
+  padding: 0 0.15em;
+  border-radius: 2px;
+  text-align: left;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.cycler-caret {
+  display: inline-block;
+  width: 0.55ch;
+  margin-left: 0.05em;
+  color: var(--stage-warn);
+  animation: cycler-blink 1s steps(1, end) infinite;
+  transform: translateY(-0.05em);
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+@keyframes cycler-blink {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cycler-caret { animation: none; opacity: 0.6; }
 }
 
 footer {

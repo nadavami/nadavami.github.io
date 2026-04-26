@@ -1,0 +1,3 @@
+{%- if include.words -%}
+<span class="cycler" data-cycle='{{ include.words | jsonify }}'><span class="cycler-text"><span class="cycler-word">{{ include.words | first }}</span><span class="cycler-caret" aria-hidden="true">&#9608;</span></span></span>
+{%- endif -%}
