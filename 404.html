@@ -54,9 +54,9 @@
 
       <main>
         <div class="fourohfour">
-  <pre class="fourohfour-art">$ cat <span class="accent">/var/www/nadav.ca</span><span class="alert" data-fourohfour-path>/this-page</span>
+  <pre class="fourohfour-art"><span class="fourohfour-prompt">$ </span>cat <span class="accent">/var/www/nadav.ca</span><span class="alert" data-fourohfour-path>/this-page</span>
 cat:<span class="alert" data-fourohfour-path> this-page</span>: No such file or directory
-$ <span class="accent">_</span></pre>
+<span class="fourohfour-prompt">$ </span><span class="accent">_</span></pre>
   <script>
     document.querySelectorAll('[data-fourohfour-path]').forEach(el => {
       el.textContent = el.textContent.replace(/\/?this-page/, location.pathname);
@@ -70,12 +70,10 @@ $ <span class="accent">_</span></pre>
   <p>You can try one of these instead:</p>
 
   <ul>
-    <li>
-<a href="/">~/</a> — back to the home page</li>
-    <li>
-<a href="/#writing">~/posts</a> — everything I've written</li>
-    <li>
-<a href="/about/">~/about</a> — who I am</li>
+    <li><a href="/">~/</a></li>
+    <li><a href="/#writing">~/posts</a></li>
+    <li><a href="/about/">~/about</a></li>
+    <li><a href="/now/">~/now</a></li>
   </ul>
 
   <p>Or hit <span class="kbd">⌘</span> <span class="kbd">←</span> and pretend this didn't happen.</p>
@@ -131,6 +129,5 @@ $ <span class="accent">_</span></pre>
 </footer>
 
     </div>
-    <script src="/assets/js/cycler.js" defer></script>
   </body>
 </html>
