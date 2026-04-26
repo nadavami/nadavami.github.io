@@ -1,0 +1,46 @@
+@use 'variables' as *;
+
+.callout {
+  border-left: 3px solid var(--stage-rule);
+  background: var(--stage-surface);
+  padding: 0.85rem 1rem;
+  margin: 1.2rem 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.95em;
+
+  p:last-child { margin-bottom: 0; }
+}
+
+.callout-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--stage-muted);
+}
+
+.callout--note {
+  border-color: var(--stage-accent);
+  background: var(--stage-accent-soft);
+  .callout-label { color: var(--stage-accent); }
+}
+
+.callout--warn {
+  border-color: var(--stage-warn);
+  background: var(--stage-warn-bg);
+  .callout-label { color: var(--stage-warn); }
+}
+
+.callout--alert {
+  border-color: var(--stage-alert);
+  background: var(--stage-alert-bg);
+  .callout-label { color: var(--stage-alert); }
+}
+
+.callout--ok {
+  border-color: var(--stage-ok);
+  background: var(--stage-ok-bg);
+  .callout-label { color: var(--stage-ok); }
+}

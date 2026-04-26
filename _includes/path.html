@@ -13,6 +13,9 @@
   -->{%- elsif page.title == 'Home' -%}<!--
     --><span class="path-separator">/</span><!--
     --><span class="path-bracket">[</span><span class="path-leaf">{{ site.author.name }}</span><span class="path-bracket">]</span><!--
+  -->{%- elsif page.permalink == '404.html' -%}<!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf" style="color:var(--stage-alert)">404</span><span class="path-bracket">]</span><!--
   -->{%- else -%}<!--
     --><span class="path-separator">/</span><!--
     --><span class="path-bracket">[</span><span class="path-leaf">{{ page.title }}</span><span class="path-bracket">]</span><!--

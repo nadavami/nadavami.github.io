@@ -115,9 +115,24 @@ a[href^="#fnref:"] {
   font-size: 85%;
 }
 
+// Opt-out: headings without the # prefix
+main .no-hash::before { content: none; }
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0 5px;
+  font-size: 0.85em;
+  border: 1px solid var(--stage-rule);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  background: var(--stage-surface);
+  color: var(--stage-text);
+  vertical-align: 0.05em;
 }
 
 .emoji {

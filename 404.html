@@ -1,9 +1,35 @@
 ---
 layout: default
-title: "404 Not found"
+title: "404"
 permalink: 404.html
 ---
 
-<div class="page">
-  <p class="lead">Hmm... that page doesn't seem to exist. You could go <a href="/">back home</a> or look through <a href="https://github.com/{{ site.author.github }}/{{ site.author.github }}.github.io/commits">my commits</a> if you're convinced it existed.</p>
+<div class="fourohfour">
+  <pre class="fourohfour-art">$ cat <span class="accent">/var/www/nadav.ca</span><span class="alert" data-fourohfour-path>/this-page</span>
+cat:<span class="alert" data-fourohfour-path> this-page</span>: No such file or directory
+$ <span class="accent">_</span></pre>
+  <script>
+    document.querySelectorAll('[data-fourohfour-path]').forEach(el => {
+      el.textContent = el.textContent.replace(/\/?this-page/, location.pathname);
+    });
+  </script>
+
+  <h1 class="no-hash fourohfour-heading">Hmm, that link is dead.</h1>
+
+  <p>Either I broke something, or you typed a URL that never existed.</p>
+
+  <p>You can try one of these instead:</p>
+
+  <ul>
+    <li><a href="/">~/</a> &mdash; back to the home page</li>
+    <li><a href="/#writing">~/posts</a> &mdash; everything I've written</li>
+    <li><a href="/about/">~/about</a> &mdash; who I am</li>
+  </ul>
+
+  <p>Or hit <span class="kbd">&#8984;</span> <span class="kbd">&#8592;</span> and pretend this didn't happen.</p>
+
+  <div class="callout callout--alert">
+    <span class="callout-label">if you're convinced this page existed</span>
+    <p>Have a look through <a href="https://github.com/{{ site.author.github }}/{{ site.author.github }}.github.io/commits/main" target="_blank" rel="noopener">my commits</a>, it might still be in there somewhere (I don't rewrite history too often...). Otherwise, <a href="mailto:{{ site.author.email }}">let me know</a> what you were looking for and I'll try to find it.</p>
+  </div>
 </div>

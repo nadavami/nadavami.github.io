@@ -114,6 +114,29 @@
   .cycler-caret { animation: none; opacity: 0.6; }
 }
 
+// 404
+.fourohfour {
+  padding: 2.5rem 0 3rem;
+}
+
+.fourohfour-heading {
+  font-size: $font-size-xl;
+  color: var(--stage-text);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.fourohfour-art {
+  font-size: $font-size-sm;
+  line-height: 1.4;
+  color: var(--stage-muted);
+  white-space: pre;
+  margin: 0 0 1.25rem;
+  letter-spacing: 0;
+
+  .accent { color: var(--stage-accent); }
+  .alert  { color: var(--stage-alert); }
+}
+
 footer {
   margin-bottom: 2rem;
   font-size: $font-size-xs;
