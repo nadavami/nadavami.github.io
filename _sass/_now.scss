@@ -138,7 +138,7 @@
 
   &.add { color: var(--stage-ok); }
   &.chg { color: var(--stage-warn); }
-  &.rem { color: var(--stage-magenta); }
+  &.rem { color: var(--stage-alert); }
 }
 
 // Category column
@@ -152,7 +152,7 @@
 
   &.add { color: var(--stage-ok); }
   &.chg { color: var(--stage-warn); }
-  &.rem { color: var(--stage-magenta); }
+  &.rem { color: var(--stage-alert); }
 }
 
 // Item cell
@@ -204,7 +204,7 @@
 
   .add { color: var(--stage-ok); }
   .chg { color: var(--stage-warn); }
-  .rem { color: var(--stage-magenta); &::after { content: none; } }
+  .rem { color: var(--stage-alert); &::after { content: none; } }
 }
 
 .now-legend-sep {
