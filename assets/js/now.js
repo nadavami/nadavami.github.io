@@ -22,7 +22,7 @@
     if (prompt) {
       const date = snap.dataset.date;
       const prevDate = snap.dataset.prevDate;
-      prompt.textContent = prevDate ? `--diff=${prevDate}..${date}` : `--at=${date}`;
+      prompt.textContent = prevDate ? `${prevDate}..${date}` : date;
     }
 
     const label = isNow ? 'Now' : 'Then';
