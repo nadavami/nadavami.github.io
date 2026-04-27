@@ -11,8 +11,9 @@ cycler:
   - weekend tinkerer
 ---
 
-Hi there! I'm Nadav, a {% include cycler.html words=page.cycler %}.\\
+Hi there! \\
 Welcome to my little slice of web.
+I'm Nadav, a {% include cycler.html words=page.cycler %}.
 
 Below you'll find a list of everything I've written. If you want to get to know the person behind these ramblings (or just want to say hi), the [about page]({{ site.base_url }}{% link about.md %}) is your best bet. You can also peek at [what I'm up to right now]({{ site.base_url }}{% link now.md %}), read [my resume]({{ site.base_url }}{% link resume.md %}), find me on [GitHub](https://github.com/{{ site.author.github }}), or subscribe via [RSS]({{ site.base_url }}{% link atom.xml %}) if that's your thing.
 
