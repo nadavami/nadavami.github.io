@@ -13,9 +13,9 @@ title: Now
   {%- if snap_count > 1 -%}
     {%- assign prev_prompt_idx = current_idx | minus: 1 -%}
     {%- assign prev_for_prompt = snapshots[prev_prompt_idx] -%}
-  <p class="terminal-prompt now-prompt"><span class="terminal-cmd">now</span> <span class="terminal-arg" data-now-prompt>--diff={{ prev_for_prompt.date }}..{{ current.date }}</span><span class="now-caret" aria-hidden="true"></span></p>
+  <p class="terminal-prompt now-prompt"><span class="terminal-cmd">now --diff=</span><span class="terminal-arg" data-now-prompt>{{ prev_for_prompt.date }}..{{ current.date }}</span><span class="now-caret" aria-hidden="true"></span></p>
   {%- else -%}
-  <p class="terminal-prompt now-prompt"><span class="terminal-cmd">now</span> <span class="terminal-arg" data-now-prompt>--at={{ current.date }}</span><span class="now-caret" aria-hidden="true"></span></p>
+  <p class="terminal-prompt now-prompt"><span class="terminal-cmd">now --at=</span><span class="terminal-arg" data-now-prompt>{{ current.date }}</span><span class="now-caret" aria-hidden="true"></span></p>
   {%- endif -%}
 
   {%- if snap_count > 1 -%}

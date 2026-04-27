@@ -35,15 +35,16 @@
 
 .now-tl {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   flex: 1;
   min-width: 0;
 
+  // Line runs through the vertical center of the dots (9px tall, so 4.5px)
   &::before {
     content: '';
     position: absolute;
-    top: 7px;
+    top: 4px;
     left: 0;
     right: 0;
     height: 1px;
@@ -58,7 +59,7 @@
   min-width: 0;
   background: transparent;
   border: 0;
-  padding: 0 0 4px;
+  padding: 0;
   cursor: pointer;
   color: var(--stage-muted);
   font-family: var(--font-family);
