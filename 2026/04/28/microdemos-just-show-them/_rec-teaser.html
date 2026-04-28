@@ -1,0 +1,136 @@
+<div class="rec-teaser">
+<style>
+.rec-teaser {
+  border: 1px solid var(--stage-rule);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--stage-surface);
+}
+
+.rec-teaser-sliders {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rec-teaser-slider {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rec-teaser-slider label {
+  font-size: 12.5px;
+  color: var(--stage-muted);
+}
+
+.rec-teaser-slider input[type="range"] {
+  width: 100%;
+  accent-color: var(--stage-accent);
+  cursor: pointer;
+}
+
+.rec-teaser-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rec-teaser-table th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--stage-muted);
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid var(--stage-rule);
+}
+
+.rec-teaser-table th.num {
+  text-align: right;
+}
+
+.rec-teaser-table td {
+  padding: 0.25rem 0.4rem;
+}
+
+.rec-teaser-table td.num {
+  text-align: right;
+  color: var(--stage-muted);
+  font-size: 12.5px;
+}
+
+.rec-teaser-table td.rank {
+  color: var(--stage-muted);
+  font-size: 12.5px;
+  width: 2ch;
+}
+</style>
+
+<div class="rec-teaser-sliders">
+  <div class="rec-teaser-slider">
+    <label>distance <span id="rec-dist-val">50</span>%</label>
+    <input type="range" id="rec-dist" min="0" max="100" value="50">
+  </div>
+  <div class="rec-teaser-slider">
+    <label>rating <span id="rec-rate-val">50</span>%</label>
+    <input type="range" id="rec-rate" min="0" max="100" value="50">
+  </div>
+</div>
+<table class="rec-teaser-table">
+  <thead>
+    <tr><th>#</th><th>name</th><th class="num">dist</th><th class="num">rating</th></tr>
+  </thead>
+  <tbody id="rec-list"></tbody>
+</table>
+
+<script>
+(() => {
+  const MAX_DIST = 8.5;
+  const MAX_RATING = 5;
+
+  const restaurants = [
+    { name: 'Corner Deli',     rating: 3.2, dist: 0.2 },
+    { name: 'Taco Loco',       rating: 4.1, dist: 0.4 },
+    { name: 'Sakura House',    rating: 4.6, dist: 1.2 },
+    { name: 'Napoli Pizza',    rating: 4.5, dist: 3.1 },
+    { name: 'Le Petit Bistro', rating: 4.8, dist: 8.5 },
+  ];
+
+  const list = document.getElementById('rec-list');
+  const distSlider = document.getElementById('rec-dist');
+  const rateSlider = document.getElementById('rec-rate');
+  const distVal = document.getElementById('rec-dist-val');
+  const rateVal = document.getElementById('rec-rate-val');
+
+  const rank = () => {
+    const dw = distSlider.value / 100;
+    const rw = rateSlider.value / 100;
+    distVal.textContent = distSlider.value;
+    rateVal.textContent = rateSlider.value;
+
+    const scored = restaurants
+      .map(r => ({
+        r,
+        score: dw * (1 - r.dist / MAX_DIST) + rw * (r.rating / MAX_RATING),
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    list.innerHTML = scored
+      .map((s, i) =>
+        `<tr>
+          <td class="rank">${i + 1}</td>
+          <td>${s.r.name}</td>
+          <td class="num">${s.r.dist} km</td>
+          <td class="num">${s.r.rating}\u2605</td>
+        </tr>`)
+      .join('');
+  };
+
+  rank();
+  distSlider.addEventListener('input', rank);
+  rateSlider.addEventListener('input', rank);
+})();
+</script>
+</div>

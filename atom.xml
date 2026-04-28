@@ -4,13 +4,258 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-27T01:47:51+00:00</updated>
+ <updated>2026-04-28T04:47:15+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
    <email>hello@nadav.ca</email>
  </author>
 
+ 
+ <entry>
+   <title>Microdemos: Just 🤬 Show Them</title>
+   <link href="https://nadav.ca/2026/04/28/microdemos-just-show-them/"/>
+   <updated>2026-04-28T00:00:00+00:00</updated>
+   <id>https://nadav.ca/2026/04/28/microdemos-just-show-them</id>
+   <content type="html">&lt;div class=&quot;callout callout--note&quot;&gt;
+
+  &lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;&lt;br /&gt;
+Skip the doc and use agentic coding to build a &lt;a href=&quot;#microdemo-def&quot;&gt;microdemo&lt;/a&gt;. Building it forces you to scope the problem and understand it well. Then, put it in front of product and iterate live.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Want to skip ahead and see one?&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&quot;#example-1-recommendation-scoring&quot;&gt;example 1 ↓&lt;/a&gt; · &lt;a href=&quot;#example-2-harping-on-it&quot;&gt;example 2 ↓&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;I keep running into the same problem. I’m building something where good results are subjective. Search results, recommended movies, restaurants sorted by “relevance.” It usually boils down to engineers crossing our fingers, combining a bunch of competing signals and making a judgment call about what needs to get built. It often goes something like:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Product wants something ambiguous built.&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;Engineer writes a doc.&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;Product reads it. Everyone aligns.&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;It gets built.&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;“That’s not what we expected.”&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;“You weren’t clear enough about what you wanted.”&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;and the blame gets passed back and forth while the feature still isn’t what customers want&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nobody was really &lt;em&gt;wrong&lt;/em&gt;, but who can actually make useful sense of&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;“better recommendations”&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;well if distance weight is 3 and rating weight is 0.5…&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;User acceptance testing and feature-flagged experiments help validate ideas, but I’d argue they’re still too slow for ambiguous requirements. They force us to build a full thing and then see.&lt;/p&gt;
+
+&lt;p&gt;What if we could get on the same page &lt;em&gt;before&lt;/em&gt; we build or loop a customer in?&lt;/p&gt;
+
+&lt;p&gt;Enter microdemos.&lt;/p&gt;
+
+&lt;div class=&quot;callout callout--note&quot; id=&quot;microdemo-def&quot;&gt;
+
+  &lt;p&gt;&lt;strong&gt;microdemo&lt;/strong&gt; /ˈmī-krō-ˌde-mō/&lt;br /&gt;
+&lt;em&gt;n.&lt;/em&gt; A tightly-scoped, throwaway, interactive demo that exposes implicit assumptions about ambiguous problems.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;example-1-recommendation-scoring&quot;&gt;example 1: recommendation scoring&lt;/h3&gt;
+
+&lt;p&gt;Product wants a restaurant recommendation feature. It’s currently sorted by rating, but users say results don’t feel relevant.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Prompt:&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Look at the restaurant model in the codebase and build me a one-page interactive spike doc for our “recommended for you” ranking. There’s no user input, this is system-generated. Frame it as a problem statement with an interactive demo. Generate synthetic data that matches the schema. Signals: distance, rating, review count, recency. Sliders for each weight so product can tune them. Include open questions and out of scope from the attached requirements doc. The output should be a single HTML file with no external data calls.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The microdemo is ready in minutes and you can talk about &lt;em&gt;what the customer sees&lt;/em&gt; in concrete terms.&lt;/p&gt;
+
+&lt;p&gt;Here’s a quick version, drag the sliders:&lt;/p&gt;
+
+&lt;div class=&quot;rec-teaser&quot;&gt;
+&lt;style&gt;
+.rec-teaser {
+  border: 1px solid var(--stage-rule);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--stage-surface);
+}
+
+.rec-teaser-sliders {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rec-teaser-slider {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rec-teaser-slider label {
+  font-size: 12.5px;
+  color: var(--stage-muted);
+}
+
+.rec-teaser-slider input[type=&quot;range&quot;] {
+  width: 100%;
+  accent-color: var(--stage-accent);
+  cursor: pointer;
+}
+
+.rec-teaser-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rec-teaser-table th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--stage-muted);
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid var(--stage-rule);
+}
+
+.rec-teaser-table th.num {
+  text-align: right;
+}
+
+.rec-teaser-table td {
+  padding: 0.25rem 0.4rem;
+}
+
+.rec-teaser-table td.num {
+  text-align: right;
+  color: var(--stage-muted);
+  font-size: 12.5px;
+}
+
+.rec-teaser-table td.rank {
+  color: var(--stage-muted);
+  font-size: 12.5px;
+  width: 2ch;
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;rec-teaser-sliders&quot;&gt;
+  &lt;div class=&quot;rec-teaser-slider&quot;&gt;
+    &lt;label&gt;distance &lt;span id=&quot;rec-dist-val&quot;&gt;50&lt;/span&gt;%&lt;/label&gt;
+    &lt;input type=&quot;range&quot; id=&quot;rec-dist&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;50&quot; /&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;rec-teaser-slider&quot;&gt;
+    &lt;label&gt;rating &lt;span id=&quot;rec-rate-val&quot;&gt;50&lt;/span&gt;%&lt;/label&gt;
+    &lt;input type=&quot;range&quot; id=&quot;rec-rate&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;50&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;table class=&quot;rec-teaser-table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;dist&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;rating&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody id=&quot;rec-list&quot;&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const MAX_DIST = 8.5;
+  const MAX_RATING = 5;
+
+  const restaurants = [
+    { name: &apos;Corner Deli&apos;,     rating: 3.2, dist: 0.2 },
+    { name: &apos;Taco Loco&apos;,       rating: 4.1, dist: 0.4 },
+    { name: &apos;Sakura House&apos;,    rating: 4.6, dist: 1.2 },
+    { name: &apos;Napoli Pizza&apos;,    rating: 4.5, dist: 3.1 },
+    { name: &apos;Le Petit Bistro&apos;, rating: 4.8, dist: 8.5 },
+  ];
+
+  const list = document.getElementById(&apos;rec-list&apos;);
+  const distSlider = document.getElementById(&apos;rec-dist&apos;);
+  const rateSlider = document.getElementById(&apos;rec-rate&apos;);
+  const distVal = document.getElementById(&apos;rec-dist-val&apos;);
+  const rateVal = document.getElementById(&apos;rec-rate-val&apos;);
+
+  const rank = () =&gt; {
+    const dw = distSlider.value / 100;
+    const rw = rateSlider.value / 100;
+    distVal.textContent = distSlider.value;
+    rateVal.textContent = rateSlider.value;
+
+    const scored = restaurants
+      .map(r =&gt; ({
+        r,
+        score: dw * (1 - r.dist / MAX_DIST) + rw * (r.rating / MAX_RATING),
+      }))
+      .sort((a, b) =&gt; b.score - a.score);
+
+    list.innerHTML = scored
+      .map((s, i) =&gt;
+        `&lt;tr&gt;
+          &lt;td class=&quot;rank&quot;&gt;${i + 1}&lt;/td&gt;
+          &lt;td&gt;${s.r.name}&lt;/td&gt;
+          &lt;td class=&quot;num&quot;&gt;${s.r.dist} km&lt;/td&gt;
+          &lt;td class=&quot;num&quot;&gt;${s.r.rating}\u2605&lt;/td&gt;
+        &lt;/tr&gt;`)
+      .join(&apos;&apos;);
+  };
+
+  rank();
+  distSlider.addEventListener(&apos;input&apos;, rank);
+  rateSlider.addEventListener(&apos;input&apos;, rank);
+})();
+&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s &lt;a href=&quot;microdemos/rec-ranking.html&quot; target=&quot;_blank&quot;&gt;the full version&lt;/a&gt; that is way more demoable, you can have an actual conversation around this.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-point&quot;&gt;the point&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;You get to a useful conversation faster.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Your repo is 90% of the prompt.&lt;/strong&gt; A short prompt generates outsized results because the tool already has your context. I didn’t need to pull a frontend repo or stuff the context window with code I don’t normally work in.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Nobody thinks it’s done before it is.&lt;/strong&gt; The full recommendation demo has rough edges. The layout shifts, the open questions section sits a little off. Nobody in a product meeting gets hung up on that in a throwaway spike. Contrast that with the actual product UI, where every misaligned pixel detracts from the conversation and a polished prototype accidentally communicates “we can just ship this, right?”&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;It accelerates the conversation.&lt;/strong&gt; Build it before the meeting and bake in the controls you think people will want, or do it live and figure it out together. First prompt doesn’t get it? Scrap it and try again. Someone asks “what about recency?” Add the slider then and there, it only takes five minutes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;One page keeps it honest.&lt;/strong&gt; There’s only so much you can fit in a prompt, which forces you to (de)scope aggressively, that’s a feature. Like making a cheat sheet for an exam, building the demo teaches you the material. You can’t ask for sliders for signals you haven’t identified.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-2-harping-on-it&quot;&gt;example 2: harping on it&lt;/h3&gt;
+
+&lt;p&gt;I needed to pick colors for this site. Usually you mock up options, flip between them, try to remember what B looked like while staring at C, but oh shit, what about accessibility and contrast ratings?&lt;/p&gt;
+
+&lt;p&gt;One prompt to Claude Code and bam! Another microdemo, the &lt;a href=&quot;microdemos/color-lab.html&quot; target=&quot;_blank&quot;&gt;color lab&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It pulled the actual fonts, actual layouts, actual color roles from the repo because it could read my HTML and SCSS. Every token has a picker that updates live, contrast scores are right there, and all the key elements are on one page.&lt;/p&gt;
+
+&lt;h3 id=&quot;still-thinking-about&quot;&gt;still thinking about&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HTML doesn’t diff well in code review, is there any value in keeping these somewhere or is throwaway really throwaway?&lt;/li&gt;
+  &lt;li&gt;If we do keep them, where do these live? Next to the code they informed? A docs folder? Somewhere else?&lt;/li&gt;
+  &lt;li&gt;Should the demo bundle docs into itself? Problem statement, approach comparison, open questions, one artifact? I’m leaning yes, but it makes async collaboration harder since you can’t comment on an HTML file the way you can a doc. Maybe that’s fine?&lt;/li&gt;
+  &lt;li&gt;Does this only work synchronously? The magic is pointing at a list together and saying “should this be higher?” That’s hard to do in a Slack thread. When does a demo stop being the right tool and a doc take over?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you’ve tried something like this or have thoughts on any of the above, I’d love to hear about it: &lt;a href=&quot;mailto:post-microdemos-just-show-them-ce24@nadav.ca&quot;&gt;post-microdemos-just-show-them-ce24@nadav.ca&lt;/a&gt;&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>str[0] lies about emoji</title>
