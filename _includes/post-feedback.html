@@ -1,0 +1,6 @@
+{%- assign slug = include.slug | default: page.slug -%}
+{%- assign salt = page.feedback_salt | default: "" -%}
+{%- assign md5 = slug | append: site.title | append: salt | md5 -%}
+{%- assign hash = md5 | slice: 8, 4 -%}
+{%- assign email = "post-" | append: slug | append: "-" | append: hash | append: "@nadav.ca" -%}
+<a href="mailto:{{ email }}">{{ email }}</a>
