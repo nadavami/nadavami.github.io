@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nadav.ca color lab</title>
+<style>
+  @font-face {
+    font-family: 'Commit Mono';
+    src: url('../assets/fonts/commit-mono-latin-400-normal.woff2') format('woff2');
+    font-weight: 400; font-style: normal;
+  }
+  @font-face {
+    font-family: 'Commit Mono';
+    src: url('../assets/fonts/commit-mono-latin-700-normal.woff2') format('woff2');
+    font-weight: 700; font-style: normal;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --lab-bg: #1a1a1a;
+    --lab-surface: #242424;
+    --lab-border: #333;
+    --lab-text: #ccc;
+    --lab-dim: #777;
+    --lab-radius: 6px;
+  }
+
+  body {
+    font-family: 'Commit Mono', ui-monospace, monospace;
+    font-size: 13px;
+    background: var(--lab-bg);
+    color: var(--lab-text);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .lab {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: 100vh;
+  }
+
+  /* === Left panel: color pickers === */
+  .panel {
+    background: var(--lab-surface);
+    border-right: 1px solid var(--lab-border);
+    padding: 1.25rem;
+    overflow-y: auto;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+
+  .panel h1 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+    color: #fff;
+  }
+
+  .panel-sub {
+    font-size: 11px;
+    color: var(--lab-dim);
+    margin-bottom: 1.25rem;
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1rem;
+    border: 1px solid var(--lab-border);
+    border-radius: var(--lab-radius);
+    overflow: hidden;
+  }
+
+  .mode-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--lab-dim);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 0.4rem 0;
+    cursor: pointer;
+    transition: all 100ms;
+  }
+
+  .mode-tab.active {
+    background: var(--lab-border);
+    color: #fff;
+  }
+
+  .color-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .color-group-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--lab-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .color-row {
+    display: grid;
+    grid-template-columns: 7em 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .color-label {
+    font-size: 12px;
+    color: var(--lab-text);
+  }
+
+  .color-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 22px;
+    border: 1px solid var(--lab-border);
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 1px; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 2px; }
+
+  input[type="text"].hex-input {
+    width: 7ch;
+    background: var(--lab-bg);
+    border: 1px solid var(--lab-border);
+    border-radius: 3px;
+    color: var(--lab-text);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 2px 4px;
+    text-align: center;
+  }
+
+  .contrast-badge {
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    min-width: 5.5ch;
+    text-align: center;
+  }
+
+  .contrast-badge.pass { background: #1a3a1a; color: #6c6; }
+  .contrast-badge.warn { background: #3a3a1a; color: #cc6; }
+  .contrast-badge.fail { background: #3a1a1a; color: #c66; }
+
+  .presets {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--lab-border);
+  }
+
+  .presets h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--lab-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .preset-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--lab-border);
+    border-radius: var(--lab-radius);
+    color: var(--lab-text);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    margin-bottom: 0.35rem;
+    text-align: left;
+    transition: border-color 100ms;
+  }
+
+  .preset-btn:hover {
+    border-color: #666;
+  }
+
+  .preset-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .preset-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* === Right panel: preview === */
+  .preview-wrap {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .preview {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--lab-border);
+  }
+
+  .preview-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--lab-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .preview-inner {
+    padding: 2rem 2.5rem;
+    font-family: 'Commit Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .preview-inner a {
+    text-decoration: none;
+    border-bottom: 1px solid;
+  }
+
+  .preview-inner hr {
+    border: none;
+    height: 1px;
+    margin: 1.25rem 0;
+  }
+
+  .p-path {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .p-path-sep, .p-path-bracket { opacity: 0.7; }
+  .p-path-leaf { font-style: italic; font-weight: 400; }
+
+  .p-year {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 1.2rem 0 0.3rem;
+    font-size: 13px;
+  }
+
+  .p-year-num { font-weight: 700; letter-spacing: 0.05em; font-size: 15px; }
+  .p-year-rule { flex: 1; height: 1px; opacity: 0.35; }
+  .p-year-count { opacity: 0.75; }
+
+  .p-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .p-post-mark {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-left: 0.15em;
+  }
+
+  .p-post-mark::before { content: '['; opacity: 0.55; }
+  .p-post-mark::after  { content: ']'; opacity: 0.55; }
+
+  .p-post-date { font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+
+  .p-prompt {
+    font-size: 13px;
+    margin: 0.75rem 0;
+  }
+
+  .p-prompt-dollar {
+    user-select: none;
+  }
+
+  .p-prompt-caret {
+    display: inline-block;
+    width: 0.6ch;
+    height: 1em;
+    background: currentColor;
+    vertical-align: middle;
+    margin-left: 1px;
+    animation: blink 1s steps(1,end) infinite;
+  }
+
+  @keyframes blink {
+    0%,50% { opacity: 1; }
+    50.01%,100% { opacity: 0; }
+  }
+
+  .p-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 0.75rem 0;
+  }
+
+  .p-table th, .p-table td {
+    border: none;
+    padding: 0.35rem 0.7rem 0.35rem 0;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .p-table thead th {
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 0.4rem;
+  }
+
+  .p-table tbody tr { border-bottom: 1px dashed; }
+  .p-table tbody tr:last-child { border-bottom: none; }
+
+  .p-flag { font-weight: 700; width: 1.5ch; display: inline-block; text-align: center; }
+
+  .p-callout {
+    border-left: 3px solid;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+  }
+
+  .p-callout-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .p-legend {
+    display: flex;
+    gap: 1rem;
+    font-size: 12px;
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px dotted;
+  }
+
+  .p-legend code {
+    font-weight: 700;
+    background: transparent;
+    padding: 0 2px;
+  }
+
+  .p-legend-pipe {
+    font-weight: 400;
+    margin-left: 1rem;
+  }
+
+  .p-code {
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .p-cycler-text {
+    display: inline-block;
+    padding: 0 0.15em;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .p-footer {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="lab">
+  <div class="panel" id="panel"></div>
+  <div class="preview-wrap" id="previews"></div>
+</div>
+
+<script>
+const TOKENS = [
+  { key: 'bg',          label: 'background' },
+  { key: 'surface',     label: 'surface' },
+  { key: 'text',        label: 'text' },
+  { key: 'muted',       label: 'muted' },
+  { key: 'accent',      label: 'accent' },
+  { key: 'accent-soft', label: 'accent soft' },
+  { key: 'rule',        label: 'rule' },
+  { key: 'alert',       label: 'alert / done' },
+  { key: 'alert-bg',    label: 'alert bg' },
+  { key: 'ok',          label: 'ok / added' },
+  { key: 'ok-bg',       label: 'ok bg' },
+  { key: 'warn',        label: 'warn / changed' },
+  { key: 'warn-bg',     label: 'warn bg' },
+];
+
+const LIGHT = {
+  bg: '#f5efdf', surface: '#ebe2cd', text: '#1a140b', muted: '#756c5b',
+  accent: '#254674', 'accent-soft': '#c7d0e0', rule: '#d9ccae',
+  alert: '#8a3520', 'alert-bg': '#f0ddd5',
+  ok: '#0e7520', 'ok-bg': '#dde8d5',
+  warn: '#9a4800', 'warn-bg': '#f0e2c5',
+};
+
+const DARK = {
+  bg: '#13110d', surface: '#1f1c16', text: '#d8d0bd', muted: '#857b6b',
+  accent: '#9ab0ce', 'accent-soft': '#2a3349', rule: '#2a251d',
+  alert: '#d09480', 'alert-bg': '#2a1a14',
+  ok: '#8ab07a', 'ok-bg': '#1a2414',
+  warn: '#d6a35a', 'warn-bg': '#2a2114',
+};
+
+const PRESETS = [
+  {
+    name: 'Original (5 colors)',
+    desc: 'Before this session, with separate magenta',
+    light: { ...LIGHT, ok: '#3a5a2a', warn: '#a06310', alert: '#8a3520', surface: '#ebe2cd' },
+    dark:  { ...DARK },
+  },
+  {
+    name: 'A: Clean 3-color',
+    desc: 'Consolidated alert, vivid green, copper warn',
+    light: { ...LIGHT, ok: '#0e7520', warn: '#9a4800', alert: '#8a3520' },
+    dark:  { ...DARK, 'alert-bg': '#301c16', 'ok-bg': '#1a2e18', 'warn-bg': '#2e2418', surface: '#252018' },
+  },
+  {
+    name: 'B: Punchy 3-color',
+    desc: 'Brighter alert, vivid green, copper warn, richer bgs',
+    light: { ...LIGHT, ok: '#0e7520', warn: '#9a4800', alert: '#a03018',
+             surface: '#e8dcc8', 'alert-bg': '#f0d5cc', 'ok-bg': '#d5e8d0', 'warn-bg': '#f0ddb8' },
+    dark:  { ...DARK, ok: '#7ec06a', warn: '#e0a850', alert: '#e09070',
+             'alert-bg': '#301c16', 'ok-bg': '#1a2e18', 'warn-bg': '#2e2418', surface: '#252018' },
+  },
+  {
+    name: 'C: Warm 3-color',
+    desc: 'Softer green, original mustard, warm alert',
+    light: { ...LIGHT, ok: '#1a6e2e', warn: '#8f5500', alert: '#8a3520', surface: '#e8dcc8' },
+    dark:  { ...DARK, ok: '#80b870', warn: '#daa850', alert: '#d89078',
+             'alert-bg': '#2e1c15', 'ok-bg': '#1e2c18', 'warn-bg': '#2c2218', surface: '#231e15' },
+  },
+  {
+    name: 'D: Cool contrast',
+    desc: 'Vivid green, burnt orange warn, rich rust alert',
+    light: { ...LIGHT, ok: '#0e7520', warn: '#9e3400', alert: '#8a3520' },
+    dark:  { ...DARK, ok: '#7ec06a', warn: '#e0a850', alert: '#e09070',
+             'alert-bg': '#301c16', 'ok-bg': '#1a2e18', 'warn-bg': '#2e2418', surface: '#252018' },
+  },
+];
+
+let colors = { light: { ...LIGHT }, dark: { ...DARK } };
+let mode = 'light';
+
+function hexToRgb(h) {
+  h = h.replace('#', '');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+
+function luminance(r, g, b) {
+  const [rs, gs, bs] = [r,g,b].map(c => {
+    c /= 255;
+    return c <= 0.04045 ? c/12.92 : ((c+0.055)/1.055)**2.4;
+  });
+  return 0.2126*rs + 0.7152*gs + 0.0722*bs;
+}
+
+function contrast(c1, c2) {
+  const l1 = luminance(...hexToRgb(c1));
+  const l2 = luminance(...hexToRgb(c2));
+  return (Math.max(l1,l2)+0.05) / (Math.min(l1,l2)+0.05);
+}
+
+function contrastBadge(fg, bg) {
+  const r = contrast(fg, bg);
+  const cls = r >= 7 ? 'pass' : r >= 4.5 ? 'pass' : r >= 3 ? 'warn' : 'fail';
+  const label = r >= 4.5 ? 'AA' : r >= 3 ? 'AA18' : 'FAIL';
+  return `<span class="contrast-badge ${cls}">${r.toFixed(1)} ${label}</span>`;
+}
+
+function renderPanel() {
+  const c = colors[mode];
+  const bg = c.bg;
+
+  let html = `
+    <h1>color lab</h1>
+    <p class="panel-sub">nadav.ca design tokens</p>
+    <div class="mode-tabs">
+      <button class="mode-tab ${mode==='light'?'active':''}" onclick="mode='light';render()">light</button>
+      <button class="mode-tab ${mode==='dark'?'active':''}" onclick="mode='dark';render()">dark</button>
+    </div>
+  `;
+
+  const groups = [
+    { label: 'Base', keys: ['bg','surface','text','muted','rule'] },
+    { label: 'Accent', keys: ['accent','accent-soft'] },
+    { label: 'Semantic', keys: ['alert','alert-bg','ok','ok-bg','warn','warn-bg'] },
+  ];
+
+  for (const g of groups) {
+    html += `<div class="color-group"><div class="color-group-label">${g.label}</div>`;
+    for (const key of g.keys) {
+      const tok = TOKENS.find(t => t.key === key);
+      const val = c[key];
+      const isBg = key.endsWith('-bg') || key === 'bg' || key === 'surface' || key === 'rule' || key === 'accent-soft';
+      const contrastAgainst = isBg ? c.text : bg;
+      const badge = contrastBadge(val, contrastAgainst);
+
+      html += `
+        <div class="color-row">
+          <span class="color-label">${tok.label}</span>
+          <div class="color-input-wrap">
+            <input type="color" value="${val}" data-key="${key}" onchange="updateColor(this)">
+            <input type="text" class="hex-input" value="${val}" data-key="${key}" onchange="updateHex(this)">
+          </div>
+          ${badge}
+        </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Presets
+  html += `<div class="presets"><h3>presets</h3>`;
+  for (let pi = 0; pi < PRESETS.length; pi++) {
+    const p = PRESETS[pi];
+    const pc = p.light;
+    const pd = p.dark;
+    html += `<button class="preset-btn" onclick="applyPreset(${pi})">
+      <div style="display:flex;gap:0.75rem;align-items:center">
+        <div>
+          <span class="preset-dots" title="light">
+            <span class="preset-dot" style="background:${pc.ok}"></span>
+            <span class="preset-dot" style="background:${pc.warn}"></span>
+            <span class="preset-dot" style="background:${pc.alert}"></span>
+          </span>
+          <span class="preset-dots" title="dark" style="margin-left:2px">
+            <span class="preset-dot" style="background:${pd.ok}"></span>
+            <span class="preset-dot" style="background:${pd.warn}"></span>
+            <span class="preset-dot" style="background:${pd.alert}"></span>
+          </span>
+        </div>
+        <div>
+          <div>${p.name}</div>
+          ${p.desc ? `<div style="font-size:10px;color:var(--lab-dim);margin-top:1px">${p.desc}</div>` : ''}
+        </div>
+      </div>
+    </button>`;
+  }
+  html += `</div>`;
+
+  document.getElementById('panel').innerHTML = html;
+}
+
+function renderPreviews() {
+  let html = '';
+  for (const m of ['light', 'dark']) {
+    const c = colors[m];
+    html += `
+    <div>
+      <div class="preview-label">${m} mode</div>
+      <div class="preview">
+        <div class="preview-inner" style="background:${c.bg};color:${c.text}">
+
+          <div class="p-path">
+            <a href="#" style="color:${c.muted};border:none">~</a><span class="p-path-sep" style="color:${c.muted}">/</span><span class="p-path-bracket" style="color:${c.muted}">[</span><span class="p-path-leaf" style="color:${c.accent}">Nadav Ami</span><span class="p-path-bracket" style="color:${c.muted}">]</span>
+          </div>
+
+          <hr style="background:${c.rule}">
+
+          <p>Hi there!<br>Welcome to my little slice of web.
+          I'm Nadav, a <span class="p-cycler-text" style="color:${c.warn};background:${c.warn}12"">backend engineer<span class="p-prompt-caret" style="color:${c.warn}"></span></span>.</p>
+
+          <p>Below you'll find everything I've written. Check the <a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">about page</a>, peek at <a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">what I'm up to</a>, or read <a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">my resume</a>.</p>
+
+          <h2 style="color:${c.accent};font-weight:500;font-size:17px;margin:1.25rem 0 0.5rem"><span style="color:${c.muted}"># </span>Writing</h2>
+
+          <div class="p-year" style="color:${c.warn}">
+            <span class="p-year-num" style="color:${c.warn}">2026</span>
+            <span class="p-year-rule" style="background:${c.warn}"></span>
+            <span class="p-year-count">1 post</span>
+          </div>
+          <div class="p-post">
+            <span><a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">str[0] lies about emoji</a> <span class="p-post-mark" style="color:${c.alert}">interactive</span></span>
+            <span class="p-post-date" style="color:${c.muted}">2026-04-18</span>
+          </div>
+          <div class="p-year" style="color:${c.warn}">
+            <span class="p-year-num" style="color:${c.warn}">2025</span>
+            <span class="p-year-rule" style="background:${c.warn}"></span>
+            <span class="p-year-count">1 post</span>
+          </div>
+          <div class="p-post">
+            <span><a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">When you forget your BIOS password</a></span>
+            <span class="p-post-date" style="color:${c.muted}">2025-09-30</span>
+          </div>
+
+          <hr style="background:${c.rule};margin-top:1.5rem">
+
+          <div style="margin-top:1rem">
+            <div class="p-prompt" style="color:${c.muted}">
+              <span class="p-prompt-dollar">$ </span><span style="color:${c.text}">now</span> <span style="color:${c.warn}">--at=2026-04-25</span><span class="p-prompt-caret" style="color:${c.muted}"></span>
+            </div>
+
+            <table class="p-table">
+              <thead><tr>
+                <th style="width:2ch;color:${c.muted}"></th>
+                <th style="width:7em;color:${c.muted};border-bottom:1px solid ${c.rule}">category</th>
+                <th style="color:${c.muted};border-bottom:1px solid ${c.rule}">item</th>
+              </tr></thead>
+              <tbody style="border-color:${c.rule}">
+                <tr style="border-color:${c.rule}"><td><span class="p-flag" style="color:${c.ok}">+</span></td><td style="color:${c.ok};font-weight:500">work</td><td><strong>Senior Backend at Quo</strong> <span style="color:${c.muted};font-size:12px">&middot; figuring out what matters</span></td></tr>
+                <tr style="border-color:${c.rule}"><td><span class="p-flag" style="color:${c.warn}">~</span></td><td style="color:${c.warn};font-weight:500">tinker</td><td><strong>Brake pads & rotors</strong> <span style="color:${c.muted};font-size:12px">&middot; watching YouTube mechanics</span></td></tr>
+                <tr style="border-color:${c.rule}"><td><span class="p-flag" style="color:${c.alert}">&minus;</span></td><td style="color:${c.alert};font-weight:500">read</td><td><strong>The Wool trilogy</strong> <span style="color:${c.muted};font-size:12px">&middot; by Hugh Howey</span></td></tr>
+                <tr style="border-color:${c.rule}"><td></td><td style="color:${c.muted};font-weight:500">read</td><td><strong>Paddle Your Own Canoe</strong> <span style="color:${c.muted};font-size:12px">&middot; by Nick Offerman</span></td></tr>
+              </tbody>
+            </table>
+
+            <div class="p-legend" style="color:${c.muted};border-color:${c.rule}">
+              <span style="color:${c.ok}"><code>+</code> added <strong>4</strong><span class="p-legend-pipe" style="color:${c.rule}">|</span></span>
+              <span style="color:${c.warn}"><code>~</code> changed <strong>1</strong><span class="p-legend-pipe" style="color:${c.rule}">|</span></span>
+              <span style="color:${c.alert}"><code>&minus;</code> done <strong>2</strong></span>
+            </div>
+          </div>
+
+          <hr style="background:${c.rule};margin-top:1.5rem">
+
+          <div style="margin-top:1rem">
+            <div class="p-callout" style="border-color:${c.alert};background:${c['alert-bg']}">
+              <div class="p-callout-label" style="color:${c.alert}">if you're convinced this page existed</div>
+              <p style="margin:0">Have a look through <a href="#" style="color:${c.accent};border-color:${c['accent-soft']}">my commits</a>, it might still be in there somewhere.</p>
+            </div>
+            <div class="p-callout" style="border-color:${c.ok};background:${c['ok-bg']}">
+              <div class="p-callout-label" style="color:${c.ok}">success</div>
+              <p style="margin:0">Build passed. <span class="p-code" style="background:${c.surface}">jekyll build</span> completed in 0.8s.</p>
+            </div>
+            <div class="p-callout" style="border-color:${c.warn};background:${c['warn-bg']}">
+              <div class="p-callout-label" style="color:${c.warn}">heads up</div>
+              <p style="margin:0">This post contains <span class="p-code" style="background:${c.surface}">interactive</span> elements that require JavaScript.</p>
+            </div>
+          </div>
+
+          <hr style="background:${c.rule}">
+          <div class="p-footer" style="color:${c.muted}">
+            <span>Made in <a href="#" style="color:${c.muted};border-color:${c.rule}">Montreal</a> by <a href="#" style="color:${c.muted};border-color:${c.rule}">Nadav Ami</a></span>
+            <span>theme: auto</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('previews').innerHTML = html;
+}
+
+function updateColor(el) {
+  colors[mode][el.dataset.key] = el.value;
+  render();
+}
+
+function updateHex(el) {
+  const v = el.value.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(v)) {
+    colors[mode][el.dataset.key] = v;
+    render();
+  }
+}
+
+function applyPreset(idx) {
+  const p = PRESETS[idx];
+  if (!p) return;
+  colors.light = { ...p.light };
+  colors.dark = { ...p.dark };
+  render();
+}
+
+function render() {
+  renderPanel();
+  renderPreviews();
+}
+
+render();
+</script>
+</body>
+</html>

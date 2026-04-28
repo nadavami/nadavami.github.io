@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spike: Restaurant Recommendation Ranking</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22252f;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --text-dim: #9ca3af;
+    --text-xdim: #6b7280;
+    --accent: #6366f1;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --orange: #f97316;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Commit Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Document layout ───────────────────────────── */
+  .doc {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 40px 120px;
+  }
+
+  /* ── Header ────────────────────────────────────── */
+  .doc-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .doc-subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+  }
+  .doc-subtitle .ticket {
+    color: var(--accent);
+  }
+
+  /* ── Section headings ──────────────────────────── */
+  .section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-xdim);
+    margin-bottom: 12px;
+    margin-top: 48px;
+  }
+  .section-label:first-of-type {
+    margin-top: 0;
+  }
+
+  /* ── Prose ──────────────────────────────────────── */
+  .prose {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .prose code {
+    font-family: inherit;
+    background: var(--surface2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+
+  /* ── Callout ───────────────────────────────────── */
+  .callout {
+    border-left: 3px solid var(--border);
+    padding: 14px 18px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .callout strong { color: var(--text); }
+  .callout.info { border-left-color: var(--accent); }
+  .callout.warn { border-left-color: var(--yellow); }
+
+  /* ── Scenario buttons ──────────────────────────── */
+  .scenario-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .scenario-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 6px 12px;
+    background: var(--surface);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .scenario-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .scenario-btn.active {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  /* ── Controls grid ─────────────────────────────── */
+  .controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .control-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .control-group-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-xdim);
+    margin-bottom: 10px;
+  }
+
+  /* ── Sliders ───────────────────────────────────── */
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .slider-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    width: 68px;
+    flex-shrink: 0;
+  }
+  .slider-val {
+    font-size: 11px;
+    color: var(--accent);
+    width: 32px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+  }
+
+  /* ── Distance gate toggle ──────────────────────── */
+  .gate-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gate-toggle {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .gate-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .gate-track {
+    position: absolute;
+    inset: 0;
+    background: var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .gate-track::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: var(--text-dim);
+    border-radius: 50%;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .gate-toggle input:checked + .gate-track {
+    background: var(--accent);
+  }
+  .gate-toggle input:checked + .gate-track::after {
+    transform: translateX(16px);
+    background: #fff;
+  }
+  .gate-label {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* ── Result columns ────────────────────────────── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+  .col-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .col-header {
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .col-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .col-title {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .col-desc {
+    font-size: 10px;
+    color: var(--text-xdim);
+    line-height: 1.4;
+  }
+  .card-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .card-tag-dim { background: #2a2d3a; color: var(--text-dim); }
+  .card-tag-accent { background: rgba(99, 102, 241, 0.15); color: var(--accent); }
+  .card-tag-green { background: #1e3a2f; color: var(--green); }
+  .result-list {
+    max-height: 640px;
+    overflow-y: auto;
+  }
+
+  /* ── Result items ──────────────────────────────── */
+  .result-item {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .result-item:last-child { border-bottom: none; }
+  .result-item:hover { background: rgba(99, 102, 241, 0.04); }
+  .result-item.gated { opacity: 0.45; }
+  .result-top {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .result-rank {
+    font-size: 11px;
+    color: var(--text-xdim);
+    min-width: 22px;
+  }
+  .result-name {
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .result-cuisine {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .result-stats {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .result-stats .sep { color: var(--text-xdim); }
+  .result-score-bar {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .score-pill {
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: inherit;
+  }
+  .pill-high { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+  .pill-mid { background: rgba(234, 179, 8, 0.15); color: var(--yellow); }
+  .pill-low { background: rgba(107, 114, 128, 0.12); color: var(--text-xdim); }
+  .gated-tag {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--red);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .result-total {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  /* ── Scoring example ───────────────────────────── */
+  .scoring-example {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 12px;
+    margin: 16px 0 20px;
+    max-width: 600px;
+  }
+  .scoring-example .example-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .scoring-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .scoring-row .signal-name {
+    width: 70px;
+    color: var(--text-xdim);
+  }
+  .scoring-row .signal-val {
+    width: 40px;
+    text-align: right;
+    color: var(--text);
+  }
+  .scoring-row .signal-weight {
+    width: 20px;
+    text-align: center;
+    color: var(--text-xdim);
+  }
+  .scoring-row .signal-result {
+    width: 50px;
+    text-align: right;
+    color: var(--accent);
+  }
+  .scoring-total {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── Open Questions table ──────────────────────── */
+  .questions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  .questions-table th {
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-xdim);
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .questions-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .questions-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ── Scrollbar ─────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-xdim); }
+
+  /* ── Responsive ────────────────────────────────── */
+  @media (max-width: 900px) {
+    .doc { padding: 24px 20px 80px; }
+    .columns { grid-template-columns: 1fr; }
+    .controls-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <!-- ── Header ─────────────────────────────────── -->
+  <div class="doc-header">
+    <div class="doc-title">Spike: Restaurant Recommendation Ranking</div>
+    <div class="doc-subtitle"><span class="ticket">REC-247</span> · Signal weighting &amp; relevance scoring · 2026-04-27</div>
+  </div>
+
+
+  <!-- ── Problem ────────────────────────────────── -->
+  <div class="section-label">Problem</div>
+
+  <p class="prose">
+    The "Recommended for You" section currently sorts by <code>rating DESC</code>. No other signals. A 4.9-star restaurant 30 minutes away shows above the 4.1-star spot next door. Users report recommendations don't feel relevant.
+  </p>
+
+  <div class="callout info">
+    <strong>Scope:</strong> This spike covers ranking order for the system-generated "Recommended for You" list. Not covered: user-facing search or filters, cross-user personalization, the explore/discover feed, or real-time availability.
+  </div>
+
+
+  <!-- ── Interactive Demo ───────────────────────── -->
+  <div class="section-label">Interactive Demo</div>
+
+  <!-- Scenario presets -->
+  <div class="scenario-row" id="scenario-buttons"></div>
+
+  <!-- Controls -->
+  <div class="controls-grid">
+
+    <!-- Signal weights -->
+    <div class="control-group">
+      <div class="control-group-label">Signal Weights</div>
+      <div class="slider-row">
+        <span class="slider-label">distance</span>
+        <input type="range" id="w-distance" min="0" max="5" step="0.5" value="1">
+        <span class="slider-val" id="v-distance">1</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">rating</span>
+        <input type="range" id="w-rating" min="0" max="5" step="0.5" value="1">
+        <span class="slider-val" id="v-rating">1</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">reviews</span>
+        <input type="range" id="w-reviews" min="0" max="5" step="0.5" value="1">
+        <span class="slider-val" id="v-reviews">1</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">recency</span>
+        <input type="range" id="w-recency" min="0" max="5" step="0.5" value="1">
+        <span class="slider-val" id="v-recency">1</span>
+      </div>
+    </div>
+
+    <!-- Distance gate -->
+    <div class="control-group">
+      <div class="control-group-label">Distance Gate</div>
+      <div class="gate-row" style="margin-bottom: 10px;">
+        <label class="gate-toggle">
+          <input type="checkbox" id="gate-enabled" checked>
+          <span class="gate-track"></span>
+        </label>
+        <span class="gate-label" id="gate-status">Enabled</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">cutoff</span>
+        <input type="range" id="gate-dist" min="1" max="15" step="0.5" value="5">
+        <span class="slider-val" id="v-gate">5 km</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Result columns -->
+  <div class="columns" style="grid-template-columns: 1fr 1fr;">
+    <div class="col-card">
+      <div class="col-header">
+        <div class="col-header-top">
+          <span class="col-title">Current (rating only)</span>
+          <span class="card-tag card-tag-dim">baseline</span>
+        </div>
+        <div class="col-desc">Sorted by star rating. The approach we ship today.</div>
+      </div>
+      <div class="result-list" id="results-current"></div>
+    </div>
+    <div class="col-card">
+      <div class="col-header">
+        <div class="col-header-top">
+          <span class="col-title">Weighted Sum</span>
+          <span class="card-tag card-tag-accent">proposed</span>
+        </div>
+        <div class="col-desc">Each signal normalized 0-1, multiplied by weight, summed. Distance gate applied when enabled.</div>
+      </div>
+      <div class="result-list" id="results-weighted"></div>
+    </div>
+  </div>
+
+
+  <!-- ── Proposed Approach ──────────────────────── -->
+  <div class="section-label">Proposed Approach</div>
+
+  <p class="prose">
+    Weighted sum scoring. Each restaurant gets scored against four signals: distance, rating, review count, and visit recency. Each signal is normalized to a 0-1 range, multiplied by a configurable weight, and summed into a final score. The weights let product tune what "relevant" means without changing code.
+  </p>
+
+  <div class="scoring-example" id="scoring-example"></div>
+
+  <p class="prose">
+    The distance gate (toggle it above) shows what happens with a hard cutoff: restaurants past the threshold get their score crushed to 10%. A 4.9-star place at 5.2 km gets buried while a 3.2-star place at 4.9 km stays untouched. Whether that's the right tradeoff is a product call.
+  </p>
+
+
+  <!-- ── Open Questions ─────────────────────────── -->
+  <div class="section-label">Open Questions</div>
+
+  <table class="questions-table">
+    <thead>
+      <tr>
+        <th>Question</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>How much should distance matter vs rating? The "quick lunch nearby" and "date night" scenarios produce wildly different rankings from the same data.</td>
+      </tr>
+      <tr>
+        <td>Should we penalize recently visited places for variety? Current recency signal treats "visited yesterday" as a negative, but some users have a regular spot.</td>
+      </tr>
+      <tr>
+        <td>Do we trust ratings from places with very few reviews? The Green Fork (4.0, 42 reviews) and El Fogon (3.5, 28 reviews) score differently than their ratings suggest once review count factors in.</td>
+      </tr>
+      <tr>
+        <td>Should there be a hard distance cutoff or a gradual penalty? Toggle the distance gate above to see the cliff effect. A smooth decay curve is another option.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<script>
+// =====================================================================
+// Recommendation Ranking Spike
+// Four signals, three ranking approaches, side-by-side comparison.
+// =====================================================================
+
+const RESTAURANTS = [
+  { name: 'Sakura House',    cuisine: 'japanese',   rating: 4.6, reviews: 320,  distKm: 1.2,  lastVisit: null },
+  { name: 'Taco Loco',       cuisine: 'mexican',    rating: 4.1, reviews: 540,  distKm: 0.4,  lastVisit: '2026-04-20' },
+  { name: 'Le Petit Bistro', cuisine: 'french',     rating: 4.8, reviews: 210,  distKm: 8.5,  lastVisit: null },
+  { name: 'Corner Deli',     cuisine: 'american',   rating: 3.2, reviews: 85,   distKm: 0.2,  lastVisit: '2026-04-25' },
+  { name: 'Jade Palace',     cuisine: 'chinese',    rating: 4.3, reviews: 890,  distKm: 2.8,  lastVisit: '2026-03-15' },
+  { name: 'Napoli Pizza',    cuisine: 'italian',    rating: 4.5, reviews: 1200, distKm: 3.1,  lastVisit: '2026-04-10' },
+  { name: 'The Green Fork',  cuisine: 'vegetarian', rating: 4.0, reviews: 42,   distKm: 1.5,  lastVisit: null },
+  { name: 'Bombay Express',  cuisine: 'indian',     rating: 4.7, reviews: 380,  distKm: 12.0, lastVisit: null },
+  { name: 'Burger Barn',     cuisine: 'american',   rating: 3.8, reviews: 2100, distKm: 0.8,  lastVisit: '2026-04-26' },
+  { name: 'Sushi Zen',       cuisine: 'japanese',   rating: 4.9, reviews: 150,  distKm: 5.2,  lastVisit: '2025-12-01' },
+  { name: 'Pho 99',          cuisine: 'vietnamese', rating: 4.4, reviews: 610,  distKm: 2.0,  lastVisit: '2026-01-20' },
+  { name: 'El Fogon',        cuisine: 'mexican',    rating: 3.5, reviews: 28,   distKm: 6.8,  lastVisit: null },
+]
+
+const SCENARIOS = [
+  { label: 'Balanced',           weights: { distance: 1,   rating: 1,   reviews: 1,   recency: 1   } },
+  { label: 'Quick lunch nearby', weights: { distance: 3,   rating: 0.5, reviews: 0.5, recency: 0.5 } },
+  { label: 'Date night',         weights: { distance: 0.5, rating: 3,   reviews: 1,   recency: 0.5 } },
+  { label: 'Try something new',  weights: { distance: 1,   rating: 1,   reviews: 0.5, recency: 3   } },
+  { label: 'Popular spots',      weights: { distance: 1,   rating: 1,   reviews: 3,   recency: 0.5 } },
+]
+
+const SIGNAL_KEYS = ['distance', 'rating', 'reviews', 'recency']
+const MAX_DIST = Math.max(...RESTAURANTS.map(r => r.distKm))
+const MAX_REVIEWS = Math.max(...RESTAURANTS.map(r => r.reviews))
+const NOW = new Date('2026-04-27')
+
+
+// -- Helpers ------------------------------------------------------------
+
+function clamp01(v) { return Math.max(0, Math.min(1, v)) }
+
+function norm(val, min, max) {
+  if (max === min) return 0.5
+  return clamp01((val - min) / (max - min))
+}
+
+function daysSince(dateStr) {
+  if (!dateStr) return Infinity
+  return Math.max(0, (NOW - new Date(dateStr)) / (1000 * 60 * 60 * 24))
+}
+
+
+// -- Signal Functions ---------------------------------------------------
+
+function signalDistance(r) {
+  return 1 - norm(r.distKm, 0, MAX_DIST)
+}
+
+function signalRating(r) {
+  return norm(r.rating, 1, 5)
+}
+
+function signalReviews(r) {
+  return norm(Math.log(r.reviews + 1), Math.log(2), Math.log(MAX_REVIEWS + 1))
+}
+
+function signalRecency(r) {
+  const days = daysSince(r.lastVisit)
+  if (days === Infinity) return 0.5       // never visited = neutral
+  if (days <= 7) return 0.1               // visited this week = low (variety)
+  if (days >= 60) return 0.9              // visited long ago = high (revisit)
+  return 0.1 + 0.8 * norm(days, 7, 60)   // linear blend between
+}
+
+function computeSignals(r) {
+  return {
+    distance: signalDistance(r),
+    rating:   signalRating(r),
+    reviews:  signalReviews(r),
+    recency:  signalRecency(r),
+  }
+}
+
+
+// -- Scoring ------------------------------------------------------------
+
+function scoreRatingOnly(r) {
+  return { total: r.rating, signals: computeSignals(r) }
+}
+
+function scoreWeightedSum(r, weights) {
+  const signals = computeSignals(r)
+  let total = 0
+  for (const k of SIGNAL_KEYS) {
+    total += signals[k] * (weights[k] || 0)
+  }
+  return { total, signals }
+}
+
+function scoreDistanceGated(r, weights, cutoffKm) {
+  const base = scoreWeightedSum(r, weights)
+  const gated = r.distKm > cutoffKm
+  return {
+    total: gated ? base.total * 0.1 : base.total,
+    signals: base.signals,
+    gated,
+  }
+}
+
+
+// -- Ranking ------------------------------------------------------------
+
+function rankBy(scoreFn) {
+  return RESTAURANTS
+    .map(r => ({ restaurant: r, score: scoreFn(r) }))
+    .sort((a, b) => b.score.total - a.score.total)
+}
+
+
+// -- UI State -----------------------------------------------------------
+
+function getWeights() {
+  const w = {}
+  for (const k of SIGNAL_KEYS) {
+    w[k] = parseFloat(document.getElementById('w-' + k).value)
+  }
+  return w
+}
+
+function getGateDist() {
+  return parseFloat(document.getElementById('gate-dist').value)
+}
+
+function isGateEnabled() {
+  return document.getElementById('gate-enabled').checked
+}
+
+
+// -- Rendering ----------------------------------------------------------
+
+function pillClass(ratio) {
+  if (ratio > 0.35) return 'pill-high'
+  if (ratio > 0.15) return 'pill-mid'
+  return 'pill-low'
+}
+
+function renderResults(containerId, ranked, opts) {
+  const el = document.getElementById(containerId)
+  el.innerHTML = ''
+  const weights = getWeights()
+  const showPills = !(opts && opts.noPills)
+
+  ranked.forEach((item, i) => {
+    const r = item.restaurant
+    const s = item.score
+    const isGated = s.gated === true
+
+    const div = document.createElement('div')
+    div.className = 'result-item' + (isGated ? ' gated' : '')
+
+    // Top row: rank, name, cuisine, gated tag, score
+    const top = document.createElement('div')
+    top.className = 'result-top'
+
+    const rankEl = document.createElement('span')
+    rankEl.className = 'result-rank'
+    rankEl.textContent = '#' + (i + 1)
+
+    const nameEl = document.createElement('span')
+    nameEl.className = 'result-name'
+    nameEl.textContent = r.name
+
+    const cuisineEl = document.createElement('span')
+    cuisineEl.className = 'result-cuisine'
+    cuisineEl.textContent = r.cuisine
+
+    const totalEl = document.createElement('span')
+    totalEl.className = 'result-total'
+    totalEl.textContent = s.total.toFixed(2)
+
+    top.appendChild(rankEl)
+    top.appendChild(nameEl)
+    top.appendChild(cuisineEl)
+    if (isGated) {
+      const tag = document.createElement('span')
+      tag.className = 'gated-tag'
+      tag.textContent = 'GATED'
+      top.appendChild(tag)
+    }
+    top.appendChild(totalEl)
+
+    // Stats row
+    const stats = document.createElement('div')
+    stats.className = 'result-stats'
+    stats.innerHTML = '<span>\u2605 ' + r.rating.toFixed(1) + '</span>'
+      + '<span class="sep">\u00b7</span>'
+      + '<span>' + r.distKm + ' km</span>'
+      + '<span class="sep">\u00b7</span>'
+      + '<span>' + r.reviews + ' reviews</span>'
+
+    div.appendChild(top)
+    div.appendChild(stats)
+
+    // Score breakdown pills
+    if (showPills) {
+      const bar = document.createElement('div')
+      bar.className = 'result-score-bar'
+
+      // Compute weighted contributions
+      const contribs = {}
+      let contribSum = 0
+      for (const k of SIGNAL_KEYS) {
+        const w = weights[k] || 0
+        contribs[k] = s.signals[k] * w
+        contribSum += contribs[k]
+      }
+
+      for (const k of SIGNAL_KEYS) {
+        const w = weights[k] || 0
+        if (w === 0) continue
+        const ratio = contribSum > 0 ? contribs[k] / contribSum : 0
+
+        const pill = document.createElement('span')
+        pill.className = 'score-pill ' + pillClass(ratio)
+        pill.textContent = k.slice(0, 4) + ' ' + contribs[k].toFixed(1)
+        bar.appendChild(pill)
+      }
+
+      div.appendChild(bar)
+    }
+
+    el.appendChild(div)
+  })
+}
+
+function updateScoringExample() {
+  const weights = getWeights()
+  const r = RESTAURANTS[0] // Sakura House
+  const signals = computeSignals(r)
+
+  let total = 0
+  let html = '<div class="example-title">Example: Sakura House with current weights</div>'
+
+  for (const k of SIGNAL_KEYS) {
+    const sv = signals[k]
+    const w = weights[k] || 0
+    const contrib = sv * w
+    total += contrib
+    html += '<div class="scoring-row">'
+      + '<span class="signal-name">' + k + '</span>'
+      + '<span class="signal-val">' + sv.toFixed(2) + '</span>'
+      + '<span class="signal-weight">&times; ' + w + '</span>'
+      + '<span class="signal-weight">=</span>'
+      + '<span class="signal-result">' + contrib.toFixed(2) + '</span>'
+      + '</div>'
+  }
+
+  html += '<div class="scoring-total"><span>Total</span><span>' + total.toFixed(2) + '</span></div>'
+  document.getElementById('scoring-example').innerHTML = html
+}
+
+function update() {
+  const weights = getWeights()
+  const gateDist = getGateDist()
+
+  // Column 1: current (rating only)
+  renderResults('results-current', rankBy(r => scoreRatingOnly(r)), { noPills: true })
+
+  // Column 2: weighted sum (with optional distance gate)
+  const gateOn = isGateEnabled()
+  const gatedCutoff = gateOn ? gateDist : Infinity
+  renderResults('results-weighted', rankBy(r => scoreDistanceGated(r, weights, gatedCutoff)))
+
+  updateScoringExample()
+}
+
+
+// -- Scenario Application -----------------------------------------------
+
+function applyScenario(index) {
+  const s = SCENARIOS[index]
+  for (const k of SIGNAL_KEYS) {
+    const val = s.weights[k] !== undefined ? s.weights[k] : 1
+    document.getElementById('w-' + k).value = val
+    document.getElementById('v-' + k).textContent = val
+  }
+
+  document.querySelectorAll('.scenario-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index)
+  })
+
+  update()
+}
+
+function clearActiveScenario() {
+  document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'))
+}
+
+
+// -- Init ---------------------------------------------------------------
+
+// Scenario buttons
+const scenarioContainer = document.getElementById('scenario-buttons')
+SCENARIOS.forEach((s, i) => {
+  const btn = document.createElement('button')
+  btn.className = 'scenario-btn' + (i === 0 ? ' active' : '')
+  btn.textContent = s.label
+  btn.addEventListener('click', () => applyScenario(i))
+  scenarioContainer.appendChild(btn)
+})
+
+// Weight sliders
+SIGNAL_KEYS.forEach(k => {
+  const slider = document.getElementById('w-' + k)
+  const display = document.getElementById('v-' + k)
+  slider.addEventListener('input', () => {
+    display.textContent = slider.value
+    clearActiveScenario()
+    update()
+  })
+})
+
+// Distance gate slider
+const gateSlider = document.getElementById('gate-dist')
+const gateDisplay = document.getElementById('v-gate')
+gateSlider.addEventListener('input', () => {
+  gateDisplay.textContent = gateSlider.value + ' km'
+  update()
+})
+
+// Distance gate toggle
+const gateCheckbox = document.getElementById('gate-enabled')
+const gateStatusLabel = document.getElementById('gate-status')
+gateCheckbox.addEventListener('change', () => {
+  gateStatusLabel.textContent = gateCheckbox.checked ? 'Enabled' : 'Disabled'
+  update()
+})
+
+// Initial render
+update()
+</script>
+</body>
+</html>
