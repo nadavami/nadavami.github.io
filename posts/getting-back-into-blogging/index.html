@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>(function(){const t=localStorage.getItem('nadav-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})()</script>
-  <title>Exploring and Modifying Electron Apps on macOS - Nadav Ami</title>
-  <meta name="description" content="A few commands to help explore, debug and modify signed electron apps on macOS.">
-  <link rel="canonical" href="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/">
-  <meta property="og:title" content="Exploring and Modifying Electron Apps on macOS">
-  <meta property="og:description" content="A few commands to help explore, debug and modify signed electron apps on macOS.">
-  <meta property="og:url" content="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/">
+  <title>Getting Back Into Blogging - Nadav Ami</title>
+  <meta name="description" content="A list of things I'm doing to motivate myself to get back into writing and posting consistently.">
+  <link rel="canonical" href="https://nadav.ca/posts/getting-back-into-blogging/">
+  <meta property="og:title" content="Getting Back Into Blogging">
+  <meta property="og:description" content="A list of things I'm doing to motivate myself to get back into writing and posting consistently.">
+  <meta property="og:url" content="https://nadav.ca/posts/getting-back-into-blogging/">
   <meta property="og:site_name" content="Nadav Ami">
   <meta property="og:type" content="article">
   <meta property="article:author" content="https://nadav.ca/about/">
-  <meta property="article:published_time" content="2023-04-02T02:37:00+00:00">
-  <meta property="article:modified_time" content="2023-04-02T02:44:56+00:00">
+  <meta property="article:published_time" content="2021-02-14T16:42:00+00:00">
+  <meta property="article:modified_time" content="2026-05-01T01:27:20+00:00">
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preload" href="/assets/fonts/commit-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -51,35 +51,36 @@
     --><span class="path-separator">/</span><!--
     --><a href="/#writing">posts</a><!--
     --><span class="path-separator">/</span><!--
-    --><span class="path-bracket">[</span><span class="path-leaf">Exploring and Modifying Electron Apps on macOS</span><span class="path-bracket">]</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">Getting Back Into Blogging</span><span class="path-bracket">]</span><!--
   --></nav>
 
-        <time class="masthead-date" datetime="2023-04-02T02:37:00+00:00">2023-04-02</time>
+        <time class="masthead-date" datetime="2021-02-14T16:42:00+00:00">2021-02-14</time>
       </header>
       <hr>
 
       <main>
         <article class="post">
-  <p>In my previous job, I was building a side-car app using Electron. I occasionally found myself needing to debug a packaged production app and this post is just a few commands I that have been helpful to me.</p>
+  <p>Writing is hard. Writing consistently is even harder. Here’s a list of things I’m doing to motivate myself to get back into writing and posting regularly. Time will tell if it works.</p>
 
-<p><strong>Unpack and Repack ASAR archives:</strong>
-Electron apps often store their resources in ASAR files, which are simple archives. You can easily extract/modify/repack the contents using the asar package.</p>
+<h3 id="perfect-is-the-enemy-of-good">Perfect is the enemy of good</h3>
+<p>A post doesn’t have to be perfect to be published. Finding out that my most viewed post is one I put very little effort into helped a lot.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i <span class="nt">-g</span> asar
-asar extract app.asar destfolder
-asar pack sourcefolder app.asar
-</code></pre></div></div>
+<h3 id="breaking-things-into-manageable-pieces">Breaking things into manageable pieces</h3>
+<p>The projects I do usually span weeks or months. Sometimes I shelve them because of lack of interest, missing parts/knowledge, etc. Breaking posts into smaller pieces means I can keep the writing momentum going without waiting until the whole thing is done - or worse “ready”, whatever that means.</p>
 
-<p><strong>Allow modified signed package to run:</strong>
-If you’ve modified a signed Electron app macOS Gatekeeper will prevent you from running it, displaying a “Damaged app” dialog. To bypass this restriction and skip the Gatekeeper checks, you can strip the quarantine attribute like this:</p>
+<h3 id="making-this-place-my-own">Making this place my own</h3>
+<p>Sometimes I need to remind myself that this is <em>my</em> site. I can write about whatever I want. It also means I can go back and edit a post if I feel like it. Make myself the primary audience takes a lot of the writing anxiety away.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xattr <span class="nt">-r</span> <span class="nt">-d</span> com.apple.quarantine /path/to/xyz.app
-</code></pre></div></div>
+<h3 id="seeing-page-view-stats">Seeing page view stats</h3>
+<p>Even though I’m writing for myself, it’s nice to see people reading what I wrote. I debated for a long time if I should use google analytics. It’s surprisingly motivating to see the views come in and I regret not doing it sooner. If google analytics bothers you, I encourage you to block it. I do.</p>
+
+<h3 id="make-a-list-of-things-i-want-write-about">Make a list of things I want write about</h3>
+<p>I keep a little list on my phone and jot down post ideas as they come to me. When I’m ready to start writing, I can take something from the list if I can’t think of anything to write about. I also keep a drafts folder <a href="https://github.com/nadavami/nadavami.github.io/tree/main/_drafts" target="_blank" rel="noopener">pushed to git</a>. As I’m working on a project, I throw things in the draft file. It makes it much easier to start a post when the page isn’t blank.</p>
 
 </article>
 <p>
   <small>
-    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2023-04-01-exploring-modifying-electron-apps.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2021-02-14-getting-back-into-blogging.md" target="_blank" rel="noopener">Submit a PR!</a></em>
   </small>
 </p>
 

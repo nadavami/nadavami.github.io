@@ -4,7 +4,7 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-04-28T04:47:15+00:00</updated>
+ <updated>2026-05-01T01:28:00+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Microdemos: Just 🤬 Show Them</title>
-   <link href="https://nadav.ca/2026/04/28/microdemos-just-show-them/"/>
+   <link href="https://nadav.ca/posts/microdemos-just-show-them/"/>
    <updated>2026-04-28T00:00:00+00:00</updated>
-   <id>https://nadav.ca/2026/04/28/microdemos-just-show-them</id>
+   <id>https://nadav.ca/posts/microdemos-just-show-them</id>
    <content type="html">&lt;div class=&quot;callout callout--note&quot;&gt;
 
   &lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;&lt;br /&gt;
@@ -259,9 +259,9 @@ Skip the doc and use agentic coding to build a &lt;a href=&quot;#microdemo-def&q
  
  <entry>
    <title>str[0] lies about emoji</title>
-   <link href="https://nadav.ca/2026/04/18/str0-lies-about-emojis/"/>
+   <link href="https://nadav.ca/posts/str0-lies-about-emojis/"/>
    <updated>2026-04-18T00:00:00+00:00</updated>
-   <id>https://nadav.ca/2026/04/18/str0-lies-about-emojis</id>
+   <id>https://nadav.ca/posts/str0-lies-about-emojis</id>
    <content type="html">&lt;p&gt;Say you built an app and wanted to show a user’s initial in an avatar, to do so you KISS:&lt;/p&gt;
 
 &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;avatar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -341,9 +341,9 @@ One day, a user decides to make their display name:
  
  <entry>
    <title>When You Forget Your BIOS Password</title>
-   <link href="https://nadav.ca/2025/09/30/when-you-forget-your-bios-password/"/>
+   <link href="https://nadav.ca/posts/when-you-forget-your-bios-password/"/>
    <updated>2025-09-30T00:00:00+00:00</updated>
-   <id>https://nadav.ca/2025/09/30/when-you-forget-your-bios-password</id>
+   <id>https://nadav.ca/posts/when-you-forget-your-bios-password</id>
    <content type="html">&lt;p&gt;I have an old Linux laptop that I decided to repurpose last weekend. After spending 5 hours backing up files (APFS drive + read-only FUSE drivers + stubborn dev who doesn’t want to think too hard (me) = slow backup using SCP), I was finally ready to install a fresh OS. I grab a USB drive, boot from it, and… the BIOS is password protected. Every password I try fails.&lt;/p&gt;
 
 &lt;p&gt;After some Googling, I found &lt;a href=&quot;https://github.com/Cr0wTom/Mi-Notebook-Pro-Mods/issues/6&quot;&gt;this Github issue&lt;/a&gt; discussing how to use Intel’s FPTW64 tool to dump the BIOS and extract the password. Perfect! Except… version 11 of the tool is Windows-only, and my laptop is running Linux.&lt;/p&gt;
@@ -397,9 +397,9 @@ due to an active ME. Please see https://flashrom.org/ME for details.
  
  <entry>
    <title>Exploring and Modifying Electron Apps on macOS</title>
-   <link href="https://nadav.ca/2023/04/02/exploring-modifying-electron-apps/"/>
+   <link href="https://nadav.ca/posts/exploring-modifying-electron-apps/"/>
    <updated>2023-04-02T02:37:00+00:00</updated>
-   <id>https://nadav.ca/2023/04/02/exploring-modifying-electron-apps</id>
+   <id>https://nadav.ca/posts/exploring-modifying-electron-apps</id>
    <content type="html">&lt;p&gt;In my previous job, I was building a side-car app using Electron. I occasionally found myself needing to debug a packaged production app and this post is just a few commands I that have been helpful to me.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Unpack and Repack ASAR archives:&lt;/strong&gt;
@@ -420,9 +420,9 @@ If you’ve modified a signed Electron app macOS Gatekeeper will prevent you fro
  
  <entry>
    <title>Purge Common Public DNS Caches</title>
-   <link href="https://nadav.ca/2021/10/05/purge-common-public-dns-caches/"/>
+   <link href="https://nadav.ca/posts/purge-common-public-dns-caches/"/>
    <updated>2021-10-05T00:15:00+00:00</updated>
-   <id>https://nadav.ca/2021/10/05/purge-common-public-dns-caches</id>
+   <id>https://nadav.ca/posts/purge-common-public-dns-caches</id>
    <content type="html">&lt;p&gt;Like many today, I woke up to reading about &lt;a href=&quot;https://news.ycombinator.com/item?id=28748203&quot;&gt;Facebook’s major DNS outage&lt;/a&gt;. While I’m looking forward to hopefully reading the outage’s postmortem, in reading the comments I learned that you can actually “ask” many public DNS providers to flush the cache for one of their entires. This is super useful if you change a DNS entry and want the change to be seen by your users quicker.&lt;/p&gt;
 
 &lt;p&gt;So for future me, here’s a list of all the common DNS provider cache flush pages you could find.&lt;/p&gt;
@@ -437,9 +437,9 @@ If you’ve modified a signed Electron app macOS Gatekeeper will prevent you fro
  
  <entry>
    <title>Mounting HFS+ Drives on Ubuntu</title>
-   <link href="https://nadav.ca/2021/03/20/mounting-hfs-drives-on-ubuntu/"/>
+   <link href="https://nadav.ca/posts/mounting-hfs-drives-on-ubuntu/"/>
    <updated>2021-03-20T23:33:00+00:00</updated>
-   <id>https://nadav.ca/2021/03/20/mounting-hfs-drives-on-ubuntu</id>
+   <id>https://nadav.ca/posts/mounting-hfs-drives-on-ubuntu</id>
    <content type="html">&lt;p&gt;As part of a little home server I’ve been building, I wanted to reuse some old mac hard drives I had laying around. Before reusing the drives, I was really curious to see what was on them.&lt;/p&gt;
 
 &lt;p&gt;In order to do this, I needed a way to mount the HFS+ formatted drives on Linux.&lt;/p&gt;
@@ -512,9 +512,9 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>What (Not) to Do When You&apos;re Missing a Keyboard</title>
-   <link href="https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard/"/>
+   <link href="https://nadav.ca/posts/arduino-usb-serial-keyboard/"/>
    <updated>2021-03-11T23:04:00+00:00</updated>
-   <id>https://nadav.ca/2021/03/11/arduino-usb-serial-keyboard</id>
+   <id>https://nadav.ca/posts/arduino-usb-serial-keyboard</id>
    <content type="html">&lt;p&gt;Yesterday, I was building a little home server out of some spare parts or I was until I hit a bit of a roadblock. When it came time to install the OS (&lt;a href=&quot;https://ubuntu.com/download/server&quot;&gt;Ubuntu Server&lt;/a&gt; in this case), I realized I didn’t have a keyboard to configure the install.&lt;/p&gt;
 
 &lt;p&gt;A normal person would have just gone out and bought a keyboard and an experienced one would have &lt;a href=&quot;https://help.ubuntu.com/lts/installation-guide/s390x/apbs02.html&quot;&gt;preseeded the install&lt;/a&gt; so it could run unattended.&lt;/p&gt;
@@ -539,10 +539,10 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>Attempting to Spoof an iPod with an OrangePi Zero</title>
-   <link href="https://nadav.ca/2021/03/06/car-stereo-part-3/"/>
+   <link href="https://nadav.ca/posts/car-stereo-part-3/"/>
    <updated>2021-03-06T21:30:00+00:00</updated>
-   <id>https://nadav.ca/2021/03/06/car-stereo-part-3</id>
-   <content type="html">&lt;p&gt;&lt;em&gt;This is the third part of a series on spoofing an iPod for car stereo shenanigans. You can find &lt;a href=&quot;/2021/01/29/car-stereo-part-1/&quot;&gt;part 1 here&lt;/a&gt; or &lt;a href=&quot;/2021/02/11/car-stereo-part-2/&quot;&gt;part 2 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+   <id>https://nadav.ca/posts/car-stereo-part-3</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is the third part of a series on spoofing an iPod for car stereo shenanigans. You can find &lt;a href=&quot;/posts/car-stereo-part-1/&quot;&gt;part 1 here&lt;/a&gt; or &lt;a href=&quot;/posts/car-stereo-part-2/&quot;&gt;part 2 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;In the previous part, I found out that my car stereo is trying to talk to an iPod over serial. Here I will cover my first attempt at bridging that serial connection with my phone via bluetooth. I’ll mostly be focusing on what went wrong, but feel free to &lt;a href=&quot;https://github.com/nadavami/iAP-to-AVRCP&quot;&gt;dig through the code&lt;/a&gt; if you want all the details.&lt;/p&gt;
 
@@ -579,9 +579,9 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>Inspecting an iPhone’s HTTPS Traffic</title>
-   <link href="https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic/"/>
+   <link href="https://nadav.ca/posts/inspecting-an-iphone-s-https-traffic/"/>
    <updated>2021-02-26T02:17:00+00:00</updated>
-   <id>https://nadav.ca/2021/02/26/inspecting-an-iphone-s-https-traffic</id>
+   <id>https://nadav.ca/posts/inspecting-an-iphone-s-https-traffic</id>
    <content type="html">&lt;p&gt;Recently, I wanted to see how an app on my phone was making API calls.&lt;/p&gt;
 
 &lt;p&gt;The Montreal INFO-Neige app tracks the status of plowed streets around the city and I wanted to see if could use the data for a possible upcoming project. The API is actually &lt;a href=&quot;https://donnees.montreal.ca/ville-de-montreal/deneigement&quot;&gt;part of the city’s Open Data project&lt;/a&gt;, but you have to send an email to get an API key and I couldn’t be bothered…&lt;/p&gt;
@@ -622,9 +622,9 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>Getting Back Into Blogging</title>
-   <link href="https://nadav.ca/2021/02/14/getting-back-into-blogging/"/>
+   <link href="https://nadav.ca/posts/getting-back-into-blogging/"/>
    <updated>2021-02-14T16:42:00+00:00</updated>
-   <id>https://nadav.ca/2021/02/14/getting-back-into-blogging</id>
+   <id>https://nadav.ca/posts/getting-back-into-blogging</id>
    <content type="html">&lt;p&gt;Writing is hard. Writing consistently is even harder. Here’s a list of things I’m doing to motivate myself to get back into writing and posting regularly. Time will tell if it works.&lt;/p&gt;
 
 &lt;h3 id=&quot;perfect-is-the-enemy-of-good&quot;&gt;Perfect is the enemy of good&lt;/h3&gt;
@@ -646,10 +646,10 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>Hyundai iPod Cable Reverse Engineering</title>
-   <link href="https://nadav.ca/2021/02/11/car-stereo-part-2/"/>
+   <link href="https://nadav.ca/posts/car-stereo-part-2/"/>
    <updated>2021-02-11T21:19:00+00:00</updated>
-   <id>https://nadav.ca/2021/02/11/car-stereo-part-2</id>
-   <content type="html">&lt;p&gt;&lt;em&gt;This is the second part of a series on spoofing an iPod for car stereo shenanigans. You can &lt;a href=&quot;/2021/01/29/car-stereo-part-1/&quot;&gt;read part 1 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+   <id>https://nadav.ca/posts/car-stereo-part-2</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is the second part of a series on spoofing an iPod for car stereo shenanigans. You can &lt;a href=&quot;/posts/car-stereo-part-1/&quot;&gt;read part 1 here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Before being able to spoof an iPod, my first step was to figure out how the car talks to a real one. I tried the simplest thing I could think of first, plug my iPhone directly into the car using the lightning cable. No dice. Next, I dug up an old iPod nano and plugged that in using a standard apple 30-pin cable. Still no luck.&lt;/p&gt;
 
@@ -690,15 +690,15 @@ Device         Start       End   Sectors  Size Type
 &lt;p&gt;tl;dr - the iPod is communicating via serial on the USB port D+ &amp;amp; D- lines and analog audio is passed straight through.&lt;/p&gt;
 
 &lt;p&gt;In the next post, we’ll see how I can (hopefully) put all of that info to use and change the damn song using the steering wheel.&lt;br /&gt;
-&lt;em&gt;Edit: Part 3 is now up! You can &lt;a href=&quot;/2021/03/06/car-stereo-part-3/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;em&gt;Edit: Part 3 is now up! You can &lt;a href=&quot;/posts/car-stereo-part-3/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 </content>
  </entry>
  
  <entry>
    <title>My First Open Source Project - 11.5 Years Later</title>
-   <link href="https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project/"/>
+   <link href="https://nadav.ca/posts/looking-back-at-my-first-open-source-project/"/>
    <updated>2021-02-01T22:56:00+00:00</updated>
-   <id>https://nadav.ca/2021/02/01/looking-back-at-my-first-open-source-project</id>
+   <id>https://nadav.ca/posts/looking-back-at-my-first-open-source-project</id>
    <content type="html">&lt;p&gt;This past weekend I was digging through an old hard drive when I came across a piece of software I wrote a while ago. In fact, it’s the very first thing I ever opensourced. In the spirit of writing more and personal growth, I figured I would do a sort of code review and see if i’ve improved at all from age 14 (fingers crossed).&lt;/p&gt;
 
 &lt;p&gt;So with out further ado, let me introduce you to dSearchr! You might be wondering what it does, so here is some quick info taken straight &lt;del&gt;out of 2009&lt;/del&gt; from the &lt;a href=&quot;https://code.google.com/archive/p/dsearchr/&quot;&gt;Google Code repo&lt;/a&gt;.&lt;/p&gt;
@@ -752,9 +752,9 @@ Device         Start       End   Sectors  Size Type
  
  <entry>
    <title>Hacking My Car Stereo (Part 1)</title>
-   <link href="https://nadav.ca/2021/01/29/car-stereo-part-1/"/>
+   <link href="https://nadav.ca/posts/car-stereo-part-1/"/>
    <updated>2021-01-29T00:47:00+00:00</updated>
-   <id>https://nadav.ca/2021/01/29/car-stereo-part-1</id>
+   <id>https://nadav.ca/posts/car-stereo-part-1</id>
    <content type="html">&lt;p&gt;I like my car, probably more then anyone should like a 2012 Hyundai Elantra. In 2021 terms it’s not the most technologically advance thing but it does most of what I need. While driving, I use my phone for navigation and music - both are extremely essential.&lt;/p&gt;
 
 &lt;p&gt;My car was built around the time of “peak iPod” and like many from that era, have enhanced support for the iPod. The Elantra does this via a proprietary cable with a 30-pin dock connector on one end and usb on the other. Thankfully, the car also supports bluetooth audio and handsfree calling. It even has steering wheel playback controls.&lt;/p&gt;
@@ -785,7 +785,7 @@ iPod Protocol   Analog Audio
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;small&gt;Figure 1&lt;/small&gt;&lt;/p&gt;
 
-&lt;p&gt;In the following few posts, I’ll be documenting my journey in attempting to build that thing&lt;sup&gt;[1]&lt;/sup&gt;. &lt;em&gt;Edit: Part 2 is now up! You can &lt;a href=&quot;/2021/02/11/car-stereo-part-2/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the following few posts, I’ll be documenting my journey in attempting to build that thing&lt;sup&gt;[1]&lt;/sup&gt;. &lt;em&gt;Edit: Part 2 is now up! You can &lt;a href=&quot;/posts/car-stereo-part-2/&quot;&gt;read it here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;small&gt;P.S. This project was started in the summer of 2019 and at the time of writing is still not really working, mostly because i’ve gotten used to yelling at Siri :)&lt;/small&gt;&lt;/p&gt;
 </content>
@@ -793,9 +793,9 @@ iPod Protocol   Analog Audio
  
  <entry>
    <title>Writing Resources</title>
-   <link href="https://nadav.ca/2019/12/13/writing-resources/"/>
+   <link href="https://nadav.ca/posts/writing-resources/"/>
    <updated>2019-12-13T00:00:00+00:00</updated>
-   <id>https://nadav.ca/2019/12/13/writing-resources</id>
+   <id>https://nadav.ca/posts/writing-resources</id>
    <content type="html">&lt;p&gt;An evolving collection of (mostly technical) writing resources that I have found useful.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -809,9 +809,9 @@ iPod Protocol   Analog Audio
  
  <entry>
    <title>Learning by Failing (IoT Camera Hacking) - Lightning Talk</title>
-   <link href="https://nadav.ca/2019/02/20/learning-by-failing/"/>
+   <link href="https://nadav.ca/posts/learning-by-failing/"/>
    <updated>2019-02-20T17:00:00+00:00</updated>
-   <id>https://nadav.ca/2019/02/20/learning-by-failing</id>
+   <id>https://nadav.ca/posts/learning-by-failing</id>
    <content type="html">&lt;p&gt;This is a lightning talk about my journey hacking an IoT camera and the things I learned while failing at doing so. This was also my first solo talk!&lt;br /&gt;
 The slides are also available for download as &lt;a href=&quot;learning_by_failing_2019.pdf&quot;&gt;pdf&lt;/a&gt; or &lt;a href=&quot;learning_by_failing_2019.pptx&quot;&gt;pptx&lt;/a&gt;.&lt;/p&gt;
 
@@ -823,9 +823,9 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
  
  <entry>
    <title>3018 CNC Machine Spindle &amp; Laser Mount</title>
-   <link href="https://nadav.ca/2019/01/31/spindle-laser-holder/"/>
+   <link href="https://nadav.ca/posts/spindle-laser-holder/"/>
    <updated>2019-01-31T17:00:00+00:00</updated>
-   <id>https://nadav.ca/2019/01/31/spindle-laser-holder</id>
+   <id>https://nadav.ca/posts/spindle-laser-holder</id>
    <content type="html">&lt;p&gt;I made a little holder for the spindle/laser on my 3018 CNC. This way, when I’m using one I can keep the other on the machine and swap between them easily. If you want to print your own, the files are &lt;a href=&quot;https://www.thingiverse.com/thing:3364954&quot;&gt;available on Thingiverse&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;rear_rats_nest.jpg&quot; alt=&quot;Back view of the CNC machine&quot; /&gt;&lt;/p&gt;
@@ -834,9 +834,9 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
  
  <entry>
    <title>Adding Limit Switches to 3018 CNC Machine</title>
-   <link href="https://nadav.ca/2019/01/21/3018-cnc-limit-switches/"/>
+   <link href="https://nadav.ca/posts/3018-cnc-limit-switches/"/>
    <updated>2019-01-21T23:29:00+00:00</updated>
-   <id>https://nadav.ca/2019/01/21/3018-cnc-limit-switches</id>
+   <id>https://nadav.ca/posts/3018-cnc-limit-switches</id>
    <content type="html">&lt;p&gt;Here’s how I added some limit/homing switches to my 3018 CNC machine.&lt;/p&gt;
 
 &lt;h3 id=&quot;parts-needed&quot;&gt;Parts Needed&lt;/h3&gt;
@@ -863,9 +863,9 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
  
  <entry>
    <title>List of 3018 CNC Upgrades</title>
-   <link href="https://nadav.ca/2019/01/18/list-of-3018-cnc-upgrades/"/>
+   <link href="https://nadav.ca/posts/list-of-3018-cnc-upgrades/"/>
    <updated>2019-01-18T22:43:00+00:00</updated>
-   <id>https://nadav.ca/2019/01/18/list-of-3018-cnc-upgrades</id>
+   <id>https://nadav.ca/posts/list-of-3018-cnc-upgrades</id>
    <content type="html">&lt;p&gt;Below is a fairly messy list of upgrades done (or planned to be) to the cheap “3018 CNC” mills/laser engravers.&lt;/p&gt;
 
 &lt;h3 id=&quot;planned&quot;&gt;Planned&lt;/h3&gt;
@@ -876,8 +876,8 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
 
 &lt;h3 id=&quot;completed&quot;&gt;Completed&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/2019/01/21/3018-cnc-limit-switches/&quot;&gt;X, Y, Z Limit/Home Switches&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/2019/01/31/spindle-laser-holder/&quot;&gt;Spindle and Laser Mount&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/posts/3018-cnc-limit-switches/&quot;&gt;X, Y, Z Limit/Home Switches&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/posts/spindle-laser-holder/&quot;&gt;Spindle and Laser Mount&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;OrangePi Zero controller&lt;/li&gt;
   &lt;li&gt;GRBL version upgrade&lt;/li&gt;
   &lt;li&gt;Useful tools (software, bits, collets, etc)&lt;/li&gt;
@@ -887,9 +887,9 @@ The slides are also available for download as &lt;a href=&quot;learning_by_faili
  
  <entry>
    <title>Maintaining a Healthy CI/CD Pipeline</title>
-   <link href="https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline/"/>
+   <link href="https://nadav.ca/posts/maintaining-a-healthy-ci-cd-pipeline/"/>
    <updated>2018-09-06T14:44:00+00:00</updated>
-   <id>https://nadav.ca/2018/09/06/maintaining-a-healthy-ci-cd-pipeline</id>
+   <id>https://nadav.ca/posts/maintaining-a-healthy-ci-cd-pipeline</id>
    <content type="html">&lt;h3 id=&quot;first-a-bit-of-context&quot;&gt;First, a bit of context&lt;/h3&gt;
 &lt;p&gt;Yesterday, I took part in a discussion with a few colleagues about how we should be maintaining our CI/CD pipelines. Recently, some of them have been staying in a failed state for longer than usual or failing test cases are simply skipped/commented out. Below is a first draft of my opinions on the matter.&lt;/p&gt;
 

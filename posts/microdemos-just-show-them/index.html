@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){const t=localStorage.getItem('nadav-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})()</script>
+  <title>Microdemos: Just 🤬 Show Them - Nadav Ami</title>
+  <meta name="description" content="Build throwaway demos instead of docs and iterate with product in real time.">
+  <link rel="canonical" href="https://nadav.ca/posts/microdemos-just-show-them/">
+  <meta property="og:title" content="Microdemos: Just 🤬 Show Them">
+  <meta property="og:description" content="Build throwaway demos instead of docs and iterate with product in real time.">
+  <meta property="og:url" content="https://nadav.ca/posts/microdemos-just-show-them/">
+  <meta property="og:site_name" content="Nadav Ami">
+  <meta property="og:type" content="article">
+  <meta property="article:author" content="https://nadav.ca/about/">
+  <meta property="article:published_time" content="2026-04-28T00:00:00+00:00">
+  <meta property="article:modified_time" content="2026-05-01T01:27:20+00:00">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+  <link rel="preload" href="/assets/fonts/commit-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="alternate" type="application/atom+xml" title="Nadav Ami" href="/atom.xml">
+  <script>
+    function loadGtag(){
+      if(loadGtag.d)return;loadGtag.d=1;
+      const s=document.createElement('script');
+      s.src='https://www.googletagmanager.com/gtag/js?id=G-8KGQRKWX3K';
+      s.async=true;
+      document.head.appendChild(s);
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag=gtag;
+      gtag('js',new Date());
+      gtag('config','G-8KGQRKWX3K');
+    }
+    window.addEventListener('load',function(){setTimeout(loadGtag,100)});
+    document.addEventListener('scroll',loadGtag,{once:true,passive:true});
+    document.addEventListener('click',loadGtag,{once:true});
+    document.addEventListener('touchstart',loadGtag,{once:true,passive:true});
+    document.addEventListener('keydown',loadGtag,{once:true});
+  </script>
+</head>
+
+  <body>
+    <div class="container content">
+      <header class="masthead">
+        <nav class="path" aria-label="Breadcrumb">
+  <a href="/" title="Home">~</a><!--
+  --><!--
+    --><span class="path-separator">/</span><!--
+    --><a href="/#writing">posts</a><!--
+    --><span class="path-separator">/</span><!--
+    --><span class="path-bracket">[</span><span class="path-leaf">Microdemos: Just 🤬 Show Them</span><span class="path-bracket">]</span><!--
+  --></nav>
+
+        <time class="masthead-date" datetime="2026-04-28T00:00:00+00:00">2026-04-28</time>
+      </header>
+      <hr>
+
+      <main>
+        <article class="post">
+  <div class="callout callout--note">
+
+  <p><strong>TL;DR</strong><br>
+Skip the doc and use agentic coding to build a <a href="#microdemo-def">microdemo</a>. Building it forces you to scope the problem and understand it well. Then, put it in front of product and iterate live.</p>
+
+  <p><strong>Want to skip ahead and see one?</strong><br>
+<a href="#example-1-recommendation-scoring">example 1 ↓</a> · <a href="#example-2-harping-on-it">example 2 ↓</a></p>
+
+</div>
+
+<p>I keep running into the same problem. I’m building something where good results are subjective. Search results, recommended movies, restaurants sorted by “relevance.” It usually boils down to engineers crossing our fingers, combining a bunch of competing signals and making a judgment call about what needs to get built. It often goes something like:</p>
+
+<blockquote>
+  <p><em>Product wants something ambiguous built.</em></p>
+
+  <p><em>Engineer writes a doc.</em></p>
+
+  <p><em>Product reads it. Everyone aligns.</em></p>
+
+  <p><em>It gets built.</em></p>
+
+  <p><em>“That’s not what we expected.”</em></p>
+
+  <p><em>“You weren’t clear enough about what you wanted.”</em></p>
+
+  <p><em>and the blame gets passed back and forth while the feature still isn’t what customers want</em></p>
+</blockquote>
+
+<p>Nobody was really <em>wrong</em>, but who can actually make useful sense of</p>
+<blockquote>
+  <p><em>“better recommendations”</em></p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+  <p><em>well if distance weight is 3 and rating weight is 0.5…</em></p>
+</blockquote>
+
+<p>User acceptance testing and feature-flagged experiments help validate ideas, but I’d argue they’re still too slow for ambiguous requirements. They force us to build a full thing and then see.</p>
+
+<p>What if we could get on the same page <em>before</em> we build or loop a customer in?</p>
+
+<p>Enter microdemos.</p>
+
+<div class="callout callout--note" id="microdemo-def">
+
+  <p><strong>microdemo</strong> /ˈmī-krō-ˌde-mō/<br>
+<em>n.</em> A tightly-scoped, throwaway, interactive demo that exposes implicit assumptions about ambiguous problems.</p>
+
+</div>
+
+<hr>
+
+<h3 id="example-1-recommendation-scoring">example 1: recommendation scoring</h3>
+
+<p>Product wants a restaurant recommendation feature. It’s currently sorted by rating, but users say results don’t feel relevant.</p>
+
+<p><em>Prompt:</em></p>
+<blockquote>
+  <p>Look at the restaurant model in the codebase and build me a one-page interactive spike doc for our “recommended for you” ranking. There’s no user input, this is system-generated. Frame it as a problem statement with an interactive demo. Generate synthetic data that matches the schema. Signals: distance, rating, review count, recency. Sliders for each weight so product can tune them. Include open questions and out of scope from the attached requirements doc. The output should be a single HTML file with no external data calls.</p>
+</blockquote>
+
+<p>The microdemo is ready in minutes and you can talk about <em>what the customer sees</em> in concrete terms.</p>
+
+<p>Here’s a quick version, drag the sliders:</p>
+
+<div class="rec-teaser">
+<style>
+.rec-teaser {
+  border: 1px solid var(--stage-rule);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--stage-surface);
+}
+
+.rec-teaser-sliders {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rec-teaser-slider {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rec-teaser-slider label {
+  font-size: 12.5px;
+  color: var(--stage-muted);
+}
+
+.rec-teaser-slider input[type="range"] {
+  width: 100%;
+  accent-color: var(--stage-accent);
+  cursor: pointer;
+}
+
+.rec-teaser-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rec-teaser-table th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--stage-muted);
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid var(--stage-rule);
+}
+
+.rec-teaser-table th.num {
+  text-align: right;
+}
+
+.rec-teaser-table td {
+  padding: 0.25rem 0.4rem;
+}
+
+.rec-teaser-table td.num {
+  text-align: right;
+  color: var(--stage-muted);
+  font-size: 12.5px;
+}
+
+.rec-teaser-table td.rank {
+  color: var(--stage-muted);
+  font-size: 12.5px;
+  width: 2ch;
+}
+</style>
+
+<div class="rec-teaser-sliders">
+  <div class="rec-teaser-slider">
+    <label>distance <span id="rec-dist-val">50</span>%</label>
+    <input type="range" id="rec-dist" min="0" max="100" value="50">
+  </div>
+  <div class="rec-teaser-slider">
+    <label>rating <span id="rec-rate-val">50</span>%</label>
+    <input type="range" id="rec-rate" min="0" max="100" value="50">
+  </div>
+</div>
+<table class="rec-teaser-table">
+  <thead>
+    <tr>
+<th>#</th>
+<th>name</th>
+<th class="num">dist</th>
+<th class="num">rating</th>
+</tr>
+  </thead>
+  <tbody id="rec-list"></tbody>
+</table>
+
+<script>
+(() => {
+  const MAX_DIST = 8.5;
+  const MAX_RATING = 5;
+
+  const restaurants = [
+    { name: 'Corner Deli',     rating: 3.2, dist: 0.2 },
+    { name: 'Taco Loco',       rating: 4.1, dist: 0.4 },
+    { name: 'Sakura House',    rating: 4.6, dist: 1.2 },
+    { name: 'Napoli Pizza',    rating: 4.5, dist: 3.1 },
+    { name: 'Le Petit Bistro', rating: 4.8, dist: 8.5 },
+  ];
+
+  const list = document.getElementById('rec-list');
+  const distSlider = document.getElementById('rec-dist');
+  const rateSlider = document.getElementById('rec-rate');
+  const distVal = document.getElementById('rec-dist-val');
+  const rateVal = document.getElementById('rec-rate-val');
+
+  const rank = () => {
+    const dw = distSlider.value / 100;
+    const rw = rateSlider.value / 100;
+    distVal.textContent = distSlider.value;
+    rateVal.textContent = rateSlider.value;
+
+    const scored = restaurants
+      .map(r => ({
+        r,
+        score: dw * (1 - r.dist / MAX_DIST) + rw * (r.rating / MAX_RATING),
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    list.innerHTML = scored
+      .map((s, i) =>
+        `<tr>
+          <td class="rank">${i + 1}</td>
+          <td>${s.r.name}</td>
+          <td class="num">${s.r.dist} km</td>
+          <td class="num">${s.r.rating}\u2605</td>
+        </tr>`)
+      .join('');
+  };
+
+  rank();
+  distSlider.addEventListener('input', rank);
+  rateSlider.addEventListener('input', rank);
+})();
+</script>
+</div>
+
+<p>Here’s <a href="microdemos/rec-ranking.html" target="_blank">the full version</a> that is way more demoable, you can have an actual conversation around this.</p>
+
+<h3 id="the-point">the point</h3>
+
+<p><strong>You get to a useful conversation faster.</strong></p>
+
+<p><strong>Your repo is 90% of the prompt.</strong> A short prompt generates outsized results because the tool already has your context. I didn’t need to pull a frontend repo or stuff the context window with code I don’t normally work in.</p>
+
+<p><strong>Nobody thinks it’s done before it is.</strong> The full recommendation demo has rough edges. The layout shifts, the open questions section sits a little off. Nobody in a product meeting gets hung up on that in a throwaway spike. Contrast that with the actual product UI, where every misaligned pixel detracts from the conversation and a polished prototype accidentally communicates “we can just ship this, right?”</p>
+
+<p><strong>It accelerates the conversation.</strong> Build it before the meeting and bake in the controls you think people will want, or do it live and figure it out together. First prompt doesn’t get it? Scrap it and try again. Someone asks “what about recency?” Add the slider then and there, it only takes five minutes.</p>
+
+<p><strong>One page keeps it honest.</strong> There’s only so much you can fit in a prompt, which forces you to (de)scope aggressively, that’s a feature. Like making a cheat sheet for an exam, building the demo teaches you the material. You can’t ask for sliders for signals you haven’t identified.</p>
+
+<h3 id="example-2-harping-on-it">example 2: harping on it</h3>
+
+<p>I needed to pick colors for this site. Usually you mock up options, flip between them, try to remember what B looked like while staring at C, but oh shit, what about accessibility and contrast ratings?</p>
+
+<p>One prompt to Claude Code and bam! Another microdemo, the <a href="microdemos/color-lab.html" target="_blank">color lab</a>.</p>
+
+<p>It pulled the actual fonts, actual layouts, actual color roles from the repo because it could read my HTML and SCSS. Every token has a picker that updates live, contrast scores are right there, and all the key elements are on one page.</p>
+
+<h3 id="still-thinking-about">still thinking about</h3>
+
+<ul>
+  <li>HTML doesn’t diff well in code review, is there any value in keeping these somewhere or is throwaway really throwaway?</li>
+  <li>If we do keep them, where do these live? Next to the code they informed? A docs folder? Somewhere else?</li>
+  <li>Should the demo bundle docs into itself? Problem statement, approach comparison, open questions, one artifact? I’m leaning yes, but it makes async collaboration harder since you can’t comment on an HTML file the way you can a doc. Maybe that’s fine?</li>
+  <li>Does this only work synchronously? The magic is pointing at a list together and saying “should this be higher?” That’s hard to do in a Slack thread. When does a demo stop being the right tool and a doc take over?</li>
+</ul>
+
+<p>If you’ve tried something like this or have thoughts on any of the above, I’d love to hear about it: <a href="mailto:post-microdemos-just-show-them-ce24@nadav.ca">post-microdemos-just-show-them-ce24@nadav.ca</a></p>
+
+
+</article>
+<p>
+  <small>
+    <em>Found a mistake? <a href="https://github.com/nadavami/nadavami.github.io/edit/main/_posts/2026-04-28-microdemos-just-show-them/2026-04-28-microdemos-just-show-them.md" target="_blank" rel="noopener">Submit a PR!</a></em>
+  </small>
+</p>
+
+      </main>
+
+      <footer>
+  <hr>
+  <div class="footer-content">
+    <small>
+        Made in <a href="https://en.wikipedia.org/wiki/Montreal" title="Montréal" target="_blank" rel="noopener">Montréal</a> with love by <a href="/about/" title="who is this guy?">Nadav Ami</a> ·
+        <a href="/license/">Fine print</a>
+    </small>
+    <small><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+  <span class="theme-toggle-label"></span>
+</button>
+<script>
+(function() {
+  const btn = document.querySelector('[data-theme-toggle]');
+  const label = btn.querySelector('.theme-toggle-label');
+  const modes = ['auto', 'light', 'dark'];
+
+  function current() {
+    return localStorage.getItem('nadav-theme') || 'auto';
+  }
+
+  function apply(mode) {
+    if (mode === 'auto') {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.removeItem('nadav-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', mode);
+      localStorage.setItem('nadav-theme', mode);
+    }
+    label.textContent = 'theme: ' + mode;
+  }
+
+  btn.addEventListener('click', function() {
+    apply(modes[(modes.indexOf(current()) + 1) % 3]);
+  });
+
+  apply(current());
+})();
+</script>
+</small>
+  </div>
+</footer>
+
+    </div>
+  </body>
+</html>
