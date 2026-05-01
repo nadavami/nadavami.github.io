@@ -3,6 +3,7 @@ layout: post
 title: My First Open Source Project - 11.5 Years Later
 description: A code review and some thoughts on an open source project I published when I was fourteen.
 date: 2021-02-01 17:56 -0500
+redirect_from: /2021/02/01/looking-back-at-my-first-open-source-project/
 ---
 This past weekend I was digging through an old hard drive when I came across a piece of software I wrote a while ago. In fact, it's the very first thing I ever opensourced. In the spirit of writing more and personal growth, I figured I would do a sort of code review and see if i've improved at all from age 14 (fingers crossed). 
 

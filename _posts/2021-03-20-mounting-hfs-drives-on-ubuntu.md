@@ -3,6 +3,7 @@ layout: post
 title: Mounting HFS+ Drives on Ubuntu
 description: How to mount and read from an HFS/HFS+ drive on Ubuntu. 
 date: 2021-03-20 19:33 -0400
+redirect_from: /2021/03/20/mounting-hfs-drives-on-ubuntu/
 ---
 As part of a little home server I've been building, I wanted to reuse some old mac hard drives I had laying around. Before reusing the drives, I was really curious to see what was on them. 
 

@@ -3,6 +3,7 @@ layout: post
 title: What (Not) to Do When You're Missing a Keyboard
 description: Why I built idonthaveakeyboard, an Arduino based USB keyboard that uses a serial console as the input.
 date: 2021-03-11 18:04 -0500
+redirect_from: /2021/03/11/arduino-usb-serial-keyboard/
 ---
 Yesterday, I was building a little home server out of some spare parts or I was until I hit a bit of a roadblock. When it came time to install the OS ([Ubuntu Server](https://ubuntu.com/download/server) in this case), I realized I didn't have a keyboard to configure the install.
 

@@ -3,6 +3,7 @@ layout: post
 title: Getting Back Into Blogging
 description: A list of things I'm doing to motivate myself to get back into writing and posting consistently.
 date: 2021-02-14 11:42 -0500
+redirect_from: /2021/02/14/getting-back-into-blogging/
 ---
 Writing is hard. Writing consistently is even harder. Here's a list of things I'm doing to motivate myself to get back into writing and posting regularly. Time will tell if it works. 
 

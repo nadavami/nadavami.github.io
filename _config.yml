@@ -4,7 +4,7 @@ url: https://nadav.ca
 analytics_id: G-8KGQRKWX3K
 baseurl: ""
 highlighter: rouge
-permalink: pretty
+permalink: /posts/:slug/
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor', 'resume-pdf/']
 
 author:
@@ -25,6 +25,7 @@ target-blank:
 plugins:
   - jekyll-gist
   - jekyll-postfiles
+  - jekyll-redirect-from
   - match_regex
   - jekyll-target-blank
   - jekyll-last-modified-at

@@ -2,7 +2,8 @@
 layout: post
 title: "Microdemos: Just 🤬 Show Them"
 description: "Build throwaway demos instead of docs and iterate with product in real time."
-interactive: true 
+interactive: true
+redirect_from: /2026/04/28/microdemos-just-show-them/
 ---
 
 <div class="callout callout--note" markdown="1">

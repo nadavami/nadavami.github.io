@@ -2,6 +2,7 @@
 layout: post
 title: Adding Limit Switches to 3018 CNC Machine
 date: 2019-01-21 18:29 -0500
+redirect_from: /2019/01/21/3018-cnc-limit-switches/
 ---
 
 Here's how I added some limit/homing switches to my 3018 CNC machine.

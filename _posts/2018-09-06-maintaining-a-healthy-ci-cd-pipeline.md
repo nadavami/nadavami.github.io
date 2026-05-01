@@ -2,6 +2,7 @@
 layout: post
 title: Maintaining a Healthy CI/CD Pipeline
 date: 2018-09-06 10:44 -0400
+redirect_from: /2018/09/06/maintaining-a-healthy-ci-cd-pipeline/
 ---
 
 ### First, a bit of context

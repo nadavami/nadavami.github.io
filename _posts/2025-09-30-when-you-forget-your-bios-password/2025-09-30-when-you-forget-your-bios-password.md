@@ -3,6 +3,7 @@ layout: post
 title: When You Forget Your BIOS Password
 description: An unnecessarily complicated journey to recover a BIOS password that turned out to be embarrassingly simple.
 date: 2025-09-30
+redirect_from: /2025/09/30/when-you-forget-your-bios-password/
 ---
 
 I have an old Linux laptop that I decided to repurpose last weekend. After spending 5 hours backing up files (APFS drive + read-only FUSE drivers + stubborn dev who doesn't want to think too hard (me) = slow backup using SCP), I was finally ready to install a fresh OS. I grab a USB drive, boot from it, and... the BIOS is password protected. Every password I try fails.

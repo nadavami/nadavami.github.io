@@ -2,6 +2,7 @@
 layout: post
 title: List of 3018 CNC Upgrades
 date: 2019-01-18 17:43 -0500
+redirect_from: /2019/01/18/list-of-3018-cnc-upgrades/
 ---
 
 Below is a fairly messy list of upgrades done (or planned to be) to the cheap "3018 CNC" mills/laser engravers.

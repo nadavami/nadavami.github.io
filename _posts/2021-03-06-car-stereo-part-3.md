@@ -4,6 +4,7 @@ title: Attempting to Spoof an iPod with an OrangePi Zero
 description: Part 3 in a series on spoofing an iPod for car stereo shenanigans.
 youtube_id: 9rhg50xrdAg
 date: 2021-03-06 16:30 -0500
+redirect_from: /2021/03/06/car-stereo-part-3/
 ---
 *This is the third part of a series on spoofing an iPod for car stereo shenanigans. You can find [part 1 here]({% post_url 2021-01-28-car-stereo-part-1 %}) or [part 2 here]({% post_url 2021-02-11-car-stereo-part-2/2021-02-11-car-stereo-part-2 %}).*
 

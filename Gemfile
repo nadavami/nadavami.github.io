@@ -8,6 +8,7 @@ group :jekyll_plugins do
   gem 'jekyll-gist'
   gem 'jekyll-compose'
   gem 'jekyll-postfiles'
+  gem 'jekyll-redirect-from'
   gem 'match_regex'
   gem 'jekyll-target-blank'
   gem 'jekyll-last-modified-at'

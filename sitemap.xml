@@ -12,7 +12,7 @@ layout: null
     </url>
   {% endfor %}
   {% for page in site.pages %}
-    {% unless page.name contains "xml" or page.url contains "styles.css" or page.name == "404.html" %}
+    {% unless page.name contains "xml" or page.url contains "styles.css" or page.name == "404.html" or page.name contains "redirect" %}
     <url>
       <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
       <lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>

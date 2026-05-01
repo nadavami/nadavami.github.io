@@ -4,6 +4,7 @@ title: Exploring and Modifying Electron Apps on macOS
 description: A few commands to help explore, debug and modify signed electron apps
   on macOS.
 date: 2023-04-01 19:37 -0700
+redirect_from: /2023/04/01/exploring-modifying-electron-apps/
 ---
 In my previous job, I was building a side-car app using Electron. I occasionally found myself needing to debug a packaged production app and this post is just a few commands I that have been helpful to me. 
 
