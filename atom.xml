@@ -4,7 +4,7 @@
  <title>Nadav Ami</title>
  <link href="https://nadav.ca/atom.xml" rel="self"/>
  <link href="https://nadav.ca/"/>
- <updated>2026-05-01T01:28:00+00:00</updated>
+ <updated>2026-06-12T14:07:32+00:00</updated>
  <id>https://nadav.ca</id>
  <author>
    <name>Nadav Ami</name>
@@ -24,6 +24,9 @@ Skip the doc and use agentic coding to build a &lt;a href=&quot;#microdemo-def&q
 
   &lt;p&gt;&lt;strong&gt;Want to skip ahead and see one?&lt;/strong&gt;&lt;br /&gt;
 &lt;a href=&quot;#example-1-recommendation-scoring&quot;&gt;example 1 ↓&lt;/a&gt; · &lt;a href=&quot;#example-2-harping-on-it&quot;&gt;example 2 ↓&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Want to try it?&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&quot;microdemo-skill.zip&quot;&gt;Download the Claude Code skill&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 
