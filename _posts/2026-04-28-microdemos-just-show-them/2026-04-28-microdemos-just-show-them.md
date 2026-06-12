@@ -14,6 +14,9 @@ Skip the doc and use agentic coding to build a [microdemo](#microdemo-def). Buil
 **Want to skip ahead and see one?**\\
 [example 1 ↓](#example-1-recommendation-scoring) · [example 2 ↓](#example-2-harping-on-it)
 
+**Want to try it?**\\
+[Download the Claude Code skill](microdemo-skill.zip)
+
 </div>
 
 I keep running into the same problem. I'm building something where good results are subjective. Search results, recommended movies, restaurants sorted by "relevance." It usually boils down to engineers crossing our fingers, combining a bunch of competing signals and making a judgment call about what needs to get built. It often goes something like:
